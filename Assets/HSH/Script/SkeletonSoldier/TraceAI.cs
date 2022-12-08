@@ -19,7 +19,10 @@ public class TraceAI : MonoBehaviour
     private State curState;
 
     private readonly WaitForSeconds delayTime = new WaitForSeconds(0.1f);
-
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -72,10 +75,13 @@ public class TraceAI : MonoBehaviour
             case State.ATTACK:
                 Attack();
                 break;
+<<<<<<< Updated upstream
 
             case State.IDLE:
                 Idle();
                 break;
+=======
+>>>>>>> Stashed changes
         }
     }
 
@@ -88,6 +94,7 @@ public class TraceAI : MonoBehaviour
 
         transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
     }
+<<<<<<< Updated upstream
 
     private void Attack()
     {
@@ -116,5 +123,9 @@ public class TraceAI : MonoBehaviour
                 return;
             }
         }
+=======
+    private void Attack()
+    {
+>>>>>>> Stashed changes
     }
 }
