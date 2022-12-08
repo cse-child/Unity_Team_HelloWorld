@@ -13,20 +13,22 @@ public class TraceAI : MonoBehaviour
     public float attackRange = 1.0f;
 
     public float moveSpeed = 0.5f;
+    public float rotateSpeed = 0.5f;
     public Transform target;
     private Animator animator;
-
     private State curState;
 
     private readonly WaitForSeconds delayTime = new WaitForSeconds(0.1f);
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         StartCoroutine(SetState());
     }
 
     private void Update()
     {
+        RotateMove();
         SetAction();
     }
 
@@ -67,14 +69,52 @@ public class TraceAI : MonoBehaviour
             case State.TRACE:
                 Trace();
                 break;
+            case State.ATTACK:
+                Attack();
+                break;
+
+            case State.IDLE:
+                Idle();
+                break;
         }
     }
 
     private void Trace()
     {
+        if (animator.GetBool("isAttack") == true) return;
+        animator.SetBool("isTrace", true);
         Vector3 direction = target.position - transform.position;
         transform.rotation = Quaternion.LookRotation(direction);
 
         transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
+    }
+
+    private void Attack()
+    {
+        animator.SetBool("isAttack", true);
+        animator.SetBool("isTrace", false);
+    }
+    private void EndAttack()
+    {
+        animator.SetBool("isAttack", false);
+    }
+    private void Idle()
+    {
+        animator.SetBool("isAttack", false);
+        animator.SetBool("isTrace", false);
+    }
+    private void RotateMove()
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton@Idle01_Action01"))
+        {
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
+            {
+                float randY = Random.Range(-90, 90);
+                Vector3 dir = new Vector3(0, randY, 0);
+                Vector3 rotDir = transform.position - dir;
+                transform.rotation = Quaternion.Euler(dir);
+                return;
+            }
+        }
     }
 }

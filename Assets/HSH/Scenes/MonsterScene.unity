@@ -488,7 +488,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665647741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.046550125, y: 0.477, z: 4.36}
+  m_LocalPosition: {x: 0.046550125, y: 0.477, z: 6.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -711,6 +711,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1374684594, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 665647745}
     - target: {fileID: 2803820806472684270, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
       propertyPath: m_Name
       value: Skeleton
@@ -761,27 +765,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
---- !u!1 &1374684591 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2803820806472684270, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
-  m_PrefabInstance: {fileID: 1035010355}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1374684594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1374684591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f592fa382a153f4ba1b1e0efd443e75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  traceRange: 5
-  attackRange: 1
-  moveSpeed: 0.5
-  target: {fileID: 665647745}
 --- !u!1 &1796046699
 GameObject:
   m_ObjectHideFlags: 0
