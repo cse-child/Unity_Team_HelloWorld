@@ -16,6 +16,7 @@ public class TraceAI : MonoBehaviour
     public float rotateSpeed = 0.5f;
     public Transform target;
     private Animator animator;
+    private Rigidbody rigidbody;
     private State curState;
 
     private readonly WaitForSeconds delayTime = new WaitForSeconds(0.1f);
@@ -31,6 +32,7 @@ public class TraceAI : MonoBehaviour
 
     private void Update()
     {
+        rigidbody.velocity = Vector3.zero;
         RotateMove();
         SetAction();
     }
@@ -75,13 +77,10 @@ public class TraceAI : MonoBehaviour
             case State.ATTACK:
                 Attack();
                 break;
-<<<<<<< Updated upstream
-
             case State.IDLE:
                 Idle();
                 break;
-=======
->>>>>>> Stashed changes
+
         }
     }
 
@@ -94,7 +93,6 @@ public class TraceAI : MonoBehaviour
 
         transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
     }
-<<<<<<< Updated upstream
 
     private void Attack()
     {
@@ -123,9 +121,5 @@ public class TraceAI : MonoBehaviour
                 return;
             }
         }
-=======
-    private void Attack()
-    {
->>>>>>> Stashed changes
     }
 }
