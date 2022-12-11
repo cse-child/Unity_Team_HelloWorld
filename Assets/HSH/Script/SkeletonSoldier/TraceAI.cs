@@ -6,7 +6,7 @@ public class TraceAI : MonoBehaviour
 {
     enum State
     {
-        IDLE, TRACE, ATTACK, DEAD
+        IDLE, TRACE, ATTACK, DEAD, HURT
     }
 
     public float traceRange = 5.0f;
@@ -14,6 +14,8 @@ public class TraceAI : MonoBehaviour
 
     public float moveSpeed = 0.5f;
     public float rotateSpeed = 0.5f;
+    //private float maxHp = 100.0f;
+    private float curHp = 100.0f;
     public Transform target;
     private Animator animator;
     private Rigidbody rigidbody;
@@ -26,15 +28,16 @@ public class TraceAI : MonoBehaviour
     }
     private void Start()
     {
-        animator = GetComponent<Animator>();
         StartCoroutine(SetState());
     }
 
     private void Update()
     {
-        rigidbody.velocity = Vector3.zero;
+        //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
         RotateMove();
         SetAction();
+        Hurt();
+        Die();
     }
 
     private void OnDrawGizmos()
@@ -43,6 +46,14 @@ public class TraceAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, traceRange);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            rigidbody.transform.position = collision.transform.position;
+        }
     }
 
     private IEnumerator SetState()
@@ -80,12 +91,12 @@ public class TraceAI : MonoBehaviour
             case State.IDLE:
                 Idle();
                 break;
-
         }
     }
 
     private void Trace()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton@Idle01_Action01")) return;
         if (animator.GetBool("isAttack") == true) return;
         animator.SetBool("isTrace", true);
         Vector3 direction = target.position - transform.position;
@@ -120,6 +131,32 @@ public class TraceAI : MonoBehaviour
                 transform.rotation = Quaternion.Euler(dir);
                 return;
             }
+        }
+    }
+    private void Hurt()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            if (animator.GetBool("isDie")) return;
+            if(animator)
+            animator.SetTrigger("trigHurt");
+            print("hurt");
+            curHp -= 10.0f;
+            animator.SetFloat("curHp", curHp);
+            if (curHp <= 0)
+            {
+                animator.SetTrigger("trigDie");
+                animator.SetBool("isDie", true);
+            }
+        }
+    }
+    private IEnumerable Die()
+    {
+        if (animator.GetBool("isDie"))
+        {
+            curState = State.DEAD;
+            yield return new WaitForSeconds(3f);
+            Destroy(gameObject);
         }
     }
 }
