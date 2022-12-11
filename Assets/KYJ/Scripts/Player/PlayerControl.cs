@@ -17,10 +17,5 @@ public class PlayerControl : MonoBehaviour
             animator.SetTrigger("Death");
         if (Input.GetKeyDown(KeyCode.F2))
             animator.SetTrigger("PickUp");
-        // 마우스 왼쪽 버튼
-        if(Input.GetMouseButtonDown(0))
-        {
-            animator.SetTrigger("Attack");
-        }
     }
 }
