@@ -177,7 +177,7 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
 
             JumpAndGravity();
-            //GroundedCheck();
+            GroundedCheck();
             Move();
         }
 
@@ -196,20 +196,20 @@ namespace StarterAssets
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         }
 
-        //private void GroundedCheck()
-        //{
-        //    // set sphere position, with offset
-        //    Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
-        //        transform.position.z);
-        //    Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
-        //        QueryTriggerInteraction.Ignore);
-        //
-        //    // update animator if using character
-        //    if (_hasAnimator)
-        //    {
-        //        _animator.SetBool(_animIDGrounded, Grounded);
-        //    }
-        //}
+        private void GroundedCheck()
+        {
+            // set sphere position, with offset
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
+                transform.position.z);
+            Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
+                QueryTriggerInteraction.Ignore);
+        
+            // update animator if using character
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDGrounded, Grounded);
+            }
+        }
 
         // kyj write
         private void CameraZoom()
@@ -312,67 +312,67 @@ namespace StarterAssets
 
         private void JumpAndGravity()
         {
-            //if (Grounded)
-            //{
-            //    // reset the fall timeout timer
-            //    _fallTimeoutDelta = FallTimeout;
-            //
-            //    // update animator if using character
-            //    if (_hasAnimator)
-            //    {
-            //        _animator.SetBool(_animIDJump, false);
-            //        _animator.SetBool(_animIDFreeFall, false);
-            //    }
-            //
-            //    // stop our velocity dropping infinitely when grounded
-            //    if (_verticalVelocity < 0.0f)
-            //    {
-            //        _verticalVelocity = -2f;
-            //    }
-            //
-            //    // Jump
-            //    if (_input.jump && _jumpTimeoutDelta <= 0.0f)
-            //    {
-            //        // the square root of H * -2 * G = how much velocity needed to reach desired height
-            //        _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-            //
-            //        // update animator if using character
-            //        if (_hasAnimator)
-            //        {
-            //            _animator.SetBool(_animIDJump, true);
-            //        }
-            //    }
-            //
-            //    // jump timeout
-            //    if (_jumpTimeoutDelta >= 0.0f)
-            //    {
-            //        _jumpTimeoutDelta -= Time.deltaTime;
-            //    }
-            //}
-            //else
-            //{
-            //    // reset the jump timeout timer
-            //    _jumpTimeoutDelta = JumpTimeout;
-            //
-            //    // fall timeout
-            //    if (_fallTimeoutDelta >= 0.0f)
-            //    {
-            //        _fallTimeoutDelta -= Time.deltaTime;
-            //    }
-            //    else
-            //    {
-            //        // update animator if using character
-            //        if (_hasAnimator)
-            //        {
-            //            _animator.SetBool(_animIDFreeFall, true);
-            //        }
-            //    }
-            //
-            //    // if we are not grounded, do not jump
-            //    _input.jump = false;
-            //}
+            if (Grounded)
+            {
+                // reset the fall timeout timer
+                _fallTimeoutDelta = FallTimeout;
+            
+                // update animator if using character
+                if (_hasAnimator)
+                {
+                    _animator.SetBool(_animIDJump, false);
+                    _animator.SetBool(_animIDFreeFall, false);
+                }
+            
+                // stop our velocity dropping infinitely when grounded
+                if (_verticalVelocity < 0.0f)
+                {
+                    _verticalVelocity = -2f;
+                }
+            
+                // Jump
+                if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+                {
+                    // the square root of H * -2 * G = how much velocity needed to reach desired height
+                    _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+            
+                    // update animator if using character
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDJump, true);
+                    }
+                }
+            
+                // jump timeout
+                if (_jumpTimeoutDelta >= 0.0f)
+                {
+                    _jumpTimeoutDelta -= Time.deltaTime;
+                }
+            }
+            else
+            {
+                // reset the jump timeout timer
+                _jumpTimeoutDelta = JumpTimeout;
+            
+                // fall timeout
+                if (_fallTimeoutDelta >= 0.0f)
+                {
+                    _fallTimeoutDelta -= Time.deltaTime;
+                }
+                else
+                {
+                    // update animator if using character
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDFreeFall, true);
+                    }
+                }
+            
+                // if we are not grounded, do not jump
+                _input.jump = false;
+            }
         
-            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
+            //apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (_verticalVelocity < _terminalVelocity)
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
