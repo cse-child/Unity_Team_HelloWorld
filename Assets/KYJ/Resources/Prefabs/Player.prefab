@@ -1055,6 +1055,7 @@ GameObject:
   - component: {fileID: 459976237}
   - component: {fileID: 459976238}
   - component: {fileID: 1837260721}
+  - component: {fileID: 3390103128452509415}
   - component: {fileID: 1837260722}
   m_Layer: 7
   m_Name: Player
@@ -1231,9 +1232,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b82e4612590e6946934547461885481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
-  mp: 100
-  money: 10000
+  curHp: 100
+  curMp: 100
+  curExp: 0
+  gold: 10000
+--- !u!114 &3390103128452509415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782702501690864755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909d917d73a63f940ac158d02e936645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  canPush: 0
+  strength: 1.1
 --- !u!114 &1837260722
 MonoBehaviour:
   m_ObjectHideFlags: 0
