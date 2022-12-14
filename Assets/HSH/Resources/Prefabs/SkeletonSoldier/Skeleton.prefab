@@ -778,6 +778,7 @@ MonoBehaviour:
   moveSpeed: 0.5
   rotateSpeed: 0.5
   target: {fileID: 0}
+  itemPrefab: {fileID: 919132149155446097, guid: f803efdce4ff9c74690364e5f46a9484, type: 3}
 --- !u!54 &1115370330
 Rigidbody:
   m_ObjectHideFlags: 0
