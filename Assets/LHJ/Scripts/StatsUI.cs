@@ -30,8 +30,8 @@ public class StatsUI : MonoBehaviour
     void StateUpdate()
     {
         //150.0f 부분 max부분으로
-        curHP.GetComponent<RectTransform>().sizeDelta = new Vector2(494.0f / 150.0f * playerState.hp, 38.0f);
-        curMP.GetComponent<RectTransform>().sizeDelta = new Vector2(494.0f / 150.0f * playerState.mp, 38.0f);
-        goldUI.GetComponent<Text>().text = playerState.money.ToString();
+        curHP.GetComponent<RectTransform>().sizeDelta = new Vector2(494.0f / 150.0f * playerState.curHp, 38.0f);
+        curMP.GetComponent<RectTransform>().sizeDelta = new Vector2(494.0f / 150.0f * playerState.curMp, 38.0f);
+        goldUI.GetComponent<Text>().text = playerState.gold.ToString();
     }
 }
