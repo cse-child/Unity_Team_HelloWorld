@@ -4,8 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - NPC
-  - NPCMoveRangeBox
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
@@ -13,6 +12,9 @@ TagManager:
   - 
   - Water
   - UI
+  - Push
+  - Player
+  - MiniMap
   - 
   - 
   - 
@@ -35,9 +37,6 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - NPCMoveRangeBox
   - 
   m_SortingLayers:
   - name: Default

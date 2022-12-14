@@ -1,4 +1,3 @@
-using PathCreation.Examples;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,7 +12,6 @@ public class NPCMovement : MonoBehaviour
     private float move = 0.0f;
 
     private Animator npcAnimator;
-    private PathFollower npcPathFollower;
 
     private bool isMove = false;
     private bool temp = false;
@@ -25,11 +23,11 @@ public class NPCMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            temp = !temp;
-            GetComponent<NPCFunction>().SetIsTalkingPlayerToNPC(temp);
-        }
+        //if (Input.GetKey(KeyCode.Space))
+        //{
+        //    temp = !temp;
+        //    GetComponent<NPCFunction>().SetIsTalkingPlayerToNPC(temp);
+        //}
 
         CheckNPCBehavior();
 
@@ -53,10 +51,7 @@ public class NPCMovement : MonoBehaviour
     private void CheckIsMove()
     {
         if (isMove)
-        {
-            move = 0.5f;
-            //GetComponent<PathFollower>()
-        }
+            move = 1.0f;
         else
             move = 0.0f;
     }
@@ -71,10 +66,5 @@ public class NPCMovement : MonoBehaviour
             isMove = true;
         else
             isMove = false;
-    }
-
-    public float GetNPCMoveSpeed()
-    {
-        return npcMoveSpeed;
     }
 }
