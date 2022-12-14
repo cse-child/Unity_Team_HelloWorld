@@ -43001,7 +43001,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f94c8ba3028a224d851a04218386cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSocket: {fileID: 365309976}
 --- !u!114 &269998020
 MonoBehaviour:
   m_ObjectHideFlags: 0
