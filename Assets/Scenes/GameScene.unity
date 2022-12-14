@@ -446,7 +446,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 604728848714261406, guid: 02b9f8c1f9c54ff4984a34f784a3e63c, type: 3}
       propertyPath: m_Name
-      value: MiniMap [Rectangle] [Style 1]
+      value: MiniMap
       objectReference: {fileID: 0}
     - target: {fileID: 604728848714542592, guid: 02b9f8c1f9c54ff4984a34f784a3e63c, type: 3}
       propertyPath: m_RootOrder
