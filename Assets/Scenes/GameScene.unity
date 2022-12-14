@@ -217,11 +217,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &365309976 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 365309976, guid: 68813e3f18422044094750f43ff6381b, type: 3}
-  m_PrefabInstance: {fileID: 474450634}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &405303643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -286,10 +281,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 269998019, guid: 68813e3f18422044094750f43ff6381b, type: 3}
-      propertyPath: weaponSocket
-      value: 
-      objectReference: {fileID: 365309976}
     - target: {fileID: 269998020, guid: 68813e3f18422044094750f43ff6381b, type: 3}
       propertyPath: cinemachineVirtualCamera
       value: 
