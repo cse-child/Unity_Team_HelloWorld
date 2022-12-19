@@ -18,10 +18,5 @@ public class NPCCollision : MonoBehaviour
         {
             npcMovement.GetComponent<NPCMovement>().SetIsMove(false);
         }
-
-        if (other.CompareTag("NPCMoveRangeBox"))
-        { 
-            //npcMovement.
-        }
     }
 }
