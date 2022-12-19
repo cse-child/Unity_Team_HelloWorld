@@ -244,56 +244,31 @@ namespace StarterAssets
 
         private void Move()
         {
-            // 특정 애니메이션 동안은 움직이지 못하도록 예외처리!
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Looting")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Death")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack01")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack02")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack03")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack04")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage01")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage02")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage03")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage04")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage05")) return;
-            
-           // if (me.animator.GetCurrentAnimatorStateInfo (0).IsName ("Base Layer.Highlighted"))
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            // 이동 ​​속도, 스프린트 속도 및 스프린트를 누른 경우에 따라 목표 속도를 설정합니다.
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-
-            // 쉽게 제거, 교체 또는 반복할 수 있도록 설계된 단순한 가속 및 감속
-
-            // 참고: Vector2의 == 연산자는 근사를 사용하므로 부동 소수점 오류가 발생하지 않으며 크기보다 저렴합니다.
-            // 입력이 없으면 목표 속도를 0으로 설정
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
             // a reference to the players current horizontal velocity
-            // 플레이어의 현재 수평 속도에 대한 참조
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
             float speedOffset = 0.1f;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
             // accelerate or decelerate to target speed
-            // 목표 속도로 가속 또는 감속
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
                 currentHorizontalSpeed > targetSpeed + speedOffset)
             {
                 // creates curved result rather than a linear one giving a more organic speed change
                 // note T in Lerp is clamped, so we don't need to clamp our speed
-                // 보다 유기적인 속도 변화를 제공하는 선형 결과가 아닌 곡선 결과를 생성합니다.
-                // Lerp의 T가 고정되어 있으므로 속도를 고정할 필요가 없습니다.
                 _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
                     Time.deltaTime * SpeedChangeRate);
 
                 // round speed to 3 decimal places
-                // 소수점 이하 3자리까지 반올림
                 _speed = Mathf.Round(_speed * 1000f) / 1000f;
             }
             else
@@ -309,15 +284,14 @@ namespace StarterAssets
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            // 참고: Vector2의 != 연산자는 근사를 사용하므로 부동 소수점 오류가 발생하지 않으며 크기보다 저렴합니다.
-            // 이동 ​​입력이 있는 경우 플레이어가 움직일 때 플레이어 회전
             if (_input.move != Vector2.zero)
             {
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
-                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,RotationSmoothTime);
-            
+                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
+                                  _mainCamera.transform.eulerAngles.y;
+                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
+                    RotationSmoothTime);
+
                 // rotate to face input direction relative to camera position
-                // 카메라 위치를 기준으로 얼굴 입력 방향으로 회전
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 

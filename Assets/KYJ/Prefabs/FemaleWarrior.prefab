@@ -3142,7 +3142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4172930014030828
 Transform:
   m_ObjectHideFlags: 0
@@ -42890,7 +42890,6 @@ GameObject:
   - component: {fileID: 269998019}
   - component: {fileID: 269998020}
   - component: {fileID: 269998021}
-  - component: {fileID: 8392508434127847602}
   m_Layer: 7
   m_Name: FemaleWarrior
   m_TagString: Player
@@ -42926,7 +42925,7 @@ Animator:
   m_GameObject: {fileID: 1608198229272546}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-  m_Controller: {fileID: 9100000, guid: 0559561c1f500c14a818944cf8e516ea, type: 2}
+  m_Controller: {fileID: 9100000, guid: 40db3173a05ae3242b1c182a09b0a183, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -42972,7 +42971,7 @@ MonoBehaviour:
   sprint: 0
   zoom: 0
   analogMovement: 0
-  cursorLocked: 0
+  cursorLocked: 1
   cursorInputForLook: 1
 --- !u!114 &269998018
 MonoBehaviour:
@@ -42986,9 +42985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b82e4612590e6946934547461885481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
-  maxMP: 100
-  maxEXP: 100
   curHp: 100
   curMp: 100
   curExp: 0
@@ -43052,7 +43048,7 @@ MonoBehaviour:
   LockCameraPosition: 0
   cinemachineVirtualCamera: {fileID: 0}
   zoomMinDistance: 1.5
-  zoomMaxDistance: 10
+  zoomMaxDistance: 6
   zoomSpeed: 0.02
   zoomFactor: 0.5
 --- !u!114 &269998021
@@ -43085,19 +43081,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &8392508434127847602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608198229272546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9d56a6e267c6734d945fadb8f33f877, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hat: {fileID: 1790556060485934}
 --- !u!1 &1608226372549986
 GameObject:
   m_ObjectHideFlags: 0
