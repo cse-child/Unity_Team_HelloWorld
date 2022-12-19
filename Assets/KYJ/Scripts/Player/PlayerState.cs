@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    const float MAX_HP = 100;
-    const float MAX_MP = 100;
-    const float MAX_EXP = 100.0f;
+    public float maxHP = 100;
+    public float maxMP = 100;
+    public float maxEXP = 100.0f;
 
     public float curHp = 100;
     public float curMp = 100;
