@@ -1,5 +1,0 @@
-ItemNum,Name,Property,Power,ResourcePath,Explanation
-1,소형 HP포션,HP,50,Assets/LHJ/Sprite/HPPosion.png,HP를 50 회복시킵니다.
-2,소형 MP포션,MP,50,Assets/LHJ/Sprite/MPPosion.png,MP를 50 회복시킵니다.ee엔터 실험
-3,검,Wapon,50,Assets/LHJ/Sprite/Sword.png,atk 30
-4,갑옷,Armor,50,Assets/LHJ/Sprite/Amor.png,DEF 50
