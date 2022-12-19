@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UI;
-using System.IO;
 
 public class TraceAI : MonoBehaviour
 {
@@ -22,10 +19,6 @@ public class TraceAI : MonoBehaviour
     public Transform target;
     private Animator animator;
     private Rigidbody rigidbody;
-
-    public GameObject itemPrefab;
-    public System.Action onDie;
-
     private State curState;
 
     private readonly WaitForSeconds delayTime = new WaitForSeconds(0.1f);
@@ -40,16 +33,11 @@ public class TraceAI : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown("h"))
-        {
-            animator.SetTrigger("trigDie");
-            animator.SetBool("isDie", true);
-            curState = State.DEAD;
-        }
         //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
         RotateMove();
         SetAction();
         Hurt();
+        Die();
     }
 
     private void OnDrawGizmos()
@@ -80,6 +68,7 @@ public class TraceAI : MonoBehaviour
             }
 
             float distance = Vector3.Distance(transform.position, target.position);
+
             if (distance < attackRange)
                 curState = State.ATTACK;
             else if (distance < traceRange)
@@ -102,15 +91,11 @@ public class TraceAI : MonoBehaviour
             case State.IDLE:
                 Idle();
                 break;
-            case State.DEAD:
-                Die();
-                break;
         }
     }
 
     private void Trace()
     {
-        if (animator.GetBool("isDie")) return;
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton@Idle01_Action01")) return;
         if (animator.GetBool("isAttack") == true) return;
         animator.SetBool("isTrace", true);
@@ -153,55 +138,25 @@ public class TraceAI : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             if (animator.GetBool("isDie")) return;
+            if(animator)
             animator.SetTrigger("trigHurt");
+            print("hurt");
             curHp -= 10.0f;
             animator.SetFloat("curHp", curHp);
             if (curHp <= 0)
             {
                 animator.SetTrigger("trigDie");
                 animator.SetBool("isDie", true);
-                curState = State.DEAD;
             }
         }
     }
-    private void Die()
+    private IEnumerable Die()
     {
-        this.DropItem();
-        //yield return new WaitForSeconds(3f);
-        Destroy(gameObject);
-        this.onDie();
-
-    }
-    public void DropItem()
-    {
-        var itemGo = Instantiate<GameObject>(this.itemPrefab);
-        itemGo.transform.position = this.gameObject.transform.position;
-        itemGo.SetActive(false);
-        this.onDie = () =>
+        if (animator.GetBool("isDie"))
         {
-            itemGo.SetActive(true);
-            FarmingItem();
-        };
-    }
-    private void FarmingItem()
-    {
-        StreamReader sr = new StreamReader(Application.dataPath + "/HSH/DataTable/" + "ItemData.csv");
-
-        bool endOfFile = false;
-        while (!endOfFile)
-        {
-            string dataString = sr.ReadLine();
-            if (dataString == null)
-            {
-                endOfFile = true;
-                break;
-            }
-            var dataValues = dataString.Split(',');
-            for (int i = 0; i < dataValues.Length; i++)
-            {
-                Debug.Log("v: " + i.ToString() + " " + dataValues[i].ToString());
-            }
+            curState = State.DEAD;
+            yield return new WaitForSeconds(3f);
+            Destroy(gameObject);
         }
     }
 }
-
