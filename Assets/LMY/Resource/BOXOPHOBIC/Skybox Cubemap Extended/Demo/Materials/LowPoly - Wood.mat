@@ -6,11 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-<<<<<<<< HEAD:Assets/LMY/Resource/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Materials/LowPoly - Wood.mat
   m_Name: LowPoly - Wood
-========
-  m_Name: GOLD
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Materials/Misc/GOLD.mat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -64,9 +60,9 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.702
+    - _Glossiness: 0.2
     - _GlossyReflections: 1
-    - _Metallic: 0.3
+    - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -76,9 +72,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-<<<<<<<< HEAD:Assets/LMY/Resource/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Materials/LowPoly - Wood.mat
     - _Color: {r: 0.81617653, g: 0.4767926, b: 0.21604669, a: 1}
-========
-    - _Color: {r: 0.9485294, g: 0.7465099, b: 0.5300605, a: 1}
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Materials/Misc/GOLD.mat
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

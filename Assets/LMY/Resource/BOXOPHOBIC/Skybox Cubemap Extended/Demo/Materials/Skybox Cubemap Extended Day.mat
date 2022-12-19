@@ -7,17 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:Assets/LMY/Resource/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Materials/Skybox Cubemap Extended Day.mat
   m_Name: Skybox Cubemap Extended Day
   m_Shader: {fileID: 4800000, guid: 82881a2d011b0964696411c822cdd00b, type: 3}
   m_ShaderKeywords: _ENABLEFOG_ON _ENABLEROTATION_ON
   m_LightmapFlags: 0
-========
-  m_Name: Dungeons_2_Texture_01_A
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Models/Materials/Dungeons_2_Texture_01_A.mat
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -123,10 +116,6 @@ Material:
     - __dirty: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-<<<<<<<< HEAD:Assets/LMY/Resource/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Materials/Skybox Cubemap Extended Day.mat
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Tex_HDR: {r: 1, g: 1, b: 0, a: 0}
     - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-========
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Models/Materials/Dungeons_2_Texture_01_A.mat

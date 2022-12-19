@@ -7,11 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:Assets/KYJ/Models/WoodStaff/Materials_Staves/Staff4_1_1.mat
   m_Name: Staff4_1_1
-========
-  m_Name: Wood1Mat
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/SimpleLowPolyNature/Materials/Wood1Mat.mat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP
   m_LightmapFlags: 4
@@ -77,10 +73,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-<<<<<<<< HEAD:Assets/KYJ/Models/WoodStaff/Materials_Staves/Staff4_1_1.mat
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 2.1185474, g: 2.1185474, b: 2.1185474, a: 1}
-========
-    - _Color: {r: 0.6981132, g: 0.42860967, b: 0.16794232, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/SimpleLowPolyNature/Materials/Wood1Mat.mat

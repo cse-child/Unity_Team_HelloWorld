@@ -1,11 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/KYJ/Models/WoodStaff/Textures_Staves/Staff4_1_1_S01_AO.png.meta
 guid: d0b30165cc2adf242b85e6b89034fb14
-========
-guid: 2deb9a997d4c62c4d92210d0f0a9abdd
-timeCreated: 1611796863
-licenseType: Store
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Textures/Misc/Dungeons_2_Texture_Emission_01.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

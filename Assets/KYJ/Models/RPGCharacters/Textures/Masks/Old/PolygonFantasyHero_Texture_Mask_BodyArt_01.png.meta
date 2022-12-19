@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/KYJ/Models/RPGCharacters/Textures/Masks/Old/PolygonFantasyHero_Texture_Mask_BodyArt_01.png.meta
 guid: b5c72be73bd8cad4394ec40cc22be615
 timeCreated: 1553215704
-========
-guid: c7c4fdf40a26f2b48a5a8cfb02a576f0
-timeCreated: 1527115640
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Textures/Misc/FX_SunBeam_Tex.png.meta
 licenseType: Store
 TextureImporter:
   fileIDToRecycleName: {}

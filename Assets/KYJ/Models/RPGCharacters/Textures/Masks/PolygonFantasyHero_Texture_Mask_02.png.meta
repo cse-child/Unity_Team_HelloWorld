@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/KYJ/Models/RPGCharacters/Textures/Masks/PolygonFantasyHero_Texture_Mask_02.png.meta
 guid: f8e518b469cb2bd4c92100e04b7d4ab3
 timeCreated: 1556500845
-========
-guid: b6fcd73958bbd514faba7f1d7298809c
-timeCreated: 1611796876
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Textures/Misc/Dungeons_2_Texture_Emission_04.png.meta
 licenseType: Store
 TextureImporter:
   fileIDToRecycleName: {}

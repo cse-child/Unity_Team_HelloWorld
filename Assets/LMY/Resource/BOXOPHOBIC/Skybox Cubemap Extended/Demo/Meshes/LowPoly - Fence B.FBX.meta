@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/LMY/Resource/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - Fence B.FBX.meta
 guid: 6c41d268699e27248a4354335b2a76ee
 timeCreated: 1491914283
-========
-guid: 2a0a6f0a52e0f614d8e63196bfd2c98c
-timeCreated: 1604968443
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Models/SM_Env_Dwarf_Floor_03.fbx.meta
 licenseType: Store
 ModelImporter:
   serializedVersion: 19
@@ -14,14 +9,10 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-<<<<<<<< HEAD:Assets/LMY/Resource/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - Fence B.FBX.meta
     4300000: LowPolyFence_02
-========
-    4300000: SM_Env_Dwarf_Floor_03
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Models/SM_Env_Dwarf_Floor_03.fbx.meta
     9500000: //RootNode
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:

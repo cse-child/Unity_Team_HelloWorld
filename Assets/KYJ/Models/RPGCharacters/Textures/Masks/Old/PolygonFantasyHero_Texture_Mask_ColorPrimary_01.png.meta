@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/KYJ/Models/RPGCharacters/Textures/Masks/Old/PolygonFantasyHero_Texture_Mask_ColorPrimary_01.png.meta
 guid: 0cbc66454a3a56244affa05554162bac
 timeCreated: 1553215703
-========
-guid: ca5218861d869e442bcae7aca8629a7b
-timeCreated: 1611697888
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Textures/Misc/Dungeons_Realms_Metallic.tif.meta
 licenseType: Store
 TextureImporter:
   fileIDToRecycleName: {}

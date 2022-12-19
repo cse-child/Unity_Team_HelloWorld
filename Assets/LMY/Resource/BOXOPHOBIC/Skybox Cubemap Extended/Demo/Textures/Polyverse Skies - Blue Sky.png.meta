@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/LMY/Resource/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Textures/Polyverse Skies - Blue Sky.png.meta
 guid: beb1457d375110e468b8d8e1f29fccea
 timeCreated: 1513355663
-========
-guid: 04b7bb4212f0e9b498769b2077336c89
-timeCreated: 1556771445
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonFarm/Textures/PolygonFarm_Texture_01_A.png.meta
 licenseType: Store
 TextureImporter:
   fileIDToRecycleName:
@@ -19,6 +14,8 @@ TextureImporter:
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -34,15 +31,13 @@ TextureImporter:
   textureFormat: 1
   maxTextureSize: 2048
   textureSettings:
-<<<<<<<< HEAD:Assets/LMY/Resource/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Textures/Polyverse Skies - Blue Sky.png.meta
     serializedVersion: 2
     filterMode: 2
-========
-    filterMode: -1
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonFarm/Textures/PolygonFarm_Texture_01_A.png.meta
     aniso: -1
     mipBias: -1
-    wrapMode: -1
+    wrapU: -1
+    wrapV: -1
+    wrapW: -1
   nPOTScale: 1
   lightmap: 0
   compressionQuality: 50
@@ -107,6 +102,7 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline: []
+    physicsShape: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
