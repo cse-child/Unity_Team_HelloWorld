@@ -21,19 +21,21 @@ public class TraceAI : MonoBehaviour
     private float curHp = 100.0f;
     public Transform target;
     private Animator animator;
-    private Rigidbody rigidbody;
 
     public GameObject itemPrefab;
     public System.Action onDie;
 
+    private MonsterCloseAttack closeAtk;
+
     private State curState;
 
     private readonly WaitForSeconds delayTime = new WaitForSeconds(0.1f);
-    private void Awake()
+    private void Awake() //할당을 할 때 한번만 실행되는 Awake에서
     {
         animator = GetComponent<Animator>();
+        closeAtk = GetComponent<MonsterCloseAttack>();
     }
-    private void Start()
+    private void Start() // 여러번 실행될 수 있으므로 할당 x
     {
         StartCoroutine(SetState());
     }
@@ -60,13 +62,6 @@ public class TraceAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Ground"))
-        {
-            rigidbody.transform.position = collision.transform.position;
-        }
-    }
 
     private IEnumerator SetState()
     {
@@ -97,7 +92,8 @@ public class TraceAI : MonoBehaviour
                 Trace();
                 break;
             case State.ATTACK:
-                Attack();
+                closeAtk.TryAttack();
+                //Attack();
                 break;
             case State.IDLE:
                 Idle();
@@ -111,7 +107,7 @@ public class TraceAI : MonoBehaviour
     private void Trace()
     {
         if (animator.GetBool("isDie")) return;
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton@Idle01_Action01")) return;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton@Attack01")) return;
         if (animator.GetBool("isAttack") == true) return;
         animator.SetBool("isTrace", true);
         Vector3 direction = target.position - transform.position;
@@ -120,15 +116,15 @@ public class TraceAI : MonoBehaviour
         transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
     }
 
-    private void Attack()
-    {
-        animator.SetBool("isAttack", true);
-        animator.SetBool("isTrace", false);
-    }
-    private void EndAttack()
-    {
-        animator.SetBool("isAttack", false);
-    }
+    //private void Attack()
+    //{
+    //    animator.SetBool("isAttack", true);
+    //    animator.SetBool("isTrace", false);
+    //}
+    //private void EndAttack()
+    //{
+    //    animator.SetBool("isAttack", false);
+    //}
     private void Idle()
     {
         animator.SetBool("isAttack", false);
