@@ -42,19 +42,8 @@ public class PlayerControl : MonoBehaviour
         Looting();
         Attack();
         EquippedWeapon();
-        //SetAxes();
+        Skill();
     }
-
-    //private void SetAxes()
-    //{
-    //    horizontal = Input.GetAxis("Horizontal");
-    //    vertical = Input.GetAxis("Vertical");
-    //
-    //    animator.SetFloat("Horizontal", horizontal);
-    //    animator.SetFloat("Vertical", vertical);
-    //
-    //    print("Hori : " + horizontal + " / verti : " + vertical);
-    //}
 
     private void PlayAnimations()
     {
@@ -88,16 +77,18 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (curWeaponState == MAX_WEAPON_COUNT)
-            {
                 animator.SetInteger("WeaponState", 0); // 맨손
-            }
             else
-            {
                 animator.SetInteger("WeaponState", ++curWeaponState); // 무기장착
-            }
+
+            // 무기를 바꾸면 이전에 입력된 값들(Trigger, Integer) 초기화
+            animator.ResetTrigger(hashAttack);
+            animator.ResetTrigger(hashDamage);
+            ResetSkillState();
         }
     }
 
+    // 무기 Prefab Active On/Off
     private void ChangeWeaponActive()
     {
         if (weaponSocket)
@@ -108,5 +99,22 @@ public class PlayerControl : MonoBehaviour
                 weaponSocket.SetActive(true);
 
         }
+    }
+
+    private void Skill()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            animator.SetInteger("SkillState", 1);
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            animator.SetInteger("SkillState", 2);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            animator.SetInteger("SkillState", 3);
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            animator.SetInteger("SkillState", 4);
+    }
+
+    private void ResetSkillState()
+    {
+        animator.SetInteger("SkillState", 0);
     }
 }

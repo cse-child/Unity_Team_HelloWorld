@@ -256,6 +256,8 @@ namespace StarterAssets
             if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage03")) return;
             if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage04")) return;
             if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage05")) return;
+            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Greate_Sword_Sheath_Out")) return;
+            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Greate_Sword_Sheath_In")) return;
             
            // if (me.animator.GetCurrentAnimatorStateInfo (0).IsName ("Base Layer.Highlighted"))
             // set target speed based on move speed, sprint speed and if sprint is pressed
