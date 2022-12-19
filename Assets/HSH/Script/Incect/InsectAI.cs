@@ -1,11 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UI;
-using System.IO;
 
-public class TraceAI : MonoBehaviour
+public class InsectAI : MonoBehaviour
 {
     enum State
     {
@@ -180,28 +177,6 @@ public class TraceAI : MonoBehaviour
         this.onDie = () =>
         {
             itemGo.SetActive(true);
-            FarmingItem();
         };
     }
-    private void FarmingItem()
-    {
-        StreamReader sr = new StreamReader(Application.dataPath + "/HSH/DataTable/" + "ItemData.csv");
-
-        bool endOfFile = false;
-        while (!endOfFile)
-        {
-            string dataString = sr.ReadLine();
-            if (dataString == null)
-            {
-                endOfFile = true;
-                break;
-            }
-            var dataValues = dataString.Split(',');
-            for (int i = 0; i < dataValues.Length; i++)
-            {
-                Debug.Log("v: " + i.ToString() + " " + dataValues[i].ToString());
-            }
-        }
-    }
 }
-
