@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/LMY/Resource/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - FirTree B.FBX.meta
 guid: 769d335a9d1fc3948bfb71adea34202c
 timeCreated: 1491914283
-========
-guid: e0ad0f53a9824e746b2c4e9fba6fbca3
-timeCreated: 1604968444
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Models/SM_Env_Dwarf_Floor_06.fbx.meta
 licenseType: Store
 ModelImporter:
   serializedVersion: 19
@@ -14,14 +9,10 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-<<<<<<<< HEAD:Assets/LMY/Resource/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - FirTree B.FBX.meta
     4300000: LowPolyFirTree_02
-========
-    4300000: SM_Env_Dwarf_Floor_06
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Models/SM_Env_Dwarf_Floor_06.fbx.meta
     9500000: //RootNode
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:

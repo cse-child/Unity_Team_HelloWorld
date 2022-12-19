@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/LMY/Resource/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - Terrain.FBX.meta
 guid: f3dd2dace832efa4fa391170674edcc1
 timeCreated: 1517938388
-========
-guid: 8eacf3dc4bf3f3144b41421760bada53
-timeCreated: 1606772554
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Models/SM_Prop_Dwarf_Chandelier_06.fbx.meta
 licenseType: Store
 ModelImporter:
   serializedVersion: 19
@@ -14,13 +9,9 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-<<<<<<<< HEAD:Assets/LMY/Resource/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - Terrain.FBX.meta
     4300000: LowPolyTerrain
-========
-    4300000: SM_Prop_Dwarf_Chandelier_06
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonDungeonRealms/Models/SM_Prop_Dwarf_Chandelier_06.fbx.meta
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:

@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/KYJ/Models/RPGCharacters/Textures/Masks/PolygonFantasyHero_Texture_Mask_05.png.meta
 guid: 24b7fe3ac6774f445a118f057e3eaaae
 timeCreated: 1556508958
-========
-guid: 93e7868b9d826c04b98475b232afa1a2
-timeCreated: 1557789689
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/PolygonFarm/Textures/Leaves_Diff.tga.meta
 licenseType: Store
 TextureImporter:
   fileIDToRecycleName: {}

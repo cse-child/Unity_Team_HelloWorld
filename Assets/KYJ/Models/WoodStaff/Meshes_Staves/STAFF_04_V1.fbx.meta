@@ -1,21 +1,8 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/KYJ/Models/WoodStaff/Meshes_Staves/STAFF_04_V1.fbx.meta
 guid: 6895caa25b7dfbe41b6e4f018242f330
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-========
-guid: dc361669c609eb24c8940f9c51167859
-ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: No Name
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: FireParticle
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/SimpleLowPolyNature/Models/FireParticle.fbx.meta
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -51,17 +38,14 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
-<<<<<<<< HEAD:Assets/KYJ/Models/WoodStaff/Meshes_Staves/STAFF_04_V1.fbx.meta
     sortHierarchyByName: 1
-========
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/SimpleLowPolyNature/Models/FireParticle.fbx.meta
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -76,8 +60,6 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -86,13 +68,8 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-<<<<<<<< HEAD:Assets/KYJ/Models/WoodStaff/Meshes_Staves/STAFF_04_V1.fbx.meta
   referencedClips: []
   importAnimation: 1
-========
-  importAnimation: 0
-  copyAvatar: 0
->>>>>>>> KDJ:Assets/KDJ/Resources/LMY/Resource/SimpleLowPolyNature/Models/FireParticle.fbx.meta
   humanDescription:
     serializedVersion: 3
     human: []
