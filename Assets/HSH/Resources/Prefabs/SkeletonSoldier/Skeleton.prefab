@@ -778,6 +778,7 @@ MonoBehaviour:
   moveSpeed: 0.5
   rotateSpeed: 0.5
   target: {fileID: 0}
+  itemPrefab: {fileID: 5746359903908249793, guid: 78925be475d86164f92d73a589da7cba, type: 3}
 --- !u!54 &1115370330
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1941,7 +1942,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7948224420071793501}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 8.32, y: -7.04, z: 6.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
