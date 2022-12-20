@@ -1064,7 +1064,7 @@ AnimatorController:
   - m_Name: WeaponState
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 0
+    m_DefaultInt: 1
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Attack
@@ -1921,7 +1921,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 2010763096457517216, guid: 988fefd40c70c4243ac399fce021190a, type: 3}
+  m_Motion: {fileID: 2010763096457517216, guid: ab1d273540e943049b50b420f01f305e, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

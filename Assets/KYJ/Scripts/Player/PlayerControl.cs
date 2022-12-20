@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    Animator animator;
-
     const int MAX_WEAPON_COUNT = 1;
 
     public GameObject weaponSocket;
+    public GameObject attackCollision;
+
+    private Animator animator;
 
     private int curWeaponState;
-
-    //private float horizontal = 0.0f;
-    //private float vertical = 0.0f;
 
     private readonly int hashDeath = Animator.StringToHash("Death");
     private readonly int hashLooting = Animator.StringToHash("Looting");
@@ -58,7 +56,9 @@ public class PlayerControl : MonoBehaviour
     private void Attack()
     {
         if (Input.GetMouseButtonDown(0))
+        {
             animator.SetTrigger(hashAttack);
+        }
     }
 
     // 아이템 줍기
@@ -101,6 +101,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    // 스킬 사용 - 1,2,3,4 번
     private void Skill()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -116,5 +117,11 @@ public class PlayerControl : MonoBehaviour
     private void ResetSkillState()
     {
         animator.SetInteger("SkillState", 0);
+    }
+
+    private void OnAttackCollision()
+    {
+        print("OnAttackCollision");
+        attackCollision.SetActive(true);
     }
 }
