@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class SlotData : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler,IPointerUpHandler, IPointerDownHandler
+public class SlotData : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
     public int itemNum = 0;
     public int itemCount = 0;
@@ -61,36 +61,60 @@ public class SlotData : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData) // 아이템 설명창
+    {
+        if (itemNum == 0)
+            return;
+
+
+        itemExplanation.gameObject.SetActive(true);
+        itemExplanation.SetItemData(itemNum);
+    }
+
+
+    /*
+     * 22.12.20 아이템 슬롯 교환 잠정적 보류 LHJ
+    private int selectIndex = -1;
+    private int chaingeIndex = -1;
+    private GameObject itemImage = null;
+    
     public void OnPointerDown(PointerEventData eventData)
     {
-        //if (eventData.button == PointerEventData.InputButton.Left && itemCount > 0)
-        //{
-        //    if (itemManager.GetSelectSlotIndex() == -1)
-        //        itemManager.SetSelectSlot(gameObject, transform.Find("ItemImage").gameObject);
-        //}
+        if (eventData.button == PointerEventData.InputButton.Left && itemCount > 0)
+        {
+            if (itemManager.GetSelectSlotIndex() == -1)
+            {
+                itemManager.SetSelectSlot(gameObject, transform.Find("ItemImage").gameObject);
+            }
+        }
     }
 
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        //if (itemManager.GetSelectSlotIndex() != -1)
-        //    itemManager.SwapItemSlot(this.gameObject);
+        if (itemManager.GetSelectSlotIndex() != -1 && itemManager.GetChaingeSlotIndex() != -1)
+            itemManager.SwapItemSlot();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (itemManager.GetSelectSlotIndex() != -1 && itemManager.GetSlot(itemManager.GetSelectSlotIndex()) != gameObject)
+        {
+            itemManager.SetChaingeSlot(this.gameObject);
+            Debug.Log("chaingeIndex : " + gameObject.name);
+        }
+
         if (itemNum == 0)
             return;
-        //itemExplanation.transform.position = Input.mousePosition;
+
 
         itemExplanation.gameObject.SetActive(true);
         itemExplanation.SetItemData(itemNum);
-        // throw new System.NotImplementedException();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        //itemExplanation.gameObject.SetActive(false);
+        itemExplanation.gameObject.SetActive(false);
     }
-
+    */
 }
