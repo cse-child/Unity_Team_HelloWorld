@@ -8,6 +8,6 @@ public class PlayerPartsControl : MonoBehaviour
 
     private void Awake()
     {
-        hat.transform.GetChild(1).gameObject.SetActive(true);
+        //hat.transform.GetChild(1).gameObject.SetActive(true);
     }
 }

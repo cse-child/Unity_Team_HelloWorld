@@ -19,6 +19,7 @@ public class PlayerInventoryData : MonoBehaviour
     }
 
     /*=====================================변수===============================*/
+
     private Dictionary<int, int> hasItems = new Dictionary<int, int>();
 
     public InventoryManager inventory;
@@ -34,10 +35,10 @@ public class PlayerInventoryData : MonoBehaviour
     {
         AddItem(1, 3);
         AddItem(2, 2);
-        AddItem(1, 2);
+        AddItem(3, 2);
     }
 
-    //플레이어소유 아이템 추가
+    //플레이어 소유 아이템 추가
     public void AddItem(int itemNum, int itemCount)
     {
         if(hasItems.ContainsKey(itemNum))
