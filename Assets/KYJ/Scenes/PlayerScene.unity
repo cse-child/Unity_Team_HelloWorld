@@ -184,6 +184,23 @@ PrefabInstance:
       objectReference: {fileID: 1047826161}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
+--- !u!1 &327283423 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1608198229272546, guid: 68813e3f18422044094750f43ff6381b, type: 3}
+  m_PrefabInstance: {fileID: 814592984}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &327283433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327283423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4718ee9f817bafa439f60c0cf39e3c35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &674233363 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2070925441746177913, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
@@ -300,6 +317,18 @@ PrefabInstance:
       propertyPath: cinemachineVirtualCamera
       value: 
       objectReference: {fileID: 674233363}
+    - target: {fileID: 1820092126, guid: 68813e3f18422044094750f43ff6381b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.51310813
+      objectReference: {fileID: 0}
+    - target: {fileID: 1820092126, guid: 68813e3f18422044094750f43ff6381b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5214927
+      objectReference: {fileID: 0}
+    - target: {fileID: 1820092126, guid: 68813e3f18422044094750f43ff6381b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.49962538
+      objectReference: {fileID: 0}
     - target: {fileID: 1608198229272546, guid: 68813e3f18422044094750f43ff6381b, type: 3}
       propertyPath: m_Name
       value: FemaleWarrior
@@ -717,7 +746,7 @@ GameObject:
   - component: {fileID: 1864457133}
   - component: {fileID: 1864457132}
   - component: {fileID: 1864457131}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}

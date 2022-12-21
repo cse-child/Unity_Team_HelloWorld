@@ -11,6 +11,8 @@ public class PlayerControl : MonoBehaviour
 
     private Animator animator;
 
+    private PlayerState playerState;
+
     private int curWeaponState;
 
     private readonly int hashDeath = Animator.StringToHash("Death");
@@ -21,6 +23,7 @@ public class PlayerControl : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        playerState = GetComponent<PlayerState>();
     }
 
     private void Start()
@@ -35,21 +38,23 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        PlayAnimations();
-
         Looting();
         Attack();
         EquippedWeapon();
         Skill();
     }
 
-    private void PlayAnimations()
+    // Player 데미지 -> HP 감소
+    public void TakeDamage(float value)
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        animator.SetTrigger(hashDamage);
+        playerState.DecreaseHp(value);
+
+        // 죽었니?
+        if(playerState.curHp <= 0)
+        {
             animator.SetTrigger(hashDeath);
-        if(Input.GetKeyDown(KeyCode.F2))
-            animator.SetTrigger(hashDamage);
-        
+        }
     }
 
     // 마우스 왼쪽 버튼 - 공격
@@ -88,7 +93,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    // 무기 Prefab Active On/Off
+    // 애니메이션 Event - 무기 Prefab Active On/Off
     private void ChangeWeaponActive()
     {
         if (weaponSocket)
@@ -114,14 +119,24 @@ public class PlayerControl : MonoBehaviour
             animator.SetInteger("SkillState", 4);
     }
 
+    // 애니메이션 Event - 스킬 상태 초기화
     private void ResetSkillState()
     {
         animator.SetInteger("SkillState", 0);
     }
 
+    // 애니메이션 Event - 양손검 무기 Collider 활성화
     private void OnAttackCollision()
     {
-        print("OnAttackCollision");
+        //print("OnAttackCollision");
         attackCollision.SetActive(true);
+    }
+
+    // 애니메이션 Event - Skill Effect Play 함수
+    private void PlaySkillEffect(string key)
+    {
+        float offsetZ = 7;
+
+        ParticleManager.instance.Play(key, transform.position + transform.forward * offsetZ, transform.rotation);
     }
 }
