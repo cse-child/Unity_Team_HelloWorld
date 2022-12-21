@@ -7,10 +7,10 @@ using UnityEngine;
 
 public class NPCMovement : MonoBehaviour
 {
-    private float npcMoveSpeed = 0.0f;
-    private float npcRotSpeed = 0.5f;
+    public float npcMoveSpeed = 0.0f;
+    public float npcRotSpeed = 0.5f;
 
-    private float move = 0.0f;
+    public float move = 0.0f;
 
     public Animator npcAnimator;
     public PathFollower npcPathFollower;
