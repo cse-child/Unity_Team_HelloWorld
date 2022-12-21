@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EnemyState {  None = -1, Idle = 0, Wander, Pursuit,}
-public class EnemyFSM : MonoBehaviour
+public enum EnemyState1 {  None = -1, Idle = 0, Wander, Pursuit,}
+public class EnemyFSM1 : MonoBehaviour
 {
     [Header("Pursuit")]
     [SerializeField]
@@ -12,41 +12,45 @@ public class EnemyFSM : MonoBehaviour
     [SerializeField]
     private float pursuitLimitRange = 10; // 추적 범위 이범위 바깥으로 나가면 wander 상태로 변경
 
-    private EnemyState enemyState = EnemyState.None; //현재 적 행동
+    private EnemyState1 enemyState = EnemyState1.None; //현재 적 행동
 
     private Status status; //이동속도 등의 정보
-    private NavMeshAgent navMeshAgent; // 이동 제어를 위한 NavMeshAgent
-    private GameObject target; // 플레이어
+    public GameObject target; // 플레이어
     private Animator animator;
 
     private void Awake()
     {
         status = GetComponent<Status>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        navMeshAgent.updateRotation = false; // NavMeshAgent 컴포넌트에서 회전 업데이트 x
 
-        target = GameObject.FindGameObjectWithTag("Player");
+        //target = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Start()
     {
-        ChangeState(EnemyState.Idle);
+        ChangeState(EnemyState1.Idle);
+    }
+    private void Update()
+    {
+        if(Input.GetKey("z"))
+        {
+            transform.Translate(Vector3.forward * status.WalkSpeed * Time.deltaTime, Space.Self);
+        }
     }
     private void OnEnable()
     {
         //적이 활성화될 때 적의 상태를 "대기"로 설정
-        ChangeState(EnemyState.Idle);
+        ChangeState(EnemyState1.Idle);
     }
     private void OnDisable()
     {
         // 적이 비활성화될 때 현재 재생중인 상태를 종료하고 상태를 none으로 설정
         StopCoroutine(enemyState.ToString());
 
-        enemyState = EnemyState.None;
+        enemyState = EnemyState1.None;
     }
 
-    public void ChangeState(EnemyState newState)
+    public void ChangeState(EnemyState1 newState)
     {
         if (enemyState == newState) return; //현재 재생중인 상태와 바꾸려고 하는 상태가 같으면 바꾸지 않음
 
@@ -73,34 +77,30 @@ public class EnemyFSM : MonoBehaviour
 
         yield return new WaitForSeconds(changeTime);
 
-        ChangeState(EnemyState.Wander); //상태를 배회로 변경
+        ChangeState(EnemyState1.Wander); //상태를 배회로 변경
     }
     private IEnumerable Wander()
     {
         float currentTime = 0;
         float maxTime = 10;
 
-        // 이동속도 설정
-        navMeshAgent.speed = status.WalkSpeed;
-
-        //목표 위치 설정
-        navMeshAgent.SetDestination(CalculateWanderPosition());
-
         //목표 위치로 회전
-        Vector3 to = new Vector3(navMeshAgent.destination.x, 0 , navMeshAgent.destination.z);
+        Vector3 to = new Vector3(CalculateWanderPosition().x, 0 , CalculateWanderPosition().z);
         Vector3 from = new Vector3(transform.position.x, 0 , transform.position.z);
         transform.rotation = Quaternion.LookRotation(to - from);
+
+        transform.Translate(Vector3.forward * status.WalkSpeed * Time.deltaTime, Space.Self);
 
         while (true)
         {
             currentTime += Time.deltaTime;
 
-            to = new Vector3(navMeshAgent.destination.x, 0, navMeshAgent.destination.z);
+            to = new Vector3(CalculateWanderPosition().x, 0, CalculateWanderPosition().z);
             from = new Vector3(transform.position.x, 0, transform.position.z);
             if ((to - from).sqrMagnitude < 0.01f || currentTime >= maxTime)
             {
                 //상태를 "대기"로 변경
-                ChangeState(EnemyState.Idle);
+                ChangeState(EnemyState1.Idle);
             }
 
             CalculateDistanceToTargetAndSelectState();
@@ -145,12 +145,6 @@ public class EnemyFSM : MonoBehaviour
     {
         while (true)
         {
-            //이동속도 설정 (배회할 때는 걷는 속도, 추적은 뛰는 속도)
-            navMeshAgent.speed = status.RunSpeed;
-
-            //목표위치를 현재 플레이어의 위치로 설정
-            navMeshAgent.SetDestination(target.transform.position);
-
             //타겟 방향을 계속 주시
             LookRotationToTarget();
 
@@ -168,6 +162,7 @@ public class EnemyFSM : MonoBehaviour
 
         //바로 돌기
         transform.rotation = Quaternion.LookRotation(to - from);
+        transform.Translate(Vector3.forward * status.WalkSpeed * Time.deltaTime, Space.Self);
         //서서히 돌기
         //Quaternion rotation = Quaternion.LookRotation(to - from);
         //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.01f);
@@ -180,11 +175,11 @@ public class EnemyFSM : MonoBehaviour
 
         if(distance <= targetRecognitionRange)
         {
-            ChangeState(EnemyState.Pursuit);
+            ChangeState(EnemyState1.Pursuit);
         }
         else if ( distance >= pursuitLimitRange)
         {
-            ChangeState(EnemyState.Wander);
+            ChangeState(EnemyState1.Wander);
         }
     }
 
