@@ -50,8 +50,6 @@ namespace StarterAssets
 			ZoomInput(value.Get<float>());
 		}
 #endif
-
-
 		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
@@ -86,6 +84,29 @@ namespace StarterAssets
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
+
+		public void SetCursorLocked(bool state)
+		{
+			cursorLocked = state;
+			SetCursorState(state);
+			print("cursor lockes -> " + state);
+		}
+
+		//public void ChangeCursorState()
+		//{
+		//	if (cursorLocked)
+		//	{
+        //        cursorLocked = false;
+		//		SetCursorState(false);
+		//		print("cursorLocked : true -> false");
+		//	}
+		//	else
+		//	{
+		//		cursorLocked = true;
+		//		SetCursorState(true);
+        //        print("cursorLocked : false -> true");
+        //    }
+        //}
 	}
 	
 }

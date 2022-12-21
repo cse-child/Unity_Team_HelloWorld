@@ -29,6 +29,10 @@ public class EnemyFSM : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
     }
 
+    private void Start()
+    {
+        ChangeState(EnemyState.Idle);
+    }
     private void OnEnable()
     {
         //적이 활성화될 때 적의 상태를 "대기"로 설정
@@ -188,7 +192,7 @@ public class EnemyFSM : MonoBehaviour
     {
         //배회상태 이동할 경로 표시
         Gizmos.color = Color.black;
-        //Gizmos.DrawRay(transform.position, navMeshAgent.destination - transform.position);
+       // Gizmos.DrawRay(transform.position, navMeshAgent.destination - transform.position);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, targetRecognitionRange);
         Gizmos.color = Color.green;

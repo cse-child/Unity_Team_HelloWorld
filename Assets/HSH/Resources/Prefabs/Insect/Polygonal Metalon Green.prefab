@@ -1149,8 +1149,7 @@ GameObject:
   - component: {fileID: 4215789226532830}
   - component: {fileID: 95319451835724688}
   - component: {fileID: 314392802}
-  - component: {fileID: 314392803}
-  - component: {fileID: 314392804}
+  - component: {fileID: 861332235819951669}
   m_Layer: 0
   m_Name: Polygonal Metalon Green
   m_TagString: Untagged
@@ -1223,9 +1222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218b7f14f94f8cc4fb86a2135870f5e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 0
-  runSpeed: 0
---- !u!114 &314392803
+  walkSpeed: 1
+  runSpeed: 1
+--- !u!114 &861332235819951669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1234,31 +1233,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1783563462218004}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d1f0aed812be3b488fd48785717d0a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 2368a86af1c0b6949ab747a2c64f5343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!195 &314392804
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783563462218004}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 2.03
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1.95
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  targetRecognitionRange: 8
+  pursuitLimitRange: 10
 --- !u!1 &1804318802084684
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,7 +1421,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845593574226382}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0.000000016396491}
+  m_LocalPosition: {x: -0, y: 0, z: 30.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
