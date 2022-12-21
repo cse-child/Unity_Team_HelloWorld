@@ -11,10 +11,13 @@ public class InventoryManager : MonoBehaviour
 
     private void Awake()
     {
-        PlayerInventoryData.instance.SetInventory(this); 
     }
 
-    private void Start()
+    public void Start()
+    {
+    }
+
+    public void CreateSlot()
     {
         for (int i = 0; i < 30; i++)
         {
@@ -22,7 +25,7 @@ public class InventoryManager : MonoBehaviour
             temp.name = "slot" + i;
             temp.transform.SetParent(transform);
             temp.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-           
+
             slots.Add(temp);
         }
     }
