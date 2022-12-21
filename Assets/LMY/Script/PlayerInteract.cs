@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     private void Update()
-    {
-        
+    {     
         if(Input.GetKeyDown(KeyCode.F))
         {
             float interactRange = 2.0f;
@@ -18,7 +17,11 @@ public class PlayerInteract : MonoBehaviour
                     npcInteractable.Interact(transform);
                 }
             }
-        }
-        
+        }   
     }
+
+    //public NPCInteractable GetInteractableObject()
+    //{
+
+    //}
 }
