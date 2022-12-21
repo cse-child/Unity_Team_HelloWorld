@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    Animator animator;
-
     const int MAX_WEAPON_COUNT = 1;
 
     public GameObject weaponSocket;
+    public GameObject attackCollision;
+
+    private Animator animator;
 
     private int curWeaponState;
-
-    //private float horizontal = 0.0f;
-    //private float vertical = 0.0f;
 
     private readonly int hashDeath = Animator.StringToHash("Death");
     private readonly int hashLooting = Animator.StringToHash("Looting");
@@ -42,19 +40,8 @@ public class PlayerControl : MonoBehaviour
         Looting();
         Attack();
         EquippedWeapon();
-        //SetAxes();
+        Skill();
     }
-
-    //private void SetAxes()
-    //{
-    //    horizontal = Input.GetAxis("Horizontal");
-    //    vertical = Input.GetAxis("Vertical");
-    //
-    //    animator.SetFloat("Horizontal", horizontal);
-    //    animator.SetFloat("Vertical", vertical);
-    //
-    //    print("Hori : " + horizontal + " / verti : " + vertical);
-    //}
 
     private void PlayAnimations()
     {
@@ -69,7 +56,9 @@ public class PlayerControl : MonoBehaviour
     private void Attack()
     {
         if (Input.GetMouseButtonDown(0))
+        {
             animator.SetTrigger(hashAttack);
+        }
     }
 
     // 아이템 줍기
@@ -88,16 +77,18 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (curWeaponState == MAX_WEAPON_COUNT)
-            {
                 animator.SetInteger("WeaponState", 0); // 맨손
-            }
             else
-            {
                 animator.SetInteger("WeaponState", ++curWeaponState); // 무기장착
-            }
+
+            // 무기를 바꾸면 이전에 입력된 값들(Trigger, Integer) 초기화
+            animator.ResetTrigger(hashAttack);
+            animator.ResetTrigger(hashDamage);
+            ResetSkillState();
         }
     }
 
+    // 무기 Prefab Active On/Off
     private void ChangeWeaponActive()
     {
         if (weaponSocket)
@@ -108,5 +99,29 @@ public class PlayerControl : MonoBehaviour
                 weaponSocket.SetActive(true);
 
         }
+    }
+
+    // 스킬 사용 - 1,2,3,4 번
+    private void Skill()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            animator.SetInteger("SkillState", 1);
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            animator.SetInteger("SkillState", 2);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            animator.SetInteger("SkillState", 3);
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            animator.SetInteger("SkillState", 4);
+    }
+
+    private void ResetSkillState()
+    {
+        animator.SetInteger("SkillState", 0);
+    }
+
+    private void OnAttackCollision()
+    {
+        print("OnAttackCollision");
+        attackCollision.SetActive(true);
     }
 }
