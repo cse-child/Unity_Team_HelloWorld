@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class NPCReactionRange : MonoBehaviour
 {
-    private NPCMovement npcMovement;
+    public NPCMovement npcMovement;
     Vector3 direction;
 
     private void Awake()
     {
-        npcMovement = GetComponent<NPCMovement>();
+        npcMovement = transform.parent.GetComponent<NPCMovement>();
     }
     private void OnCollisionEnter(Collision collsion)
     {
@@ -21,7 +21,6 @@ public class NPCReactionRange : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             npcMovement.SetIsMove(false);
-            direction = other.transform.position - npcMovement.GetNPCPosition();
         }
         else
         {
@@ -29,8 +28,4 @@ public class NPCReactionRange : MonoBehaviour
         }
     }
 
-    public Vector3 GetTargetDirection()
-    {
-        return direction;
-    }
 }

@@ -12,14 +12,12 @@ public class NPCMovement : MonoBehaviour
 
     private float move = 0.0f;
 
-    private Vector3 npcToPlayerDirection;
+    public Animator npcAnimator;
+    public PathFollower npcPathFollower;
+    public NPCFunction npcFunction;
+    public NPCReactionRange npcReactionRange;
 
-    private Animator npcAnimator;
-    private PathFollower npcPathFollower;
-    private NPCFunction npcFunction;
-    private NPCReactionRange npcReactionRange;
-
-    private bool isMove = false;
+    private bool isMove;
     private bool temp = false;
 
     private void Start()
@@ -27,7 +25,7 @@ public class NPCMovement : MonoBehaviour
         npcAnimator = GetComponent<Animator>();
         npcPathFollower = GetComponent<PathFollower>();
         npcFunction = GetComponent<NPCFunction>();
-        npcReactionRange = GetComponent<NPCReactionRange>();
+        npcReactionRange = transform.Find("NPC_ReactionRange").GetComponent<NPCReactionRange>();
         npcMoveSpeed = npcPathFollower.GetSpeed();
     }
 
@@ -41,11 +39,13 @@ public class NPCMovement : MonoBehaviour
 
         CheckNPCBehavior();
 
-        CheckIsMove();
+        //CheckIsMove();
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            npcPathFollower.SetIsStop(true);
+        }
 
         MoveForward();
-
-        RotationToPlayer();
 
         npcAnimator.SetFloat("Move", move);
     }
@@ -58,9 +58,9 @@ public class NPCMovement : MonoBehaviour
 
     }
 
-    private void CheckIsMove()
+    void CheckIsMove()
     {
-        if (isMove)
+        if (GetIsMove())
         {
             move = 0.5f;
             npcPathFollower.enabled = true;
@@ -85,17 +85,6 @@ public class NPCMovement : MonoBehaviour
             isMove = true;
     }
 
-    private void RotationToPlayer()
-    {
-        if (!isMove)
-        {
-            npcToPlayerDirection = npcReactionRange.GetTargetDirection();
-            this.transform.rotation = Quaternion.Lerp(this.transform.rotation,
-                Quaternion.LookRotation(npcToPlayerDirection), Time.deltaTime * npcRotSpeed);
-        }
-        else
-            return;
-    }
     public float GetNPCMoveSpeed()
     {
         return npcMoveSpeed;
@@ -104,5 +93,10 @@ public class NPCMovement : MonoBehaviour
     public Vector3 GetNPCPosition()
     {
         return this.transform.position;
+    }
+
+    private bool GetIsMove()
+    {
+        return isMove;
     }
 }

@@ -11,6 +11,8 @@ namespace PathCreation.Examples
         private float speed = 2.0f;
         float distanceTravelled;
 
+        public bool isStop = false;
+
         void Start() {
             if (pathCreator != null)
             {
@@ -21,7 +23,7 @@ namespace PathCreation.Examples
 
         void Update()
         {
-            if (pathCreator != null)
+            if (pathCreator != null && isStop == false)
             {
                 distanceTravelled += speed * Time.deltaTime;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
@@ -38,6 +40,11 @@ namespace PathCreation.Examples
         public float GetSpeed()
         {
             return speed;
+        }
+
+        public void SetIsStop(bool stop)
+        {
+            isStop = stop;
         }
     }
 }
