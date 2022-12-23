@@ -59,6 +59,7 @@ public class PlayerInventoryData : MonoBehaviour
             hasItems.Remove(itemNum);
     }
 
+
     public void SetInventory(InventoryManager inventory)
     {
         this.inventory = inventory;
