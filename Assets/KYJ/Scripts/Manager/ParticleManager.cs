@@ -22,29 +22,37 @@ public class ParticleManager : MonoBehaviour
     
     private Dictionary<string, GameObject> particles = new Dictionary<string, GameObject>();
 
+    public GameObject swordSkill1;
+    public GameObject swordSkill2;
     public GameObject swordSkill3;
+    public GameObject swordSkill4;
 
     public void CreateParticle()
     {
-        if(swordSkill3 != null)
-        {
+        if (swordSkill1 != null)
+            AddParticle("Skill_1", swordSkill1);
+        if (swordSkill2 != null)
+            AddParticle("Skill_2", swordSkill2);
+        if (swordSkill3 != null)
             AddParticle("Skill_3", swordSkill3);
-        }
+        if (swordSkill4 != null)
+            AddParticle("Skill_4", swordSkill4);
     }
 
     private void AddParticle(string key, GameObject prefab)
     {
-
+    
         GameObject particle = Instantiate(prefab, transform);
         particle.name = key;
         particle.SetActive(false);
         particles.Add(key, particle);
     }
-
+    
     public void Play(string key, Vector3 pos, Quaternion rot)
     {
         if (!particles.ContainsKey(key)) return;
-
+    
+    
         particles[key].SetActive(true);
         particles[key].transform.position = pos;
         particles[key].transform.rotation = rot;

@@ -117,13 +117,13 @@ namespace StarterAssets
         public CinemachineVirtualCamera cinemachineVirtualCamera;
 
         public float zoomMinDistance = 1.5f;
-        public float zoomMaxDistance = 6.0f;
+        public float zoomMaxDistance = 10.0f;
 
         public float zoomSpeed = 0.02f;
 
         public float zoomFactor = 0.5f;
 
-        private float zoom = 4.0f;
+        private float zoom = 7.5f;
 
         private float cameraDistance = 4.0f;
 
@@ -245,20 +245,29 @@ namespace StarterAssets
 
         private void Move()
         {
+            // 걷는경우가 아니라면 움직이지 못하도록 예외처리
+            string[] movableState = { "Idle Walk Run Blend", "Jump", "Sword-Idle Walk Run Blend", "Greate Sword Jump", "FallingLoop" };
+            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName(movableState[0]) &&
+                !_animator.GetCurrentAnimatorStateInfo(0).IsName(movableState[1]) &&
+                !_animator.GetCurrentAnimatorStateInfo(0).IsName(movableState[2]) &&
+                !_animator.GetCurrentAnimatorStateInfo(0).IsName(movableState[3]) &&
+                !_animator.GetCurrentAnimatorStateInfo(0).IsName(movableState[4]))
+                return;
+
             // 특정 애니메이션 동안은 움직이지 못하도록 예외처리!
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Looting")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Death")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack01")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack02")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack03")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack04")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage01")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage02")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage03")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage04")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage05")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Greate_Sword_Sheath_Out")) return;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Greate_Sword_Sheath_In")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Looting")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Death")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack01")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack02")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack03")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack04")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage01")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage02")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage03")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage04")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Damage05")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Greate_Sword_Sheath_Out")) return;
+            //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Greate_Sword_Sheath_In")) return;
             
            // if (me.animator.GetCurrentAnimatorStateInfo (0).IsName ("Base Layer.Highlighted"))
             // set target speed based on move speed, sprint speed and if sprint is pressed

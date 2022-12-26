@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class PlayerControl : MonoBehaviour
     private Animator animator;
 
     private PlayerState playerState;
+    private StarterAssetsInputs starterAssetsInputs;
 
     private int curWeaponState;
 
@@ -24,6 +26,7 @@ public class PlayerControl : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playerState = GetComponent<PlayerState>();
+        starterAssetsInputs = FindObjectOfType<StarterAssetsInputs>();
     }
 
     private void Start()
@@ -62,6 +65,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (!starterAssetsInputs.cursorLocked) return; // 마우스 활성화 상태면 공격 불가
             animator.SetTrigger(hashAttack);
         }
     }
@@ -136,7 +140,14 @@ public class PlayerControl : MonoBehaviour
     private void PlaySkillEffect(string key)
     {
         float offsetZ = 7;
+        float offsetY = 1;
+        Vector3 effectStartPos = transform.position;
 
-        ParticleManager.instance.Play(key, transform.position + transform.forward * offsetZ, transform.rotation);
+        if (key == "Skill_1" || key == "Skill_2")
+            effectStartPos += transform.up * offsetY;
+        else if (key == "Skill_3")
+            effectStartPos += transform.forward * offsetZ;
+
+        ParticleManager.instance.Play(key, effectStartPos, transform.rotation);
     }
 }

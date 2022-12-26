@@ -8,6 +8,6 @@ public class ParticleCollision : MonoBehaviour
     private void OnParticleCollision(GameObject other)
     {
         if (other.CompareTag("Enemy"))
-            other.GetComponent<EnemyControl>().TakeDamage(10);
+            other.GetComponent<EnemyControl>().TakeDamage(50);
     }
 }

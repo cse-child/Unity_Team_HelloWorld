@@ -94,7 +94,7 @@ Transform:
   m_GameObject: {fileID: 1820092125}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.563, z: 0}
-  m_LocalScale: {x: 0.33924502, y: 1.0648, z: 0.22975509}
+  m_LocalScale: {x: 0.51310813, y: 1.5214927, z: 0.49962538}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 365309977}
@@ -43018,7 +43018,7 @@ GameObject:
   - component: {fileID: 269998019}
   - component: {fileID: 269998020}
   - component: {fileID: 269998021}
-  - component: {fileID: 8392508434127847602}
+  - component: {fileID: 327283433}
   m_Layer: 7
   m_Name: FemaleWarrior
   m_TagString: Player
@@ -43214,7 +43214,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &8392508434127847602
+--- !u!114 &327283433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43223,10 +43223,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1608198229272546}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9d56a6e267c6734d945fadb8f33f877, type: 3}
+  m_Script: {fileID: 11500000, guid: 4718ee9f817bafa439f60c0cf39e3c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hat: {fileID: 1790556060485934}
 --- !u!1 &1608226372549986
 GameObject:
   m_ObjectHideFlags: 0
