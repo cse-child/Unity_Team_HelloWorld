@@ -42,7 +42,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7759740658367329941, guid: 3e8692e71d577014c8ffb620024c21a4, type: 3}
       propertyPath: m_Constraints
-      value: 64
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 3752211461621997266, guid: 3e8692e71d577014c8ffb620024c21a4, type: 3}
       propertyPath: m_ApplyRootMotion
