@@ -28,11 +28,11 @@ public class PlayerInventoryData : MonoBehaviour
 
     private void Awake()
     {
-        ItemDataManager.instance.Awake();
     }
 
     void Start()
     {
+        inventory.CreateSlot();
         AddItem(1, 3);
         AddItem(2, 2);
         AddItem(3, 2);
@@ -58,6 +58,7 @@ public class PlayerInventoryData : MonoBehaviour
         if (hasItems[itemNum] <= 0)
             hasItems.Remove(itemNum);
     }
+
 
     public void SetInventory(InventoryManager inventory)
     {

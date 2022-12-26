@@ -91,22 +91,6 @@ namespace StarterAssets
 			SetCursorState(state);
 			print("cursor lockes -> " + state);
 		}
-
-		//public void ChangeCursorState()
-		//{
-		//	if (cursorLocked)
-		//	{
-        //        cursorLocked = false;
-		//		SetCursorState(false);
-		//		print("cursorLocked : true -> false");
-		//	}
-		//	else
-		//	{
-		//		cursorLocked = true;
-		//		SetCursorState(true);
-        //        print("cursorLocked : false -> true");
-        //    }
-        //}
 	}
 	
 }

@@ -20,6 +20,9 @@ public class UIControl : MonoBehaviour
         LootingUI = gameObject.transform.Find("LootingUI").gameObject;
         
         _input = FindObjectOfType<StarterAssetsInputs>();
+        ItemDataManager.instance.Awake();
+        ItemLootManager.instance.SetLootingUI(LootingUI);
+        PlayerInventoryData.instance.SetInventory(InventoryUI.transform.Find("BG").GetComponent<InventoryManager>());
     }
 
     public void Update()
@@ -32,6 +35,7 @@ public class UIControl : MonoBehaviour
             }
             else
             {
+                InventoryUI.transform.SetAsLastSibling();
                 InventoryUI.SetActive(true);
             }
             CheckCursorState();
@@ -44,6 +48,7 @@ public class UIControl : MonoBehaviour
             }
             else
             {
+                QuesteUI.transform.SetAsLastSibling();
                 QuesteUI.SetActive(true);
             }
             CheckCursorState();
@@ -56,6 +61,7 @@ public class UIControl : MonoBehaviour
             }
             else
             {
+                SkillUI.transform.SetAsLastSibling();
                 SkillUI.SetActive(true);
             }
             CheckCursorState();
@@ -68,9 +74,17 @@ public class UIControl : MonoBehaviour
             }
             else
             {
+                LootingUI.transform.SetAsLastSibling();
                 LootingUI.SetActive(true);
             }
             CheckCursorState();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log(transform.childCount);
+            transform.GetChild(transform.childCount-1).gameObject.SetActive(false);
+            transform.GetChild(transform.childCount - 1).transform.SetAsFirstSibling();
         }
     }
 
