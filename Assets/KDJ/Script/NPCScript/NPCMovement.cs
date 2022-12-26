@@ -39,13 +39,15 @@ public class NPCMovement : MonoBehaviour
 
         CheckNPCBehavior();
 
-        //CheckIsMove();
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            npcPathFollower.SetIsStop(true);
-        }
+        CheckIsMove();
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    npcPathFollower.SetIsStop(true);
+        //}
 
-        MoveForward();
+        NPCLookAtPlayer();
+
+        //MoveForward();
 
         npcAnimator.SetFloat("Move", move);
     }
@@ -58,19 +60,29 @@ public class NPCMovement : MonoBehaviour
 
     }
 
-    void CheckIsMove()
+    private void CheckIsMove()
     {
         if (GetIsMove())
         {
             move = 0.5f;
-            npcPathFollower.enabled = true;
+            npcPathFollower.SetIsStop(false);
         }
         else
         {
             move = 0.0f;
-            npcPathFollower.enabled = false;
+            npcPathFollower.SetIsStop(true);
         }
             
+    }
+
+    private void NPCLookAtPlayer()
+    {
+        if (isMove) return;
+
+        Vector3 dir = npcReactionRange.GetDirection();
+
+        this.transform.rotation = Quaternion.Lerp(this.transform.rotation,
+            Quaternion.LookRotation(dir), Time.deltaTime * 1.0f);
     }
     public void SetIsMove(bool input)
     {
