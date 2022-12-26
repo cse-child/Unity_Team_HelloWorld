@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCInteractable : MonoBehaviour
+public class NPCInteractable : MonoBehaviour, IInteractable
 {
+    [SerializeField] private string interactText;
+
     private Animator animator;
     private NPCHeadLookAt npcHeadLookAt;
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -24,5 +25,15 @@ public class NPCInteractable : MonoBehaviour
 
         float playerHeight = 1.7f;
         npcHeadLookAt.LookAtPosition(interactTransform.position + Vector3.up * playerHeight);
+    }
+
+    public string GetInteractText()
+    {
+        return interactText;
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
     }
 }
