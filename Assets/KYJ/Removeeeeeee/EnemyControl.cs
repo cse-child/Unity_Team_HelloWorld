@@ -15,6 +15,6 @@ public class EnemyControl : MonoBehaviour
     public void TakeDamage(int damage)
     {
         curHp -= damage;
-        print("Enemy Damaged! - " +curHp);
+        print(this.name+" Damaged! - " +curHp);
     }
 }
