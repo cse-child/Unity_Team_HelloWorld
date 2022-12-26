@@ -19,14 +19,14 @@ public class ItemLootManager : MonoBehaviour
     }
 
 
-    public LootingUIControl lootingUI;
+    public LootingUIControl lootingUIControl;
+    public GameObject lootingUI;
 
     List<Dictionary<int, int>> lootItem = new List<Dictionary<int,int>>();
 
 
     public void Start()
     {
-        SetLootingUI(GameObject.Find("LootingUI"));
     }
 
     public void ClearLootItem()
@@ -34,21 +34,35 @@ public class ItemLootManager : MonoBehaviour
         lootItem.Clear();
     }
 
-    public void AddLootItem(int itemNum, int count)
+    public void AddLootItem(int itemNum, int count)     //드랍아이템 추가
     {
+        foreach(Dictionary<int,int> searcher in lootItem)
+        {
+            foreach(KeyValuePair<int,int> s in searcher)
+            {
+                if(s.Key == itemNum)
+                {
+                    searcher[itemNum] += count;
+                    return;
+                }
+            }
+        }
         Dictionary<int, int> temp = new Dictionary<int, int>();
         temp.Add(itemNum, count);
         lootItem.Add(temp);
     }
 
-    public void OpenLootingUI()
+    public void OpenLootingUI()         //아이템 드랍창 키기
     {
-        
+        lootingUIControl.SetLootItem(lootItem);
+        lootingUI.transform.SetAsLastSibling();
+        lootingUI.SetActive(true);
     }
 
     public void SetLootingUI(GameObject UI)
     {
-        lootingUI = UI.GetComponent<LootingUIControl>();
+        lootingUI = UI;
+        lootingUIControl = UI.transform.Find("ItemGrid").GetComponent<LootingUIControl>();
     }
 
 

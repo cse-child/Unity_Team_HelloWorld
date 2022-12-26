@@ -34,11 +34,12 @@ public class MonsterCloseAttack : MonoBehaviour
         //        StartCoroutine(AttackCoroutine());
         //    }
         //}
-        if (Physics.Raycast(transform.position, transform.forward, out hitInfo, range))
-        {
-            Debug.Log("hit point : " + hitInfo.point + ", distance : " + hitInfo.distance + ", name : " + hitInfo.collider.name);
-            Debug.DrawRay(transform.position, transform.forward * hitInfo.distance, Color.red);
-        }
+        //animator.SetBool("isAttack", true);
+        //if (Physics.Raycast(transform.position, transform.forward, out hitInfo, range))
+        //{
+        //    Debug.Log("hit point : " + hitInfo.point + ", distance : " + hitInfo.distance + ", name : " + hitInfo.collider.name);
+        //    Debug.DrawRay(transform.position, transform.forward * hitInfo.distance, Color.red);
+        //}
         if (!isAttack)
         {
             StartCoroutine(AttackCoroutine());
@@ -65,7 +66,6 @@ public class MonsterCloseAttack : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, transform.forward, out hitInfo, range))
         {
-           
             return true;
         }
         return false;

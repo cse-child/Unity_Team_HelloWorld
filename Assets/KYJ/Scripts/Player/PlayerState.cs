@@ -12,4 +12,9 @@ public class PlayerState : MonoBehaviour
     public float curMp = 100;
     public float curExp = 0.0f;
     public int gold = 10000;
+
+    public void DecreaseHp(float value)
+    {
+        curHp -= value;
+    }
 }
