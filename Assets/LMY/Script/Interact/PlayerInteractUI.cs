@@ -7,7 +7,7 @@ public class PlayerInteractUI : MonoBehaviour
 {
     [SerializeField] private GameObject containerGameObject;
     [SerializeField] private PlayerInteract playerInteract;
-    [SerializeField] private TextMeshProUGUI interactTextMeshProUGUI;
+    [SerializeField] private TextMeshPro interactTextMeshPro;
 
     private void Update()
     {
@@ -24,7 +24,7 @@ public class PlayerInteractUI : MonoBehaviour
     private void Show(IInteractable interactable)
     {
         containerGameObject.SetActive(true);
-        interactTextMeshProUGUI.text = interactable.GetInteractText();
+        interactTextMeshPro.text = interactable.GetInteractText();
     }
 
     private void Hide()
