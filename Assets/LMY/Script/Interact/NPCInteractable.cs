@@ -19,7 +19,7 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         //여기에 대화상자등을 넣어주면 됨
         Debug.Log("Interact!");
 
-        //상호작용시 애니메이션을 재생하기 위한 트리거를 넣어줌
+        //상호작용시 NPC애니메이션을 재생하기 위한 트리거를 넣어줌
         //예시로 Talk로 만들어둠
         animator.SetTrigger("Talk");
 
