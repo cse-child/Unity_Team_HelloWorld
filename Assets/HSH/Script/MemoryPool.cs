@@ -41,13 +41,13 @@ public class MemoryPool : MonoBehaviour
         //오브젝트 생성 시 active = false로 설정
         maxCount += increaseCount;
 
-        for(int i= 0; i < increaseCount; increaseCount++)
+        for(int i= 0; i < increaseCount; ++i)
         {
             PoolItem poolItem = new PoolItem();
 
             poolItem.isActive = false;
             poolItem.gameObject = GameObject.Instantiate(poolObject); 
-            poolItem.isActive = true;
+            poolItem.gameObject.SetActive(false);
 
             poolItemList.Add(poolItem);
         }
@@ -60,7 +60,7 @@ public class MemoryPool : MonoBehaviour
 
         int count = poolItemList.Count;
 
-        for(int i =0; i < count; i++)
+        for(int i =0; i < count; ++i)
         {
             GameObject.Destroy(poolItemList[i].gameObject);
         }
@@ -80,7 +80,7 @@ public class MemoryPool : MonoBehaviour
 
         // 리스트 탐색하여 비활성화 오브젝트 활성화 후 오브젝트 반환
         int count = poolItemList.Count; 
-        for(int i = 0; i < count; i++)
+        for(int i = 0; i < count; ++i)
         {
             PoolItem poolItem = poolItemList[i];
             
@@ -88,7 +88,29 @@ public class MemoryPool : MonoBehaviour
             {
                 activeCount++;
                 poolItem.isActive = true;
-                poolItem.gameObject.SetActive(false);
+                poolItem.gameObject.SetActive(true);
+
+                return poolItem.gameObject;
+            }
+        }
+        return null;
+    }
+    public GameObject ActivateLimitePoolItem()
+    {
+        //poolItemList에 저장되어있는 오브젝트를 활성화 해서 사용
+        if (poolItemList == null) return null; //리스트가 비어있으면 return
+
+        // 리스트 탐색하여 비활성화 오브젝트 활성화 후 오브젝트 반환
+        int count = poolItemList.Count;
+        for (int i = 0; i < count; ++i)
+        {
+            PoolItem poolItem = poolItemList[i];
+
+            if (!poolItem.isActive)
+            {
+                activeCount++;
+                poolItem.isActive = true;
+                poolItem.gameObject.SetActive(true);
 
                 return poolItem.gameObject;
             }
@@ -102,13 +124,13 @@ public class MemoryPool : MonoBehaviour
         if(poolItemList == null || removeObject == null) return;
 
         int count = poolItemList.Count;
-        for(int i = 0; i < count; i++)
+        for(int i = 0; i < count; ++i)
         {
             PoolItem poolItem = poolItemList[i];
 
             if(poolItem.gameObject == removeObject)
             {
-                activeCount++;
+                activeCount--;
 
                 poolItem.isActive = false;
                 poolItem.gameObject.SetActive(false);
@@ -118,20 +140,18 @@ public class MemoryPool : MonoBehaviour
         }
     }
 
-    public void DeactivateAllPooling()
+    public void DeactivateAllPoolItem()
     {
         //현재 활성화된 모든 오브젝트를 비활성화 시키는 함수
         if (poolItemList == null) return;
 
         int count = poolItemList.Count;
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < count; ++i)
         {
             PoolItem poolItem = poolItemList[i];
 
             if (poolItem.gameObject != null && poolItem.isActive)
             {
-                activeCount++;
-
                 poolItem.isActive = false;
                 poolItem.gameObject.SetActive(false);
             }
@@ -140,4 +160,20 @@ public class MemoryPool : MonoBehaviour
         activeCount = 0;
     }
 
+    public void AllActivateFalse()
+    {
+        if (poolItemList == null) return;
+
+        // 리스트 탐색하여 비활성화 오브젝트 활성화 후 오브젝트 반환
+        int count = poolItemList.Count;
+        for (int i = 0; i < count; ++i)
+        {
+            PoolItem poolItem = poolItemList[i];
+
+            if (!poolItem.isActive)
+            {
+                activeCount++;
+            }
+        }
+    }
 }
