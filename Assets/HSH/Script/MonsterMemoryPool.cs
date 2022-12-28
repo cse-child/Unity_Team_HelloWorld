@@ -19,7 +19,7 @@ public class MonsterMemoryPool : MonoBehaviour
     private int numberOfEnemiesSpawnAtOnce = 1; // 동시에 생성되는 적 숫자
 
     public GameObject spawnArea;
-    private Vector2Int mapSize = new Vector2Int(10,10); //맵크기
+    private Vector2Int mapSize = new Vector2Int(100,100); //맵크기
 
     private void Awake()
     {
@@ -36,7 +36,7 @@ public class MonsterMemoryPool : MonoBehaviour
 
         while(true)
         {
-            for(int i = 0; i < numberOfEnemiesSpawnAtOnce; i++)
+            for(int i = 0; i < numberOfEnemiesSpawnAtOnce; ++i)
             {
                 GameObject item = spawnPointMemoryPool.ActivatePoolItem();
 
