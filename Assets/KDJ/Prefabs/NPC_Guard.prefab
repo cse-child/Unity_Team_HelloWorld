@@ -671,6 +671,8 @@ GameObject:
   - component: {fileID: 8635815629846663554}
   - component: {fileID: 871868226209674274}
   - component: {fileID: 3352494698225833746}
+  - component: {fileID: 5842558094267438027}
+  - component: {fileID: 8197695876778593155}
   m_Layer: 0
   m_Name: NPC_Guard
   m_TagString: NPC
@@ -766,6 +768,34 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.85, z: 1}
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &5842558094267438027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8542558931704350550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99756d4a3cb1c954ab6c9c9180ba5faa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcRotation: {fileID: 0}
+  isTalkingPlayerToNPC: 0
+--- !u!114 &8197695876778593155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8542558931704350550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9357bbec012774fb9a60216f4846d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRotation: 0
+  npcReactionRange: {fileID: 0}
 --- !u!1 &8542566875239584144
 GameObject:
   m_ObjectHideFlags: 0
