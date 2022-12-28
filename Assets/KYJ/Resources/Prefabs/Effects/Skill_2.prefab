@@ -4917,7 +4917,7 @@ GameObject:
   - component: {fileID: 199767151382403500}
   - component: {fileID: 7583524567120836607}
   m_Layer: 0
-  m_Name: Sword Slash 7
+  m_Name: Skill_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
