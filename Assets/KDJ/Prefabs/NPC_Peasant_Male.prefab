@@ -4291,8 +4291,8 @@ GameObject:
   - component: {fileID: 5880650199119653474}
   - component: {fileID: 2472865000954607488}
   - component: {fileID: 461598075424544596}
-  - component: {fileID: 3160334062082336985}
   - component: {fileID: -785404738659395983}
+  - component: {fileID: -8259647268317154692}
   m_Layer: 0
   m_Name: NPC_Peasant_Male
   m_TagString: NPC
@@ -4369,7 +4369,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 1.85, z: 0.35}
+  m_Size: {x: 1, y: 1.85, z: 1}
   m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!135 &-3761891870283261787
 SphereCollider:
@@ -4412,6 +4412,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7483910b537ac4d97167ec07518cf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcMoveSpeed: 0
+  npcRotSpeed: 0.5
+  move: 0
+  npcAnimator: {fileID: 0}
+  npcPathFollower: {fileID: 0}
+  npcFunction: {fileID: 0}
+  npcReactionRange: {fileID: 0}
 --- !u!114 &461598075424544596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4424,18 +4431,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99756d4a3cb1c954ab6c9c9180ba5faa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3160334062082336985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8912256248396173435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecb0ceb7f41a03b4fb9c90232295b59f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  npcRotation: {fileID: 0}
+  isTalkingPlayerToNPC: 0
 --- !u!114 &-785404738659395983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4450,7 +4447,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathCreator: {fileID: 0}
   endOfPathInstruction: 0
-  speed: 5
+  isStop: 0
+--- !u!114 &-8259647268317154692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8912256248396173435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9357bbec012774fb9a60216f4846d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRotation: 0
+  npcReactionRange: {fileID: 0}
 --- !u!1 &8912258731301639237
 GameObject:
   m_ObjectHideFlags: 0

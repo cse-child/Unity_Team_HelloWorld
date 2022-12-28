@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,9 @@ public class PlayerControl : MonoBehaviour
 
     private Animator animator;
 
+    private PlayerState playerState;
+    private StarterAssetsInputs starterAssetsInputs;
+
     private int curWeaponState;
 
     private readonly int hashDeath = Animator.StringToHash("Death");
@@ -21,6 +25,8 @@ public class PlayerControl : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        playerState = GetComponent<PlayerState>();
+        starterAssetsInputs = FindObjectOfType<StarterAssetsInputs>();
     }
 
     private void Start()
@@ -35,21 +41,23 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        PlayAnimations();
-
         Looting();
         Attack();
         EquippedWeapon();
         Skill();
     }
 
-    private void PlayAnimations()
+    // Player 데미지 -> HP 감소
+    public void TakeDamage(float value)
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        animator.SetTrigger(hashDamage);
+        playerState.DecreaseHp(value);
+
+        // 죽었니?
+        if(playerState.curHp <= 0)
+        {
             animator.SetTrigger(hashDeath);
-        if(Input.GetKeyDown(KeyCode.F2))
-            animator.SetTrigger(hashDamage);
-        
+        }
     }
 
     // 마우스 왼쪽 버튼 - 공격
@@ -57,6 +65,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (!starterAssetsInputs.cursorLocked) return; // 마우스 활성화 상태면 공격 불가
             animator.SetTrigger(hashAttack);
         }
     }
@@ -88,7 +97,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    // 무기 Prefab Active On/Off
+    // 애니메이션 Event - 무기 Prefab Active On/Off
     private void ChangeWeaponActive()
     {
         if (weaponSocket)
@@ -114,14 +123,31 @@ public class PlayerControl : MonoBehaviour
             animator.SetInteger("SkillState", 4);
     }
 
+    // 애니메이션 Event - 스킬 상태 초기화
     private void ResetSkillState()
     {
         animator.SetInteger("SkillState", 0);
     }
 
+    // 애니메이션 Event - 양손검 무기 Collider 활성화
     private void OnAttackCollision()
     {
-        print("OnAttackCollision");
+        //print("OnAttackCollision");
         attackCollision.SetActive(true);
+    }
+
+    // 애니메이션 Event - Skill Effect Play 함수
+    private void PlaySkillEffect(string key)
+    {
+        float offsetZ = 7;
+        float offsetY = 1;
+        Vector3 effectStartPos = transform.position;
+
+        if (key == "Skill_1" || key == "Skill_2")
+            effectStartPos += transform.up * offsetY;
+        else if (key == "Skill_3")
+            effectStartPos += transform.forward * offsetZ;
+
+        ParticleManager.instance.Play(key, effectStartPos, transform.rotation);
     }
 }

@@ -7,19 +7,17 @@ using UnityEngine;
 
 public class NPCMovement : MonoBehaviour
 {
-    private float npcMoveSpeed = 0.0f;
-    private float npcRotSpeed = 0.5f;
+    public float npcMoveSpeed = 0.0f;
+    public float npcRotSpeed = 0.5f;
 
-    private float move = 0.0f;
+    public float move = 0.0f;
 
-    private Vector3 npcToPlayerDirection;
+    public Animator npcAnimator;
+    public PathFollower npcPathFollower;
+    public NPCFunction npcFunction;
+    public NPCReactionRange npcReactionRange;
 
-    private Animator npcAnimator;
-    private PathFollower npcPathFollower;
-    private NPCFunction npcFunction;
-    private NPCReactionRange npcReactionRange;
-
-    private bool isMove = false;
+    private bool isMove;
     private bool temp = false;
 
     private void Start()
@@ -27,25 +25,16 @@ public class NPCMovement : MonoBehaviour
         npcAnimator = GetComponent<Animator>();
         npcPathFollower = GetComponent<PathFollower>();
         npcFunction = GetComponent<NPCFunction>();
-        npcReactionRange = GetComponent<NPCReactionRange>();
+        npcReactionRange = transform.Find("NPC_ReactionRange").GetComponent<NPCReactionRange>();
         npcMoveSpeed = npcPathFollower.GetSpeed();
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            temp = !temp;
-            npcFunction.SetIsTalkingPlayerToNPC(temp);
-        }
-
+        
         CheckNPCBehavior();
 
         CheckIsMove();
-
-        MoveForward();
-
-        RotationToPlayer();
 
         npcAnimator.SetFloat("Move", move);
     }
@@ -60,18 +49,20 @@ public class NPCMovement : MonoBehaviour
 
     private void CheckIsMove()
     {
-        if (isMove)
+        if (GetIsMove())
         {
             move = 0.5f;
-            npcPathFollower.enabled = true;
+            npcPathFollower.SetIsStop(false);
         }
         else
         {
             move = 0.0f;
-            npcPathFollower.enabled = false;
+            npcPathFollower.SetIsStop(true);
         }
             
     }
+
+
     public void SetIsMove(bool input)
     {
         isMove = input;
@@ -85,17 +76,6 @@ public class NPCMovement : MonoBehaviour
             isMove = true;
     }
 
-    private void RotationToPlayer()
-    {
-        if (!isMove)
-        {
-            npcToPlayerDirection = npcReactionRange.GetTargetDirection();
-            this.transform.rotation = Quaternion.Lerp(this.transform.rotation,
-                Quaternion.LookRotation(npcToPlayerDirection), Time.deltaTime * npcRotSpeed);
-        }
-        else
-            return;
-    }
     public float GetNPCMoveSpeed()
     {
         return npcMoveSpeed;
@@ -104,5 +84,10 @@ public class NPCMovement : MonoBehaviour
     public Vector3 GetNPCPosition()
     {
         return this.transform.position;
+    }
+
+    private bool GetIsMove()
+    {
+        return isMove;
     }
 }
