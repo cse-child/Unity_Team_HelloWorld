@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 6015028994330226932}
   - component: {fileID: -7759740658367329941}
   - component: {fileID: 4376937527304055758}
-  - component: {fileID: 1546146877738021445}
+  - component: {fileID: 3782687999595161260}
   m_Layer: 0
   m_Name: NPC_Peasant_Female
   m_TagString: NPC
@@ -710,8 +710,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99756d4a3cb1c954ab6c9c9180ba5faa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcRotation: {fileID: 0}
   isTalkingPlayerToNPC: 0
---- !u!114 &1546146877738021445
+--- !u!114 &3782687999595161260
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -720,9 +721,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3838206045823480358}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecb0ceb7f41a03b4fb9c90232295b59f, type: 3}
+  m_Script: {fileID: 11500000, guid: db9357bbec012774fb9a60216f4846d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRotation: 0
+  npcReactionRange: {fileID: 0}
 --- !u!1 &3838207446671329410
 GameObject:
   m_ObjectHideFlags: 0
