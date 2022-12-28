@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4503402071951181804}
   - component: {fileID: 5916611780982806382}
   - component: {fileID: 8288549668332136041}
+  - component: {fileID: 5494865462822058984}
   m_Layer: 0
   m_Name: MonsterSpawnPoint
   m_TagString: Untagged
@@ -97,3 +98,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5494865462822058984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836607274243984910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be9b1a80506ce4a4b93d0be1483ea7ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeSpeed: 2
