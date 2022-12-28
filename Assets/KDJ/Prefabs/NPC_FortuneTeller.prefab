@@ -1191,6 +1191,8 @@ GameObject:
   - component: {fileID: 8056119398254783528}
   - component: {fileID: -2058924026773845457}
   - component: {fileID: -2137808947388937151}
+  - component: {fileID: 3254279028290834729}
+  - component: {fileID: 2758356393111644878}
   m_Layer: 0
   m_Name: NPC_FortuneTeller
   m_TagString: NPC
@@ -1286,6 +1288,34 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.85, z: 1}
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &3254279028290834729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7969707509903183450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99756d4a3cb1c954ab6c9c9180ba5faa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcRotation: {fileID: 0}
+  isTalkingPlayerToNPC: 0
+--- !u!114 &2758356393111644878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7969707509903183450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9357bbec012774fb9a60216f4846d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRotation: 0
+  npcReactionRange: {fileID: 0}
 --- !u!1 &7969708557172066076
 GameObject:
   m_ObjectHideFlags: 0

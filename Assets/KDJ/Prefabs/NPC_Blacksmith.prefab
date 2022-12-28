@@ -4204,8 +4204,8 @@ GameObject:
   - component: {fileID: 4285423599410841146}
   - component: {fileID: 898298317524743692}
   - component: {fileID: -4463497723569138709}
-  - component: {fileID: 3417837171451129455}
   - component: {fileID: 4545321639437610186}
+  - component: {fileID: 7333358387495980426}
   m_Layer: 0
   m_Name: NPC_Blacksmith
   m_TagString: NPC
@@ -4301,18 +4301,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 36
   m_CollisionDetection: 0
---- !u!114 &3417837171451129455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4192664492154457882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecb0ceb7f41a03b4fb9c90232295b59f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4545321639437610186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4325,7 +4313,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99756d4a3cb1c954ab6c9c9180ba5faa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcRotation: {fileID: 0}
   isTalkingPlayerToNPC: 0
+--- !u!114 &7333358387495980426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4192664492154457882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9357bbec012774fb9a60216f4846d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRotation: 0
+  npcReactionRange: {fileID: 0}
 --- !u!1 &4192674796150885786
 GameObject:
   m_ObjectHideFlags: 0
