@@ -48869,7 +48869,7 @@ GameObject:
   - component: {fileID: 199017896374315618}
   - component: {fileID: 4883695318182677008}
   m_Layer: 0
-  m_Name: Sword Slash 15
+  m_Name: Skill_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
