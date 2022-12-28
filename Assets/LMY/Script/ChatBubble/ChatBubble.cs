@@ -39,7 +39,7 @@ public class ChatBubble : MonoBehaviour
 
     private void Start()
     {
-        Setup(IconType.Neutral, "Hello Hero! May I Help You?");
+        Setup(IconType.Neutral, "Hello! May I Help You?");
     }
 
     private void Setup(IconType iconType, string text)
