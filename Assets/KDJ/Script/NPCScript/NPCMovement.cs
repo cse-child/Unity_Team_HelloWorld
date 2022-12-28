@@ -31,23 +31,10 @@ public class NPCMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            temp = !temp;
-            npcFunction.SetIsTalkingPlayerToNPC(temp);
-        }
-
+        
         CheckNPCBehavior();
 
         CheckIsMove();
-        //if(Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    npcPathFollower.SetIsStop(true);
-        //}
-
-        NPCLookAtPlayer();
-
-        //MoveForward();
 
         npcAnimator.SetFloat("Move", move);
     }
@@ -75,15 +62,7 @@ public class NPCMovement : MonoBehaviour
             
     }
 
-    private void NPCLookAtPlayer()
-    {
-        if (isMove) return;
 
-        Vector3 dir = npcReactionRange.GetDirection();
-
-        this.transform.rotation = Quaternion.Lerp(this.transform.rotation,
-            Quaternion.LookRotation(dir), Time.deltaTime * 1.0f);
-    }
     public void SetIsMove(bool input)
     {
         isMove = input;
