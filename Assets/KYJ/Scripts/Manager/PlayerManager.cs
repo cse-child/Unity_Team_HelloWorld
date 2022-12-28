@@ -7,5 +7,6 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         ParticleManager.instance.CreateParticle();
+        SkillDataManager.instance.LoadItemData();
     }
 }

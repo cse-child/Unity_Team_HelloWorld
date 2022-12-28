@@ -52,7 +52,6 @@ public class ParticleManager : MonoBehaviour
     {
         if (!particles.ContainsKey(key)) return;
     
-    
         particles[key].SetActive(true);
         particles[key].transform.position = pos;
         particles[key].transform.rotation = rot;
