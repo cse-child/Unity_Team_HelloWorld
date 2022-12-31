@@ -9,6 +9,7 @@ public class UIControl : MonoBehaviour
     public GameObject QuesteUI;
     public GameObject SkillUI;
     public GameObject LootingUI;
+    public GameObject StatusUI;
 
     private StarterAssetsInputs _input;
 
@@ -18,7 +19,9 @@ public class UIControl : MonoBehaviour
         QuesteUI = gameObject.transform.Find("Queste").gameObject;
         SkillUI = gameObject.transform.Find("SkillUI").gameObject;
         LootingUI = gameObject.transform.Find("LootingUI").gameObject;
+        StatusUI = gameObject.transform.Find("StatusUI").gameObject;
         
+
         _input = FindObjectOfType<StarterAssetsInputs>();
         ItemDataManager.instance.Awake();
         ItemLootManager.instance.SetLootingUI(LootingUI);
@@ -76,6 +79,19 @@ public class UIControl : MonoBehaviour
             {
                 LootingUI.transform.SetAsLastSibling();
                 LootingUI.SetActive(true);
+            }
+            CheckCursorState();
+        }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if(StatusUI.activeSelf)
+            {
+                StatusUI.SetActive(false);
+            }
+            else
+            {
+                StatusUI.transform.SetAsLastSibling();
+                StatusUI.SetActive(true);
             }
             CheckCursorState();
         }
