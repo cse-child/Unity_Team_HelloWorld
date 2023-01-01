@@ -5,15 +5,15 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using System.IO;
 
-public class TraceAI : MonoBehaviour
+public class DragonAI : MonoBehaviour
 {
     enum State
     {
         IDLE, TRACE, ATTACK, DEAD, HURT
     }
 
-    public float traceRange = 5.0f;
-    public float attackRange = 1.0f;
+    public float traceRange = 10.0f;
+    public float attackRange = 3.0f;
 
     public float moveSpeed = 0.5f;
     public float rotateSpeed = 0.5f;
@@ -103,11 +103,6 @@ public class TraceAI : MonoBehaviour
     private void Trace()
     {
         if (animator.GetBool("isDie")) return;
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton@Attack01")) return;
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton@Idle01_Action01")) return;
-
-        animator.SetBool("isAttack", false);
-        animator.SetBool("isTrace", true);
 
         Vector3 direction = target.transform.position - transform.position;
         transform.rotation = Quaternion.LookRotation(direction);
@@ -122,18 +117,15 @@ public class TraceAI : MonoBehaviour
     //}
     private void EndAttack()
     {
-        animator.SetBool("isAttack", false);
     }
     private void Idle()
     {
-        animator.SetBool("isAttack", false);
-        animator.SetBool("isTrace", false);
  
     }
     private void RotateMove()
     {
         if(animator.GetBool("isTrace")) return;
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton@Idle01_Action01"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.902f)
             {
