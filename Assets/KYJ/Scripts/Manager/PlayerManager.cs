@@ -8,5 +8,6 @@ public class PlayerManager : MonoBehaviour
     {
         ParticleManager.instance.CreateParticle();
         SkillDataManager.instance.LoadItemData();
+        SkillManager.instance.InitSkillInfos();
     }
 }

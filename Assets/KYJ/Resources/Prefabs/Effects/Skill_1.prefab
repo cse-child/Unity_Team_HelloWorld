@@ -24442,7 +24442,6 @@ GameObject:
   - component: {fileID: 198393960337124616}
   - component: {fileID: 199415115864821468}
   - component: {fileID: 2654343470485363617}
-  - component: {fileID: 7054972344874557959}
   m_Layer: 0
   m_Name: Skill_1
   m_TagString: Untagged
@@ -29341,20 +29340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a72e0fe55c5455646a7e986afb401c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7054972344874557959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1919708242137258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90916ea1d0ee54f4b979bf28445e91bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillNum: 1
-  available: 0
 --- !u!1 &1930896904671498
 GameObject:
   m_ObjectHideFlags: 0
