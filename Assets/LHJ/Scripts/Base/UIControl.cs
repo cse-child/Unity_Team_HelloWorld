@@ -23,7 +23,6 @@ public class UIControl : MonoBehaviour
         
 
         _input = FindObjectOfType<StarterAssetsInputs>();
-        ItemDataManager.instance.Awake();
         ItemLootManager.instance.SetLootingUI(LootingUI);
         PlayerInventoryData.instance.SetInventory(InventoryUI.transform.Find("BG").GetComponent<InventoryManager>());
     }
