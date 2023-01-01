@@ -41,9 +41,10 @@ public class ItemFarming : MonoBehaviour
         }
         if (isFarming)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 ItemLootManager.instance.AddLootItem(1, 3);
+                ItemLootManager.instance.OpenLootingUI();
                 Destroy(gameObject);
             }
         }
