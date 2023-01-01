@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TestScript : MonoBehaviour
 {
+    private void Awake()
+    {
+        QuestDataManager.instance.Awake();
+    }
     // Start is called before the first frame update
     void Start()
     {

@@ -13,13 +13,26 @@ public class MonsterCloseAttack : MonoBehaviour
     public float attackClose;// 모션 중 공격판정이 안되는 순간
 
     private Animator animator;
+    private CapsuleCollider myCollider;
     private bool isAttack = false; // 공격중
     private bool isSwing = false; // 검 휘두르는 중
 
     private RaycastHit hitInfo; // 현재 무기에 닿은 오브젝트 정보
+    public LayerMask layerMask;
+    Vector3 control = new Vector3(0, 1, 0);
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            Debug.Log("Hit");
+        }
+    }
+
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        myCollider = GetComponent<CapsuleCollider>();
     }
     private void Update()
     {
@@ -27,19 +40,6 @@ public class MonsterCloseAttack : MonoBehaviour
     }
     public void TryAttack()
     {
-        //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton@Attack01"))
-        //{
-        //    if(!isAttack)
-        //    {
-        //        StartCoroutine(AttackCoroutine());
-        //    }
-        //}
-        //animator.SetBool("isAttack", true);
-        //if (Physics.Raycast(transform.position, transform.forward, out hitInfo, range))
-        //{
-        //    Debug.Log("hit point : " + hitInfo.point + ", distance : " + hitInfo.distance + ", name : " + hitInfo.collider.name);
-        //    Debug.DrawRay(transform.position, transform.forward * hitInfo.distance, Color.red);
-        //}
         if (!isAttack)
         {
             StartCoroutine(AttackCoroutine());
@@ -55,33 +55,41 @@ public class MonsterCloseAttack : MonoBehaviour
         isSwing = true;
         StartCoroutine(HitCoroutine());
 
-        yield return new WaitForSeconds(attackClose);
+        //yield return new WaitForSeconds(attackClose);
         isSwing = false;
 
-        yield return new WaitForSeconds(attackDelay - attackProcessing - attackClose);
+        //yield return new WaitForSeconds(attackDelay - attackProcessing - attackClose);
         isAttack = false;
     }
 
     private bool CheckObject()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out hitInfo, range))
+        //if (Physics.Raycast(transform.position, transform.forward, out hitInfo, range))
+        //{
+        //    return true;
+        //}
+        //return false;
+        
+        if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
         {
+            print("HIT2");
+            hitInfo.transform.GetComponent<PlayerHpTest>().Hurt();
             return true;
         }
         return false;
     }
     private IEnumerator HitCoroutine()
     {
-        while(isSwing)
+        while (isSwing)
         {
-            if(CheckObject())
+            Debug.DrawRay(myCollider.transform.position + control, transform.forward * range, Color.blue, 0.3f);
+            if (CheckObject())
             {
                 isSwing = false;
-                print(isSwing);
-                print(isAttack);
                 Debug.Log(hitInfo.transform.name);
             }
             yield return null;
         }
     }
+
 }

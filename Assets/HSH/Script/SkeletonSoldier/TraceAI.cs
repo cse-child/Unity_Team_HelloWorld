@@ -44,12 +44,6 @@ public class TraceAI : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKey("h"))
-        {
-            //animator.SetTrigger("trigDie");
-            //animator.SetBool("isDie", true);
-            //curState = State.DEAD;
-        }
         //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
         SetAction();
         Hurt();
