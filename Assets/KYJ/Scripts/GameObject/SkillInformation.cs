@@ -10,24 +10,24 @@ public class SkillInformation : MonoBehaviour
 
     private void Start()
     {
-        if(skillNum != 0)
-        {
-            data = SkillDataManager.instance.GetSkillData(skillNum);
-            if (data.learning)
-            {
-                available = true;
-                print(this.name + " 사용 가능");
-            }
-        }
+        
     }
 
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    print("1번 눌림쓰");
-        //    StartCoroutine(CoolTime(data.coolTime));
-        //}
+        
+    }
+
+    public void Init(int skillNum)
+    {
+        this.skillNum = skillNum;
+        data = SkillDataManager.instance.GetSkillData(skillNum);
+        print(skillNum + " 스킬 초기화 완료~");
+    }
+
+    public void PlaySkill()
+    {
+        StartCoroutine(CoolTime(3.0f));
     }
 
     IEnumerator CoolTime (float cool)
