@@ -20,7 +20,7 @@ public class TestScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
             QuestDataManager.instance.ClearQuest("qst_005");
         if(Input.GetKeyDown(KeyCode.A))
-            ItemLootManager.instance.AddLootItem(2, 3);
+            QuestDataManager.instance.AddQuest("qst_005");
 
         if (Input.GetKeyDown(KeyCode.F))
             ItemLootManager.instance.OpenLootingUI();
