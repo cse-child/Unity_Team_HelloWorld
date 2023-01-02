@@ -17,8 +17,8 @@ public class TestScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.B))
-            ItemLootManager.instance.AddLootItem(1, 3);
+        if (Input.GetKeyDown(KeyCode.B))
+            QuestDataManager.instance.ClearQuest("qst_005");
         if(Input.GetKeyDown(KeyCode.A))
             ItemLootManager.instance.AddLootItem(2, 3);
 
