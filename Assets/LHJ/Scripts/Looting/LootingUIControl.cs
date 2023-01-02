@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using StarterAssets;
+using UnityEngine.Windows;
 
 public class LootingUIControl : MonoBehaviour
 {
@@ -54,6 +56,8 @@ public class LootingUIControl : MonoBehaviour
         slots.Clear();
         lootItem.Clear();
         ItemLootManager.instance.ClearLootItem();
+        FindObjectOfType<StarterAssetsInputs>().SetCursorLocked(true);
+        FindObjectOfType<StarterAssetsInputs>().cursorLocked = true;
     }
 
     public void SetLootItem(List<Dictionary<int,int>> lootItem) 

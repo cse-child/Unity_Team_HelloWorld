@@ -11,7 +11,6 @@ public class SkillManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                // 이 방법으로 사용하면 하이어라키 창에 DataManager를 넣지 않아도 됨
                 GameObject obj = new GameObject("SkillManager");
                 _instance = obj.AddComponent<SkillManager>();
             }
@@ -22,19 +21,18 @@ public class SkillManager : MonoBehaviour
 
     public List<SkillInformation> skillInfos = new List<SkillInformation>();
 
-    private void Start()
+    private PlayerControl playerControl;
+    private PlayerState playerState;
+
+    private void Awake()
     {
-        
+        playerControl = FindObjectOfType<PlayerControl>();
+        playerState = FindObjectOfType<PlayerState>();
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            print("1번 눌림쓰");
-            //skillInfos[0].PlaySkill();
-            StartCoroutine(CoolTime(7.0f));
-        }
+        PlaySkills();
     }
 
     public void InitSkillInfos()
@@ -46,19 +44,34 @@ public class SkillManager : MonoBehaviour
 
             skillInfos.Add(info);
         }
+        // 스킬 단축키 설정하기 예시 !!
+        skillInfos[0].SetKeyCode(KeyCode.Alpha1);
+        skillInfos[1].SetKeyCode(KeyCode.Alpha2);
+        skillInfos[2].SetKeyCode(KeyCode.Alpha3);
     }
 
-    IEnumerator CoolTime(float cool)
+    private void PlaySkills()
     {
-        print("쿨타임 코루틴 실행");
+        if (playerControl.WeaponState() == 0) return;
 
-        while (cool > 1.0f)
+        foreach (SkillInformation info in skillInfos)
         {
-            cool -= Time.deltaTime;
-            print("시간 : " + 1.0f / cool);
-            yield return new WaitForFixedUpdate();
-        }
+            if (Input.GetKeyDown(info.GetKeyCode()) && info.available)
+            {
+                // Player MP 감소
+                if (playerState.curMp < info.data.decreaseMP)
+                {
+                    print("MP가 부족하여 스킬을 사용할 수 없습니다.");
+                    return; // MP 부족하면 스킬 사용X
+                }
+                else
+                    playerState.curMp -= info.data.decreaseMP;
 
-        print("쿨타임 코루틴 완료");
+                // Cool Time 코루틴 시작
+                StartCoroutine(info.CoolTime());
+                // Skill Animation 실행
+                playerControl.PlaySkill(info.data.skillNum);
+            }
+        }
     }
 }
