@@ -22,6 +22,7 @@ public class PlayerControl : MonoBehaviour
     private readonly int hashAttack = Animator.StringToHash("Attack");
     private readonly int hashDamage = Animator.StringToHash("Damage");
 
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -36,15 +37,14 @@ public class PlayerControl : MonoBehaviour
             if(weaponSocket)
                 weaponSocket.SetActive(false);
         }
-
     }
 
     private void Update()
     {
-        Looting();
+        if (Input.GetKeyDown(KeyCode.Z))
+            Looting();
         Attack();
         EquippedWeapon();
-        Skill();
     }
 
     // Player 데미지 -> HP 감소
@@ -71,10 +71,9 @@ public class PlayerControl : MonoBehaviour
     }
 
     // 아이템 줍기
-    private void Looting()
+    public void Looting()
     {
-        if(Input.GetKeyDown(KeyCode.Z))
-            animator.SetTrigger(hashLooting);
+        animator.SetTrigger(hashLooting);
     }
 
     // 무기 장착/해제
@@ -106,21 +105,17 @@ public class PlayerControl : MonoBehaviour
                 weaponSocket.SetActive(false);
             else
                 weaponSocket.SetActive(true);
-
         }
     }
 
-    // 스킬 사용 - 1,2,3,4 번
-    private void Skill()
+    public void PlaySkill(int skillNum)
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            animator.SetInteger("SkillState", 1);
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            animator.SetInteger("SkillState", 2);
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            animator.SetInteger("SkillState", 3);
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            animator.SetInteger("SkillState", 4);
+        animator.SetInteger("SkillState", skillNum);
+    }
+
+    public int WeaponState()
+    {
+        return curWeaponState;
     }
 
     // 애니메이션 Event - 스킬 상태 초기화
