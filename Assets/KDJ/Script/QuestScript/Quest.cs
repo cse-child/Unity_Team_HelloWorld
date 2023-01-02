@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class Quest : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    
+    public bool isActive = false;
+
+    public struct QuestInfo
+    {
+        public string questCode;
+        public string questType;
+    }
+
+    public QuestInfo questInfo;
+
+    private void Awake()
     {
         
     }
