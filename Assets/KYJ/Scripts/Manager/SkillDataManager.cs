@@ -35,6 +35,14 @@ public class SkillDataManager : MonoBehaviour
 
     List<SkillData> skills = new List<SkillData>();
 
+    // 하이어라키 확인용
+    public List<string> skillNames = new List<string>();
+    
+
+    public void Awake()
+    {
+    }
+
     public void LoadItemData()
     {
         string temp = System.IO.File.ReadAllText("Assets/KYJ/Resources/TextData/SkillDataTable.csv");
@@ -64,11 +72,18 @@ public class SkillDataManager : MonoBehaviour
             tempData.explanation = col[8];
 
             skills.Add(tempData);
+            skillNames.Add(tempData.skillName);
         }
     }
 
     public SkillData GetSkillData(int skillNum)
     {
-        return skills[skillNum - 1];
+        print("skillNum : " + skillNum);
+        return skills[skillNum-1]; // output: 1,2,3,4
+    }
+
+    public List<SkillData> GetAllSkillData()
+    {
+        return skills;
     }
 }
