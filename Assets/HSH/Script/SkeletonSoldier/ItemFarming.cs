@@ -45,6 +45,7 @@ public class ItemFarming : MonoBehaviour
             {
                 ItemLootManager.instance.AddLootItem(1, 3);
                 ItemLootManager.instance.OpenLootingUI();
+                //PlayerControl.Looting();
                 Destroy(gameObject);
             }
         }
