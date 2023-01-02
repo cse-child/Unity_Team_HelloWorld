@@ -19,50 +19,38 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public struct QuestData
-    {
-        public string questCode;
-        public string questName;
-        public string questType;
-        public string questGoal;
-        public string questDetail;
-        public string questAchivement;
-        public string questLevelRequire;
-    }
-
-    List<QuestData> quests = new List<QuestData>();
+    List<Quest> quests = new List<Quest>();
 
     public void Awake()
-    {
-        LoadQuestData();
+    { 
+        LoadQuest();
     }
 
-    private void LoadQuestData()
+    private void LoadQuest()
     {
-        string temp = System.IO.File.ReadAllText("Assets/KDJ/TextData/QuestData.csv");
-        temp = temp.Replace("\r\n", "\n");
-        string[] row = temp.Split("\n");
-        for(int i = 1; i < row.Length; i++)
+        //foreach
+        //{
+        //
+        //}
+
+        Quest.QuestInfo questInfo;
+        //questInfo.questCode = 
+        //questInfo.questType =
+    }
+
+    public List<Quest> GetQuests()
+    {
+        return quests;
+    }
+
+    public Quest GetQuest(string questCode)
+    {
+        foreach (Quest quest in quests)
         {
-            string[] col = row[i].Split(",");
-            //string[] questValue = col[2].Split("_");
-            //string[] questAchieveValue = col[5].Split("_");
-
-            QuestData questData;
-            questData.questCode = col[0];
-            questData.questName = col[1];
-            questData.questType = col[2];
-            questData.questGoal = col[3];
-            questData.questDetail = col[4];
-            questData.questAchivement = col[5];
-            questData.questLevelRequire = col[6];
-
-            quests.Add(questData);
+            if (questCode == quest.questInfo.questCode)
+                return quest;
         }
-    }
 
-    public QuestData GetQuestData(int num)
-    {
-        return quests[num - 1];
+        return null;
     }
 }

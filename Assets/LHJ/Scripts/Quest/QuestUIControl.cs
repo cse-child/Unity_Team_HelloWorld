@@ -12,10 +12,15 @@ public class QuestUIControl : MonoBehaviour
     private GameObject questList;
     private Text questInfo;
     private Text target;
-    public Text achivementExp;
-    public List<GameObject> achivement = new List<GameObject>();
+    private Text achivementExp;
+    private List<GameObject> achivementObject = new List<GameObject>();
     private GameObject selectQuest;
     private GameObject selectQuestbar;
+
+    private void Awake()
+    {
+        QuestDataManager.instance.SetQuestUIControl(this);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -30,15 +35,15 @@ public class QuestUIControl : MonoBehaviour
         achivementExp = questInfoObject.transform.Find("EXP").Find("EXPPluse").GetComponent<Text>();
         for (int i = 1; i < 6; i++)
         {
-            achivement.Add(questInfoObject.transform.Find("ItemTable").transform.Find("Achivement"+i).gameObject);
+            achivementObject.Add(questInfoObject.transform.Find("ItemTable").transform.Find("Achivement"+i).gameObject);
         }
-        AddQust("qst_001");
-        AddQust("qst_002");
-        AddQust("qst_003");
-        AddQust("qst_004");
-        AddQust("qst_005");
-        AddQust("qst_006");
-        AddQust("qst_007");
+        AddQuest("qst_001");
+        AddQuest("qst_002");
+        AddQuest("qst_003");
+        AddQuest("qst_004");
+        AddQuest("qst_005");
+        AddQuest("qst_006");
+        AddQuest("qst_007");
     }
 
     // Update is called once per frame
@@ -54,7 +59,7 @@ public class QuestUIControl : MonoBehaviour
         }
     }
 
-    public void AddQust(string questNum)
+    public void AddQuest(string questNum)
     {
         GameObject temp = Instantiate(questNamePrefab);
         temp.transform.parent = questList.transform;
@@ -76,7 +81,7 @@ public class QuestUIControl : MonoBehaviour
 
     public void ClearAchivement()
     {
-        foreach (GameObject temp in achivement)
+        foreach (GameObject temp in achivementObject)
         {
             temp.transform.Find("Item").GetComponent<Image>().sprite = null;
             temp.transform.Find("Count").GetComponent<TextMeshProUGUI>().text = "";
@@ -84,20 +89,38 @@ public class QuestUIControl : MonoBehaviour
         }
     }
 
-    public void SetAchivement(Sprite image, int Count)
+    public void SetAchivement(Sprite itemImage, int Count)
     {
-        foreach (GameObject temp in achivement)
+        foreach (GameObject temp in achivementObject)
         {
             Image tempImage = temp.transform.Find("Item").GetComponent<Image>();
             if (tempImage.sprite != null)
                 continue;
-            tempImage.sprite = image;
+            tempImage.sprite = itemImage;
             if(Count > 1)
                 temp.transform.Find("Count").GetComponent<TextMeshProUGUI>().text = Count.ToString();
 
             if (tempImage.sprite != null)
                 temp.SetActive(true);
             break;
+        }
+    }
+
+    public void ClearQuest(string questNum)
+    {
+        for(int i=0; i<hasQuests.Count;i++)
+        {
+            if(questNum == hasQuests[i].GetComponent<QuestData>().GetQuestData().questNum)
+            {
+                foreach (KeyValuePair<int, int> item in hasQuests[i].GetComponent<QuestData>().GetAchivementItem())
+                {
+                    PlayerInventoryData.instance.AddItem(item.Key, item.Value);
+                }
+                hasQuests[i].GetComponent<QuestData>().ClearAchivementItem();
+                hasQuests[i].SetActive(false);
+                hasQuests.Remove(hasQuests[i]);
+                break;
+            }
         }
     }
 }
