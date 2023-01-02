@@ -87,6 +87,11 @@ public class QuestDataManager : MonoBehaviour
         return NULLQuest;
     }
 
+    public List<QuestData> GetQuestAll()
+    {
+        return quests;
+    }
+
     public void SetQuestUIControl(QuestUIControl controlor)
     {
         questUIControl = controlor;
