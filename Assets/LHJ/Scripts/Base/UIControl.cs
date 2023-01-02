@@ -100,14 +100,21 @@ public class UIControl : MonoBehaviour
             Debug.Log(transform.childCount);
             transform.GetChild(transform.childCount-1).gameObject.SetActive(false);
             transform.GetChild(transform.childCount - 1).transform.SetAsFirstSibling();
+            CheckCursorState();
         }
     }
 
-    private void CheckCursorState()
+    public void CheckCursorState()
     {
         if (InventoryUI.activeSelf || QuesteUI.activeSelf || SkillUI.activeSelf || LootingUI.activeSelf)
+        { 
             _input.SetCursorLocked(false);
+            _input.cursorInputForLook = false;
+        }
         else
+        {
             _input.SetCursorLocked(true);
+            _input.cursorInputForLook = true;
+        }
     }
 }

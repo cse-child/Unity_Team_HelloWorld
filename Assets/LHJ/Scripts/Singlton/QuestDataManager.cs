@@ -33,6 +33,7 @@ public class QuestDataManager : MonoBehaviour
 
     /*----------------------------º¯¼ö------------------------*/
 
+    private QuestUIControl questUIControl;
     List<QuestData> quests = new List<QuestData>();
 
     /*---------------------------------------------------------*/
@@ -84,5 +85,25 @@ public class QuestDataManager : MonoBehaviour
                 return quest;
         }
         return NULLQuest;
+    }
+
+    public List<QuestData> GetQuestAll()
+    {
+        return quests;
+    }
+
+    public void SetQuestUIControl(QuestUIControl controlor)
+    {
+        questUIControl = controlor;
+    }
+
+    public void AddQuest(string QuestNum)
+    {
+        questUIControl.AddQuest(QuestNum);
+    }
+
+    public void ClearQuest(string QuestNum)
+    {
+        questUIControl.ClearQuest(QuestNum);
     }
 }

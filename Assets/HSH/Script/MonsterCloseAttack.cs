@@ -14,6 +14,7 @@ public class MonsterCloseAttack : MonoBehaviour
 
     private Animator animator;
     private CapsuleCollider myCollider;
+    private PlayerState playerState;
     private bool isAttack = false; // 공격중
     private bool isSwing = false; // 검 휘두르는 중
 
@@ -33,6 +34,7 @@ public class MonsterCloseAttack : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         myCollider = GetComponent<CapsuleCollider>();
+        playerState = FindObjectOfType<PlayerState>();
     }
     private void Update()
     {
@@ -72,8 +74,9 @@ public class MonsterCloseAttack : MonoBehaviour
         
         if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
         {
-            print("HIT2");
-            hitInfo.transform.GetComponent<PlayerHpTest>().Hurt();
+            //hitInfo.transform.GetComponent<PlayerHpTest>().Hurt();
+            playerState.DecreaseHp(1.0f);
+            print(playerState.curHp);
             return true;
         }
         return false;

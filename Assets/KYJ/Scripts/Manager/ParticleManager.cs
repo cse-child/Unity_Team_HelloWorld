@@ -41,7 +41,6 @@ public class ParticleManager : MonoBehaviour
 
     private void AddParticle(string key, GameObject prefab)
     {
-    
         GameObject particle = Instantiate(prefab, transform);
         particle.name = key;
         particle.SetActive(false);
