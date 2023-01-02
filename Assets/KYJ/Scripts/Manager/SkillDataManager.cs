@@ -25,7 +25,7 @@ public class SkillDataManager : MonoBehaviour
         public int skillNum;
         public string skillName;
         public int decreaseMP;
-        public int coolTime;
+        public float coolTime;
         public int damage;
         public int buff;
         public bool learning;
@@ -56,7 +56,7 @@ public class SkillDataManager : MonoBehaviour
             tempData.skillNum = int.Parse(col[0]);
             tempData.skillName = col[1];
             tempData.decreaseMP = int.Parse(col[2]);
-            tempData.coolTime = int.Parse(col[3]);
+            tempData.coolTime = float.Parse(col[3]);
             tempData.damage = int.Parse(col[4]);
             tempData.buff = int.Parse(col[5]);
             tempData.learning = int.Parse(col[6]) == 1 ? true : false;

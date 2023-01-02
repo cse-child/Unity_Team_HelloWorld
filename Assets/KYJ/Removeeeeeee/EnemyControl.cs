@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyControl : MonoBehaviour
 {
-    public int curHp = 100;
+    public float curHp = 100.0f;
 
     private void Update()
     {
@@ -12,7 +12,7 @@ public class EnemyControl : MonoBehaviour
             gameObject.SetActive(false);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         curHp -= damage;
         print(this.name+" Damaged! - " +curHp);

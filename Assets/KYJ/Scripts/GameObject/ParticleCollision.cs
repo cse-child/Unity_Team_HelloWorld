@@ -4,10 +4,24 @@ using UnityEngine;
 
 public class ParticleCollision : MonoBehaviour
 {
+    private PlayerState playerState;
+
+    public int skillNum = 0;
+
+    private void Awake()
+    {
+        playerState = FindObjectOfType<PlayerState>();
+        //print("Particle Collision - skillNum : " + this.name + " - " + skillNum);
+    }
+
     // 파티클 - Enemy 충돌
     private void OnParticleCollision(GameObject other)
     {
         if (other.CompareTag("Enemy"))
-            other.GetComponent<EnemyControl>().TakeDamage(50);
+        {
+            float damage = playerState.curAtk + SkillDataManager.instance.GetSkillData(skillNum).damage;
+            other.GetComponent<EnemyControl>().TakeDamage(damage);
+            print(this.name + " Skill Damage : " + damage);
+        }
     }
 }

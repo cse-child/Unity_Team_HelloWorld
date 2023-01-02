@@ -6,12 +6,22 @@ public class PlayerState : MonoBehaviour
 {
     public float maxHP = 100;
     public float maxMP = 100;
-    public float maxEXP = 100.0f;
+    public float maxEXP = 100.0f; 
 
     public float curHp = 100;
     public float curMp = 100;
     public float curExp = 0.0f;
+
+    public float baseAtk = 10.0f;
+    public float curAtk = 10.0f;
+    public float baseDef = 10.0f;
+    public float curDef = 10.0f;
+
     public int gold = 10000;
+
+    private void Update()
+    {
+    }
 
     public void DecreaseHp(float value)
     {
