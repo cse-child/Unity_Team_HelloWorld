@@ -19,10 +19,38 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public List<List<int>> questData = new List<List<int>>();
+    List<Quest> quests = new List<Quest>();
 
-    public void LoadQuestData()
+    public void Awake()
+    { 
+        LoadQuest();
+    }
+
+    private void LoadQuest()
     {
+        //foreach
+        //{
+        //
+        //}
 
+        Quest.QuestInfo questInfo;
+        //questInfo.questCode = 
+        //questInfo.questType =
+    }
+
+    public List<Quest> GetQuests()
+    {
+        return quests;
+    }
+
+    public Quest GetQuest(string questCode)
+    {
+        foreach (Quest quest in quests)
+        {
+            if (questCode == quest.questInfo.questCode)
+                return quest;
+        }
+
+        return null;
     }
 }

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TestScript : MonoBehaviour
 {
+    private void Awake()
+    {
+        QuestDataManager.instance.Awake();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -13,8 +17,8 @@ public class TestScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.B))
-            ItemLootManager.instance.AddLootItem(1, 3);
+        if (Input.GetKeyDown(KeyCode.B))
+            QuestDataManager.instance.ClearQuest("qst_005");
         if(Input.GetKeyDown(KeyCode.A))
             ItemLootManager.instance.AddLootItem(2, 3);
 

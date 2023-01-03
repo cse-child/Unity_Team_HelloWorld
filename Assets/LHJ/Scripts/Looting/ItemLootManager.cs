@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,6 +58,8 @@ public class ItemLootManager : MonoBehaviour
         lootingUIControl.SetLootItem(lootItem);
         lootingUI.transform.SetAsLastSibling();
         lootingUI.SetActive(true);
+        FindObjectOfType<StarterAssetsInputs>().SetCursorLocked(false);
+        FindObjectOfType<StarterAssetsInputs>().cursorLocked = false;
     }
 
     public void SetLootingUI(GameObject UI)

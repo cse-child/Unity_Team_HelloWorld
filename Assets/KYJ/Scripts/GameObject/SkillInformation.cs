@@ -5,43 +5,54 @@ using UnityEngine;
 public class SkillInformation : MonoBehaviour
 {
     public int skillNum = 0;
-    public bool available = false;
+    public bool available = true;
     public SkillDataManager.SkillData data;
+    private KeyCode keyCode;
+    private float waitTime = 0.0f;
 
     private void Start()
     {
-        if(skillNum != 0)
-        {
-            data = SkillDataManager.instance.GetSkillData(skillNum);
-            if (data.learning)
-            {
-                available = true;
-                print(this.name + " 사용 가능");
-            }
-        }
+        
     }
 
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    print("1번 눌림쓰");
-        //    StartCoroutine(CoolTime(data.coolTime));
-        //}
+        
     }
 
-    IEnumerator CoolTime (float cool)
+    public void Init(int skillNum)
     {
-        print("쿨타임 코루틴 실행");
+        this.skillNum = skillNum;
+        data = SkillDataManager.instance.GetSkillData(skillNum);
+    }
 
-        while(cool > 1.0f)
+    public void SetKeyCode(KeyCode key)
+    {
+        keyCode = key;
+    }
+
+    public KeyCode GetKeyCode()
+    {
+        return keyCode;
+    }
+
+    public IEnumerator CoolTime ()
+    {
+        print("SkillInfo의 쿨타임 코루틴 실행 : " + data.coolTime);
+        available = false;
+
+        float cool = data.coolTime;
+        while (cool > 1.0f)
         {
             cool -= Time.deltaTime;
-            print("시간 : " +1.0f / cool);
+            //print("쿨타임 남은 시간 : " + cool);
+            waitTime = cool;
             yield return new WaitForFixedUpdate();
         }
 
         print("쿨타임 코루틴 완료");
+        available = true;
+        waitTime = 0.0f;
     }
 
 
