@@ -47,14 +47,31 @@ public class SlotData : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public void UseItem()
     {
         PlayerInventoryData.instance.SubItem(itemNum, 1);
-        itemCount--;
-        if(itemCount<=0)
+        //itemCount--;
+        //if(itemCount<=0)
+        //{
+        //    itemNum = 0;
+        //    itemCount = 0;
+        //    hotkey.SetSlotData(null);
+        //    hotkey = null;
+        //}    
+    }
+
+    public void SubItem(int count)
+    {
+        if (itemNum == 0)
+            return;
+        itemCount-= count;
+        if (itemCount <= 0)
         {
             itemNum = 0;
             itemCount = 0;
-            hotkey.SetSlotData(null);
-            hotkey = null;
-        }    
+            if (hotkey != null)
+            {
+                hotkey.SetSlotData(null);
+                hotkey = null;
+            }
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)      

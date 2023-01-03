@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TestScript : MonoBehaviour
 {
+    public GameObject aa;
     private void Awake()
     {
         QuestDataManager.instance.Awake();
@@ -23,6 +24,9 @@ public class TestScript : MonoBehaviour
             QuestDataManager.instance.AddQuest("qst_005");
 
         if (Input.GetKeyDown(KeyCode.F))
-            ItemLootManager.instance.OpenLootingUI();
+            if(aa.gameObject.activeSelf)
+                  aa.gameObject.SetActive(false);
+              else
+                  aa.gameObject.SetActive(true);
     }
 }
