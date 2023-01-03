@@ -78,8 +78,7 @@ public class SkillDataManager : MonoBehaviour
 
     public SkillData GetSkillData(int skillNum)
     {
-        print("skillNum : " + skillNum);
-        return skills[skillNum-1]; // output: 1,2,3,4
+        return skills[skillNum-1];
     }
 
     public List<SkillData> GetAllSkillData()

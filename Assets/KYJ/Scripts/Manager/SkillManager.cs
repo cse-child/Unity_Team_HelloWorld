@@ -48,30 +48,57 @@ public class SkillManager : MonoBehaviour
         skillInfos[0].SetKeyCode(KeyCode.Alpha1);
         skillInfos[1].SetKeyCode(KeyCode.Alpha2);
         skillInfos[2].SetKeyCode(KeyCode.Alpha3);
+        skillInfos[3].SetKeyCode(KeyCode.Alpha4);
     }
 
+    /* 스킬을 실행시키는 함수 - 스킬 실행의 첫 단계를 담당 */
     private void PlaySkills()
     {
+        // 무기를 들고있지 않은 경우 스킬 사용X
         if (playerControl.WeaponState() == 0) return;
+        // 스킬 상태가 0이 아닌 경우 -> 다른 스킬을 사용중인 경우 스킬 사용X
+        if (playerControl.SkillState() != 0) return;
 
         foreach (SkillInformation info in skillInfos)
         {
             if (Input.GetKeyDown(info.GetKeyCode()) && info.available)
             {
-                // Player MP 감소
+                /* Player MP 감소 */
                 if (playerState.curMp < info.data.decreaseMP)
                 {
-                    print("MP가 부족하여 스킬을 사용할 수 없습니다.");
+                    print("MP가 부족하여 스킬을 사용할 수 없습니다. \n현재 MP : " + playerState.curMp +" / 필요 MP : "+info.data.decreaseMP);
                     return; // MP 부족하면 스킬 사용X
                 }
                 else
                     playerState.curMp -= info.data.decreaseMP;
 
-                // Cool Time 코루틴 시작
+                // 스킬에 버프 능력이 있는 경우 공격력 증가 적용
+                int buff = SkillDataManager.instance.GetSkillData(info.skillNum).buff;
+                if (buff != 0)
+                {
+                    playerState.curAtk += buff;
+                    StartCoroutine(info.DurationTime(buff));
+                }
+
+                /* Cool Time 코루틴 시작 */
                 StartCoroutine(info.CoolTime());
-                // Skill Animation 실행
+
+                /* Skill Animation 실행 */
                 playerControl.PlaySkill(info.data.skillNum);
             }
         }
+    }
+
+    public bool CheckIsPlaySkill()
+    {
+        if (playerControl.SkillState() == 0)
+            return false;
+        else
+            return true;
+    }
+
+    public void ResetCurAtk()
+    {
+        playerState.curAtk = playerState.baseAtk;
     }
 }

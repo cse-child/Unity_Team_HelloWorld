@@ -16,6 +16,7 @@ public class PlayerControl : MonoBehaviour
     private StarterAssetsInputs starterAssetsInputs;
 
     private int curWeaponState;
+    private int curSkillState;
 
     private readonly int hashDeath = Animator.StringToHash("Death");
     private readonly int hashLooting = Animator.StringToHash("Looting");
@@ -66,6 +67,7 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (!starterAssetsInputs.cursorLocked) return; // 마우스 활성화 상태면 공격 불가
+
             animator.SetTrigger(hashAttack);
         }
     }
@@ -108,8 +110,10 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    // 스킬 애니메이션 플레이
     public void PlaySkill(int skillNum)
     {
+        curSkillState = skillNum;
         animator.SetInteger("SkillState", skillNum);
     }
 
@@ -118,9 +122,15 @@ public class PlayerControl : MonoBehaviour
         return curWeaponState;
     }
 
+    public int SkillState()
+    {
+        return curSkillState;
+    }
+
     // 애니메이션 Event - 스킬 상태 초기화
     private void ResetSkillState()
     {
+        curSkillState = 0;
         animator.SetInteger("SkillState", 0);
     }
 
