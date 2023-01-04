@@ -43100,6 +43100,7 @@ MonoBehaviour:
   baseDef: 10
   curDef: 10
   gold: 10000
+  level: 1
 --- !u!114 &269998019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43244,7 +43245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armorSocket: {fileID: 743094617375534554}
-  weaponSocket: {fileID: 0}
+  weaponSocket: {fileID: 365309976}
   hat: 
   top: 
   pants: 

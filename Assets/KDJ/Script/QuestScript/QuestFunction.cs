@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class QuestFunction : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public NPCFunction npcFunction;
+
+    private void Start()
     {
-        
+        npcFunction = GetComponent<NPCFunction>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        NPCGiveQuestToPlayer();
+    }
+
+    private void NPCGiveQuestToPlayer()
+    {
+        if (!npcFunction.IsTalkingPlayerToNPC()) return;
+
+        string npcName = this.name;
+
+        if (npcName.Contains("Blacksmith"))
+        {
+            QuestDataManager.instance.AddQuest("qst_006");
+        }
+        else if (npcName.Contains("Bartender"))
+        {
+            QuestDataManager.instance.AddQuest("qst_005");
+        }
     }
 }

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/LHJ/Scripts/Equipment.meta
+guid: 584924e15bfb12a408dc4d479a7184ef
+========
 guid: 5649b539a0b37e84fae56bb67007c1bb
+>>>>>>>> KYJ:Assets/PolygonFantasyHeroCharacters.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
