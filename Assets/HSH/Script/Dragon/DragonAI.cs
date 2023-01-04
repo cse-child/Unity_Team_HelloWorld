@@ -12,10 +12,9 @@ public class DragonAI : MonoBehaviour
         IDLE, TRACE, ATTACK, DEAD, HURT
     }
 
-    public float traceRange = 10.0f;
-    public float attackRange = 3.0f;
-
-    public float moveSpeed = 0.5f;
+    public float traceRange = 15.0f;
+    public float attackRange = 5.0f;
+    public float moveSpeed = 2.0f;
     public float rotateSpeed = 0.5f;
     //private float maxHp = 100.0f;
     private float curHp = 100.0f;
@@ -26,7 +25,7 @@ public class DragonAI : MonoBehaviour
     public GameObject itemPrefab;
     public System.Action onDie;
 
-    private MonsterCloseAttack closeAtk;
+    private DragonAttack closeAtk;
 
     private State curState;
 
@@ -34,7 +33,7 @@ public class DragonAI : MonoBehaviour
     private void Awake() //할당을 할 때 한번만 실행되는 Awake에서
     {
         animator = GetComponent<Animator>();
-        closeAtk = GetComponent<MonsterCloseAttack>();
+        closeAtk = GetComponent<DragonAttack>();
         target = GameObject.FindGameObjectWithTag("Player");
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
@@ -46,8 +45,7 @@ public class DragonAI : MonoBehaviour
     {
         //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
         SetAction();
-        Hurt();
-        RotateMove();
+        Test();
     }
 
     private void OnDrawGizmos()
@@ -89,7 +87,6 @@ public class DragonAI : MonoBehaviour
                 break;
             case State.ATTACK:
                 closeAtk.TryAttack();
-                //Attack();
                 break;
             case State.IDLE:
                 Idle();
@@ -104,10 +101,16 @@ public class DragonAI : MonoBehaviour
     {
         if (animator.GetBool("isDie")) return;
 
-        Vector3 direction = target.transform.position - transform.position;
-        transform.rotation = Quaternion.LookRotation(direction);
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("CastSpell 0"))
+        {
+            closeAtk.PatternOut();
+            animator.SetBool("isAttack", false);
+            animator.SetBool("isTrace", true);
+            Vector3 direction = target.transform.position - transform.position;
+            transform.rotation = Quaternion.LookRotation(direction);
 
-        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
+            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
+        }
     }
 
     //private void Attack()
@@ -120,24 +123,9 @@ public class DragonAI : MonoBehaviour
     }
     private void Idle()
     {
- 
-    }
-    private void RotateMove()
-    {
-        if(animator.GetBool("isTrace")) return;
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.902f)
-            {
-                Vector3 targetPosition = new Vector3(CalculateWanderPosition().x, 0, CalculateWanderPosition().z);
-                Vector3 rotDir = targetPosition - transform.position;
-                transform.rotation = Quaternion.LookRotation(rotDir);
-                //천천히 변경
-                //Quaternion rotation = Quaternion.LookRotation(rotDir);
-                //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.01f);
-                animator.SetTrigger("trigExploration");
-            }
-        }
+        closeAtk.PatternOut();
+        animator.SetBool("isAttack", false);
+        animator.SetBool("isTrace", false);
     }
 
     private Vector3 CalculateWanderPosition()
@@ -168,18 +156,15 @@ public class DragonAI : MonoBehaviour
 
     private void Hurt()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (animator.GetBool("isDie")) return;
+        animator.SetTrigger("trigHurt");
+        curHp -= 10.0f;
+        animator.SetFloat("curHp", curHp);
+        if (curHp <= 0)
         {
-            if (animator.GetBool("isDie")) return;
-            animator.SetTrigger("trigHurt");
-            curHp -= 10.0f;
-            animator.SetFloat("curHp", curHp);
-            if (curHp <= 0)
-            {
-                animator.SetTrigger("trigDie");
-                animator.SetBool("isDie", true);
-                curState = State.DEAD;
-            }
+            animator.SetTrigger("trigDie");
+            animator.SetBool("isDie", true);
+            curState = State.DEAD;
         }
     }
     private void Die()
@@ -220,6 +205,17 @@ public class DragonAI : MonoBehaviour
                 Debug.Log("v: " + i.ToString() + " " + dataValues[i].ToString());
             }
         }
+    }
+    private void Test()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+            animator.SetTrigger("trigBite");
+
+        if (Input.GetKeyDown(KeyCode.F2))
+            animator.SetTrigger("trigBreath");
+
+        if (Input.GetKeyDown(KeyCode.F3))
+            animator.SetTrigger("trigCastSpell");
     }
 }
 
