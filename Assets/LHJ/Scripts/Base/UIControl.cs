@@ -10,6 +10,8 @@ public class UIControl : MonoBehaviour
     public GameObject SkillUI;
     public GameObject LootingUI;
     public GameObject StatusUI;
+    public GameObject ShopUI;
+    public PlayerState playerState;
 
     private StarterAssetsInputs _input;
 
@@ -20,11 +22,22 @@ public class UIControl : MonoBehaviour
         SkillUI = gameObject.transform.Find("SkillUI").gameObject;
         LootingUI = gameObject.transform.Find("LootingUI").gameObject;
         StatusUI = gameObject.transform.Find("StatusUI").gameObject;
+        ShopUI = gameObject.transform.Find("ShopUI").gameObject;
+        playerState = FindObjectOfType<PlayerState>();
         
 
         _input = FindObjectOfType<StarterAssetsInputs>();
         ItemLootManager.instance.SetLootingUI(LootingUI);
         PlayerInventoryData.instance.SetInventory(InventoryUI.transform.Find("BG").GetComponent<InventoryManager>());
+        PlayerInventoryData.instance.SetPlayerState(playerState);
+        PlayerEquipmentManager.instance.Non();
+    }
+
+    public void Start()
+    {
+        StatusUI.SetActive(true);
+        StatusUI.SetActive(false);
+
     }
 
     public void Update()

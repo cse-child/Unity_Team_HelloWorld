@@ -19,7 +19,7 @@ public class NPCFunction : MonoBehaviour
     private void Update()
     {
         IsNPCRotation();
-        GiveQuestToPlayer();
+        //GiveQuestToPlayer();
     }
     private void IsNPCRotation()
     {
