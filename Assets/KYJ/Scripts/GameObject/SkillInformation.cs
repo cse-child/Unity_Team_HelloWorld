@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class SkillInformation : MonoBehaviour
 {
-    public int skillNum = 0;
-    public bool available = true;
+    public int skillNum = 0; // 스킬 키값
+    public bool available = true; // 스킬 사용 가능 상태
     public SkillDataManager.SkillData data;
-    private KeyCode keyCode;
+    private KeyCode keyCode; // 단축키
     private float waitTime = 0.0f;
 
     private void Start()

@@ -33,6 +33,7 @@ public class SkillManager : MonoBehaviour
     private void Update()
     {
         PlaySkills();
+        CheckLearningSkill();
     }
 
     public void InitSkillInfos()
@@ -100,5 +101,15 @@ public class SkillManager : MonoBehaviour
     public void ResetCurAtk()
     {
         playerState.curAtk = playerState.baseAtk;
+    }
+
+    // Level에 따라 스킬을 배울 수 있는지 없는지 체크
+    private void CheckLearningSkill()
+    {
+        foreach (SkillInformation info in skillInfos)
+        {
+            if (playerState.level <= info.data.level)
+                info.data.learning = true;
+        }
     }
 }
