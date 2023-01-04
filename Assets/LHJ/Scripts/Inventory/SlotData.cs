@@ -46,15 +46,63 @@ public class SlotData : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void UseItem()
     {
+        ItemDataManager.ItemData itemData = ItemDataManager.instance.GetItemData(itemNum);
+        PlayerState playerState = PlayerInventoryData.instance.GetPlayerState();
+
+        if (itemData.property == "hp")
+        {
+            playerState.curHp += itemData.power;
+            if (playerState.curHp > playerState.maxHP)
+                playerState.curHp = playerState.maxHP;
+        }
+        else if (itemData.property == "mp")
+        {
+            playerState.curMp += itemData.power;
+            if (playerState.curMp > playerState.maxMP)
+                playerState.curMp = playerState.maxMP;
+        }
+        else if (itemData.property.Contains("weapon"))
+        {
+            string[] col = itemData.property.Split("_");
+
+            PlayerEquipmentManager.instance.WearWepon(int.Parse(col[1]) ,itemNum);
+        }
+        else if(itemData.property.Contains("armor"))
+        {
+            string[] col = itemData.property.Split("_");
+           
+            PlayerEquipmentManager.instance.WearArmor(col[1],int.Parse(col[2]),itemNum);
+        }
+
+
         PlayerInventoryData.instance.SubItem(itemNum, 1);
-        itemCount--;
-        if(itemCount<=0)
+
+
+        //itemCount--;
+        //if(itemCount<=0)
+        //{
+        //    itemNum = 0;
+        //    itemCount = 0;
+        //    hotkey.SetSlotData(null);
+        //    hotkey = null;
+        //}    
+    }
+
+    public void SubItem(int count)
+    {
+        if (itemNum == 0)
+            return;
+        itemCount-= count;
+        if (itemCount <= 0)
         {
             itemNum = 0;
             itemCount = 0;
-            hotkey.SetSlotData(null);
-            hotkey = null;
-        }    
+            if (hotkey != null)
+            {
+                hotkey.SetSlotData(null);
+                hotkey = null;
+            }
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)      

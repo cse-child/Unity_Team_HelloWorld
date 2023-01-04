@@ -9,6 +9,7 @@ public class SkillInformation : MonoBehaviour
     public SkillDataManager.SkillData data;
     private KeyCode keyCode;
     private float waitTime = 0.0f;
+    public float coolTime = 0.0f;
 
     private void Start()
     {
@@ -46,7 +47,8 @@ public class SkillInformation : MonoBehaviour
         {
             cool -= Time.deltaTime;
             //print("쿨타임 남은 시간 : " + cool);
-            waitTime = cool;
+            waitTime = 1.0f / cool;
+            coolTime = 1.0f - waitTime;
             yield return new WaitForFixedUpdate();
         }
 

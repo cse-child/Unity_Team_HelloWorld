@@ -37,13 +37,8 @@ public class QuestUIControl : MonoBehaviour
         {
             achivementObject.Add(questInfoObject.transform.Find("ItemTable").transform.Find("Achivement"+i).gameObject);
         }
-        AddQuest("qst_001");
-        AddQuest("qst_002");
-        AddQuest("qst_003");
-        AddQuest("qst_004");
+     
         AddQuest("qst_005");
-        AddQuest("qst_006");
-        AddQuest("qst_007");
     }
 
     // Update is called once per frame
