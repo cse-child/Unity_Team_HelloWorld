@@ -43,6 +43,8 @@ public class PlayerInventoryData : MonoBehaviour
     //플레이어 소유 아이템 추가
     public void AddItem(int itemNum, int itemCount)
     {
+        if (itemNum == 0)
+            return;
         if(hasItems.ContainsKey(itemNum))
         {
             hasItems[itemNum] += itemCount;
