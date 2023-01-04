@@ -16,6 +16,7 @@ public class PlayerControl : MonoBehaviour
     private StarterAssetsInputs starterAssetsInputs;
 
     private int curWeaponState;
+    private int curSkillState;
 
     private readonly int hashDeath = Animator.StringToHash("Death");
     private readonly int hashLooting = Animator.StringToHash("Looting");
@@ -66,6 +67,7 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (!starterAssetsInputs.cursorLocked) return; // 마우스 활성화 상태면 공격 불가
+
             animator.SetTrigger(hashAttack);
         }
     }
@@ -84,6 +86,12 @@ public class PlayerControl : MonoBehaviour
         // 무기 장착/해제/변경
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            if (!CheckWeaponExist())
+            {
+                print("# 장착된 무기가 없어 무기를 들 수 없습니다 !");
+                return;
+            }
+
             if (curWeaponState == MAX_WEAPON_COUNT)
                 animator.SetInteger("WeaponState", 0); // 맨손
             else
@@ -108,19 +116,35 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    // 스킬 애니메이션 플레이
     public void PlaySkill(int skillNum)
     {
+        curSkillState = skillNum;
         animator.SetInteger("SkillState", skillNum);
     }
 
+    // 무기 상태 반환 (0: 맨손, 1: 양손검)
     public int WeaponState()
     {
         return curWeaponState;
     }
 
+    public void SetWeaponState(int state)
+    {
+        curWeaponState = state;
+        animator.SetInteger("WeaponState", state);
+    }
+
+    // 스킬 상태 반환 (0: 실행X, 1~4: 스킬 실행중)
+    public int SkillState()
+    {
+        return curSkillState;
+    }
+
     // 애니메이션 Event - 스킬 상태 초기화
     private void ResetSkillState()
     {
+        curSkillState = 0;
         animator.SetInteger("SkillState", 0);
     }
 
@@ -144,5 +168,13 @@ public class PlayerControl : MonoBehaviour
             effectStartPos += transform.forward * offsetZ;
 
         ParticleManager.instance.Play(key, effectStartPos, transform.rotation);
+    }
+
+    // 무기 장착 여부 확인 함수
+    private bool CheckWeaponExist()
+    {
+        // Weapon Socket의 0번 GameObject가 켜져있으면 -> 무기 없음
+        // 0번이 꺼져있으면 -> 무기 장착중
+        return !weaponSocket.transform.Find("0").gameObject.activeSelf;
     }
 }

@@ -29,6 +29,7 @@ public class SkillDataManager : MonoBehaviour
         public int damage;
         public int buff;
         public bool learning;
+        public int level;
         public Sprite image;
         public string explanation;
     }
@@ -60,16 +61,17 @@ public class SkillDataManager : MonoBehaviour
             tempData.damage = int.Parse(col[4]);
             tempData.buff = int.Parse(col[5]);
             tempData.learning = int.Parse(col[6]) == 1 ? true : false;
+            tempData.level = int.Parse(col[7]);
 
             // 현중님 소스 슥 긁어오기 ㅋ
             //바이트 데이터 이미지를 스프라이트로 변환  byte -> texture -> splite
-            byte[] byteTexture = System.IO.File.ReadAllBytes(col[7]);
+            byte[] byteTexture = System.IO.File.ReadAllBytes(col[8]);
             Texture2D texture = new Texture2D(0, 0);
             texture.LoadImage(byteTexture);
             Rect rect = new Rect(0, 0, texture.width, texture.height);
             tempData.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
 
-            tempData.explanation = col[8];
+            tempData.explanation = col[9];
 
             skills.Add(tempData);
             skillNames.Add(tempData.skillName);
@@ -78,8 +80,7 @@ public class SkillDataManager : MonoBehaviour
 
     public SkillData GetSkillData(int skillNum)
     {
-        print("skillNum : " + skillNum);
-        return skills[skillNum-1]; // output: 1,2,3,4
+        return skills[skillNum-1];
     }
 
     public List<SkillData> GetAllSkillData()

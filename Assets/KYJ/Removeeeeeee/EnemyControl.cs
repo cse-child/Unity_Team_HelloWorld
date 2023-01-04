@@ -8,13 +8,13 @@ public class EnemyControl : MonoBehaviour
 
     private void Update()
     {
-        if(curHp < 0)
+        if(curHp <= 0)
             gameObject.SetActive(false);
     }
 
     public void TakeDamage(float damage)
     {
         curHp -= damage;
-        print(this.name+" Damaged! - " +curHp);
+        print("ÀÔÈù µ¥¹ÌÁö: " + damage + " -> " + this.name+" : " + (int)curHp + " / 100");
     }
 }

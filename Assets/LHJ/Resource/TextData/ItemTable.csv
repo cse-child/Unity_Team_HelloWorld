@@ -1,22 +1,25 @@
-ItemNum,Name,Property,Power,ResourcePath,Explanation
-1,소형 HP포션,HP,20,Assets/LHJ/Sprite/HPPotion_small.png,HP를 20 회복시킵니다.
-2,소형 MP포션,MP,20,Assets/LHJ/Sprite/MPPotion_small.png,MP를 20 회복시킵니다.
-4,중형 HP포션,HP,40,Assets/LHJ/Sprite/HPPotion_medium.png,HP를 40 회복시킵니다.
-5,중형 MP포션,MP,40,Assets/LHJ/Sprite/MPPotion_medium.png,MP를 40 회복시킵니다.
-6,대형 HP포션,HP,60,Assets/LHJ/Sprite/HPPotion_large.png,HP를 60 회복시킵니다.
-7,대형 MP포션,MP,60,Assets/LHJ/Sprite/MPPotion_large.png,MP를 60 회복시킵니다.
-8,낡은 칼,Weapon,15,Assets/LHJ/Sprite/OldSword.png,낡고 무딘 칼. eeATK가 15 증가합니다.
-9,칼,Weapon,20,Assets/LHJ/Sprite/NormalSword.png,흔하게 볼 수 있는 칼. eeATK가 20 증가합니다.
-10,강철검,Weapon,30,Assets/LHJ/Sprite/SteelSword.png,강철로 만들어진 튼튼한 칼. eeATK가 30 증가합니다.
-11,낡은 로브,Armor,30,Assets/LHJ/Sprite/OldRobe.png,낡고 얇은 로브. eeDEF가 30 증가합니다.
-12,가죽 갑옷(상의),Armor,50,Assets/LHJ/Sprite/LeatherArmorTop.png,가죽으로 만들어진 갑옷. eeDEF가 50 증가합니다.
-13,강철 갑옷(상의),Armor,70,Assets/LHJ/Sprite/SteelArmorTop.png,강철로 만들어진 튼튼한 갑옷. eeDEF가 70 증가합니다.
-14,낡은 투구,Armor,10,Assets/LHJ/Sprite/OldHelmet.png,낡고 가벼운 투구. eeDEF가 10 증가합니다.
-15,가죽 투구,Armor,20,Assets/LHJ/Sprite/LeatherHelmet.png,가죽으로 만들어진 투구. eeDEF가 20 증가합니다.
-16,강철 투구,Armor,30,Assets/LHJ/Sprite/SteelHelmet.png,강철로 만들어진 튼튼한 투구. eeDEF가 30 증가합니다.
-17,낡은 신발,Armor,5,Assets/LHJ/Sprite/OldShoes.png,낡고 얇은 신발. eeDEF가 5 증가합니다.
-18,가죽 신발,Armor,10,Assets/LHJ/Sprite/LeatherShoes.png,가죽으로 만들어진 신발. eeDEF가 10 증가합니다.
-19,강철 신발,Armor,15,Assets/LHJ/Sprite/SteelShoes.png,강철로 만들어진 튼튼한 신발. eeDEF가 15 증가합니다.
-20,낡은 바지,Armor,20,Assets/LHJ/Sprite/OldPants.png,낡고 얇은 바지. eeDEF가 20 증가합니다.
-21,가죽 갑옷(하의),Armor,40,Assets/LHJ/Sprite/LeatherArmorBottoms.png,가죽으로 만들어진 바지. eeDEF가 40 증가합니다.
-22,강철 갑옷(하의),Armor,60,Assets/LHJ/Sprite/SteelArmorBottoms.png,강철로 만들어진 튼튼한 바지. eeDEF가 60 증가합니다.
+ItemNum,Name,Property,Power,ResourcePath,Explanation,Price
+1,소형 HP포션,hp,20,Assets/LHJ/Sprite/HPPotion_small.png,HP를 20 회복시킵니다.,100
+2,소형 MP포션,mp,20,Assets/LHJ/Sprite/MPPotion_small.png,MP를 20 회복시킵니다.,100
+3,중형 HP포션,hp,40,Assets/LHJ/Sprite/HPPotion_medium.png,HP를 40 회복시킵니다.,250
+4,중형 MP포션,mp,40,Assets/LHJ/Sprite/MPPotion_medium.png,MP를 40 회복시킵니다.,250
+5,대형 HP포션,hp,60,Assets/LHJ/Sprite/HPPotion_large.png,HP를 60 회복시킵니다.,500
+6,대형 MP포션,mp,60,Assets/LHJ/Sprite/MPPotion_large.png,MP를 60 회복시킵니다.,500
+7,낡은 칼,weapon_1,15,Assets/LHJ/Sprite/OldSword.png,낡고 무딘 칼. eeATK가 15 증가합니다.,1000
+8,칼,weapon_2,20,Assets/LHJ/Sprite/NormalSword.png,흔하게 볼 수 있는 칼. eeATK가 20 증가합니다.,3000
+9,강철검,weapon_3,30,Assets/LHJ/Sprite/SteelSword.png,강철로 만들어진 튼튼한 칼. eeATK가 30 증가합니다.,5000
+10,낡은 로브,armor_top_1,30,Assets/LHJ/Sprite/OldRobe.png,낡고 얇은 로브. eeDEF가 30 증가합니다.,1000
+11,가죽 갑옷(상의),armor_top_2,50,Assets/LHJ/Sprite/LeatherArmorTop.png,가죽으로 만들어진 갑옷. eeDEF가 50 증가합니다.,3000
+12,강철 갑옷(상의),armor_top_3,70,Assets/LHJ/Sprite/SteelArmorTop.png,강철로 만들어진 튼튼한 갑옷. eeDEF가 70 증가합니다.,5000
+13,낡은 투구,armor_hat_1,10,Assets/LHJ/Sprite/OldHelmet.png,낡고 가벼운 투구. eeDEF가 10 증가합니다.,1000
+14,가죽 투구,armor_hat_2,20,Assets/LHJ/Sprite/LeatherHelmet.png,가죽으로 만들어진 투구. eeDEF가 20 증가합니다.,3000
+15,강철 투구,armor_hat_3,30,Assets/LHJ/Sprite/SteelHelmet.png,강철로 만들어진 튼튼한 투구. eeDEF가 30 증가합니다.,5000
+16,낡은 신발,armor_shoes_1,5,Assets/LHJ/Sprite/OldShoes.png,낡고 얇은 신발. eeDEF가 5 증가합니다.,1000
+17,가죽 신발,armor_shoes_2,10,Assets/LHJ/Sprite/LeatherShoes.png,가죽으로 만들어진 신발. eeDEF가 10 증가합니다.,3000
+18,강철 신발,armor_shoes_3,15,Assets/LHJ/Sprite/SteelShoes.png,강철로 만들어진 튼튼한 신발. eeDEF가 15 증가합니다.,5000
+19,낡은 바지,armor_pants_1,20,Assets/LHJ/Sprite/OldPants.png,낡고 얇은 바지. eeDEF가 20 증가합니다.,1000
+20,가죽 갑옷(하의),armor_pants_2,40,Assets/LHJ/Sprite/LeatherArmorBottoms.png,가죽으로 만들어진 바지. eeDEF가 40 증가합니다.,3000
+21,강철 갑옷(하의),armor_pants_3,60,Assets/LHJ/Sprite/SteelArmorBottoms.png,강철로 만들어진 튼튼한 바지. eeDEF가 60 증가합니다.,5000
+,,,,,,
+보류,지팡이,weapon,20,Assets/LHJ/Sprite/Wand.png,ATK가 20 증가합니다.,
+보류,활,weapon,30,Assets/LHJ/Sprite/Bow.png,ATK가 30 증가합니다.,

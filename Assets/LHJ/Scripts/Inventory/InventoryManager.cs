@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour, IPointerExitHandler
 {
     public GameObject slotPrefab;
+    private PlayerState playerState;
+    private Text goldText;
     private List<GameObject> slots = new List<GameObject>();
 
     private GameObject tempSlot;
@@ -19,10 +22,12 @@ public class InventoryManager : MonoBehaviour, IPointerExitHandler
 
     private void Awake()
     {
+        goldText = transform.parent.Find("Gold").Find("GoldText").GetComponent<Text>();
     }
 
     public void Start()
     {
+        playerState = PlayerInventoryData.instance.GetPlayerState();
     }
 
     public void CreateSlot()
@@ -64,6 +69,18 @@ public class InventoryManager : MonoBehaviour, IPointerExitHandler
         }
     }
 
+    public void SubItem(int itemNum, int count)
+    {
+        foreach (GameObject data in slots)
+        {
+            SlotData temp = data.GetComponent<SlotData>();
+            if (temp.itemNum == itemNum)
+            {
+                temp.SubItem(count);
+                return;
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -72,15 +89,10 @@ public class InventoryManager : MonoBehaviour, IPointerExitHandler
         {
             itemImage.transform.position = Input.mousePosition;
         }
+        goldText.text = playerState.gold.ToString();
+        if (Input.GetKeyDown(KeyCode.N))
+            playerState.gold--; 
     }
-
-
-    
-    // * 22.12.20 아이템 슬롯 교환 잠정적 보류 LHJ
-      
-
-
-
 
     public void SetSelectSlot(GameObject slot, GameObject item)
     {

@@ -26,6 +26,11 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 
     public void Interact(Transform interactTransform)
     {
+        //상점열림
+        UIControl uiControl = FindObjectOfType<UIControl>();
+        uiControl.ShopUI.SetActive(true);
+        
+
         //여기에 대화상자등을 넣어주면 됨
         Debug.Log("Interact!");
         //ChatBubble.Create(transform.transform, new Vector3(-0.3f, 1.7f, 0.0f), ChatBubble.IconType.Happy, "Hello there!");

@@ -23,6 +23,8 @@ public class PlayerInventoryData : MonoBehaviour
     private Dictionary<int, int> hasItems = new Dictionary<int, int>();
 
     public InventoryManager inventory;
+    private int hasGold = 0;
+    private PlayerState playerState;
 
     /*========================================================================*/
 
@@ -41,6 +43,8 @@ public class PlayerInventoryData : MonoBehaviour
     //플레이어 소유 아이템 추가
     public void AddItem(int itemNum, int itemCount)
     {
+        if (itemNum == 0)
+            return;
         if(hasItems.ContainsKey(itemNum))
         {
             hasItems[itemNum] += itemCount;
@@ -54,9 +58,13 @@ public class PlayerInventoryData : MonoBehaviour
 
     public void SubItem(int itemNum, int removeCount)
     {
-        hasItems[itemNum] -= removeCount;
-        if (hasItems[itemNum] <= 0)
-            hasItems.Remove(itemNum);
+        if (hasItems.ContainsKey(itemNum))
+        {
+            hasItems[itemNum] -= removeCount;
+            inventory.SubItem(itemNum, removeCount);
+            if (hasItems[itemNum] <= 0)
+                hasItems.Remove(itemNum);
+        }
     }
 
 
@@ -65,9 +73,24 @@ public class PlayerInventoryData : MonoBehaviour
         this.inventory = inventory;
     }
 
+    public Dictionary<int,int> GetHasInventory()
+    {
+        return hasItems;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
-        
+    }
+
+    public void SetPlayerState(PlayerState playerState)
+    {
+        this.playerState = playerState;
+    }
+
+    public PlayerState GetPlayerState()
+    {
+        return playerState;
     }
 }
