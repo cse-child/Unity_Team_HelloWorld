@@ -11,7 +11,6 @@ public class ParticleCollision : MonoBehaviour
     private void Awake()
     {
         playerState = FindObjectOfType<PlayerState>();
-        //print("Particle Collision - skillNum : " + this.name + " - " + skillNum);
     }
 
     // 파티클 - Enemy 충돌
@@ -20,8 +19,8 @@ public class ParticleCollision : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             float damage = playerState.curAtk + SkillDataManager.instance.GetSkillData(skillNum).damage;
+
             other.GetComponent<EnemyControl>().TakeDamage(damage);
-            print(this.name + " Skill Damage : " + damage);
         }
     }
 }
