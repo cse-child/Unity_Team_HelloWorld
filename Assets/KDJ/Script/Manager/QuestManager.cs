@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class QuestManager : MonoBehaviour
 {
@@ -28,14 +30,15 @@ public class QuestManager : MonoBehaviour
 
     private void LoadQuest()
     {
-        //foreach
-        //{
-        //
-        //}
+        foreach (QuestDataManager.QuestData questData in QuestDataManager.instance.GetQuestAll())
+        {
+            Quest quest = new Quest();
 
-        Quest.QuestInfo questInfo;
-        //questInfo.questCode = 
-        //questInfo.questType =
+            quest.questInfo.questCode = questData.questNum;
+            quest.questInfo.questType = questData.type;
+
+            quests.Add(quest);
+        }
     }
 
     public List<Quest> GetQuests()

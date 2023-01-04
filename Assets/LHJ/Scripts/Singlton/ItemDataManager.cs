@@ -26,6 +26,7 @@ public class ItemDataManager : MonoBehaviour
         public float power;
         public Sprite image;
         public string explanation;
+        public int price;
     }
 
     /*----------------------------변수------------------------*/
@@ -62,6 +63,7 @@ public class ItemDataManager : MonoBehaviour
             tempData.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
 
             tempData.explanation = col[5];
+            tempData.price = int.Parse(col[6]);
 
             items.Add(tempData);
         }
@@ -81,6 +83,7 @@ public class ItemDataManager : MonoBehaviour
         nullData.power = -1;
         nullData.image = null;
         nullData.explanation = "오류";
+        nullData.price = 0;
 
         foreach(ItemData temp in items)
         {

@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class StatsUI : MonoBehaviour
 {
     public PlayerState playerState;
-    public GameObject goldUI;
+    //public GameObject goldUI;
 
     private GameObject curHP;
     private GameObject maxHP;
     private GameObject curMP;
     private GameObject maxMP;
+    private GameObject curExp;
+    private GameObject MaxExp;
 
     public void Start()
     {
@@ -19,6 +21,9 @@ public class StatsUI : MonoBehaviour
         curMP = gameObject.transform.Find("CurMp").gameObject;
         maxHP = gameObject.transform.Find("MaxHP").gameObject;
         maxMP = gameObject.transform.Find("MaxMp").gameObject;
+        curExp = gameObject.transform.Find("curExp").gameObject;
+        MaxExp = gameObject.transform.Find("MaxExp").gameObject;
+        playerState = FindObjectOfType<PlayerState>();
     }
 
     // Update is called once per frame
@@ -32,6 +37,8 @@ public class StatsUI : MonoBehaviour
         //150.0f 부분 max부분으로
         curHP.GetComponent<RectTransform>().sizeDelta = new Vector2(494.0f / playerState.maxHP * playerState.curHp, 38.0f);
         curMP.GetComponent<RectTransform>().sizeDelta = new Vector2(494.0f / playerState.maxMP * playerState.curMp, 38.0f);
-        goldUI.GetComponent<Text>().text = playerState.gold.ToString();
+        curExp.GetComponent<RectTransform>().sizeDelta = new Vector2(3082.0f / playerState.maxEXP * playerState.curExp, 38.0f);
+        
+       // goldUI.GetComponent<Text>().text = playerState.gold.ToString();
     }
 }
