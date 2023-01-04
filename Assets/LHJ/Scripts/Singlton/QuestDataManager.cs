@@ -38,6 +38,11 @@ public class QuestDataManager : MonoBehaviour
 
     /*---------------------------------------------------------*/
 
+    public List<QuestData> GetQuestAll()
+    {
+        return quests;
+    }
+
     public void Awake()
     {
         LoadQuestData(); 

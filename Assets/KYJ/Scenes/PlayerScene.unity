@@ -558,10 +558,6 @@ PrefabInstance:
       propertyPath: cinemachineVirtualCamera
       value: 
       objectReference: {fileID: 674233363}
-    - target: {fileID: 735213871, guid: 68813e3f18422044094750f43ff6381b, type: 3}
-      propertyPath: weaponSocket
-      value: 
-      objectReference: {fileID: 1545685879}
     - target: {fileID: 1608198229272546, guid: 68813e3f18422044094750f43ff6381b, type: 3}
       propertyPath: m_Name
       value: FemaleWarrior
@@ -1198,11 +1194,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
---- !u!1 &1545685879 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 365309976, guid: 68813e3f18422044094750f43ff6381b, type: 3}
-  m_PrefabInstance: {fileID: 814592984}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1612526939
 GameObject:
   m_ObjectHideFlags: 0

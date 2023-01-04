@@ -52,6 +52,16 @@ public class SkillManager : MonoBehaviour
         skillInfos[3].SetKeyCode(KeyCode.Alpha4);
     }
 
+    public SkillInformation GetSkill(int skillNum)
+    {
+        foreach (SkillInformation info in skillInfos)
+        {
+            if (info.skillNum == skillNum)
+                return info;
+        }
+        return null;
+    }
+
     /* 스킬을 실행시키는 함수 - 스킬 실행의 첫 단계를 담당 */
     private void PlaySkills()
     {
