@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WaterInteractable : MonoBehaviour, IInteractable
 {
+    [SerializeField] private string interactText;
+
     private Animator animator;
     private bool isFishing;
 
@@ -25,7 +27,7 @@ public class WaterInteractable : MonoBehaviour, IInteractable
 
     public string GetInteractText()
     {
-        return "Start Fishing";
+        return interactText;
     }
 
     public Transform GetTransform()
