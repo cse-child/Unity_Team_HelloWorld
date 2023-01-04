@@ -294,24 +294,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1098738044 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2535715704835349416, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
-  m_PrefabInstance: {fileID: 6789164267614149819}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1098738046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098738044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76aba2ffb4c34dc4c9f62fc09620b752, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hotkeySlot: {fileID: 3940122581523713449, guid: 12aaef1f419531b47ab4de2f7d803240, type: 3}
 --- !u!1 &1271027951
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,30 +514,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 234365864, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1460284006, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1843193306, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1858184946, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
       propertyPath: playerState
       value: 
       objectReference: {fileID: 1988397791}
-    - target: {fileID: 2535715704177547448, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2535715704381041399, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2535715705721248929, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
       propertyPath: m_Name
       value: UI
@@ -644,10 +606,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7880378506022468969, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1768484317, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}

@@ -23,6 +23,7 @@ public class UIControl : MonoBehaviour
         LootingUI = gameObject.transform.Find("LootingUI").gameObject;
         StatusUI = gameObject.transform.Find("StatusUI").gameObject;
         ShopUI = gameObject.transform.Find("ShopUI").gameObject;
+        playerState = FindObjectOfType<PlayerState>();
         
 
         _input = FindObjectOfType<StarterAssetsInputs>();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class HotKeySkillManager : MonoBehaviour
 {
@@ -29,14 +30,14 @@ public class HotKeySkillManager : MonoBehaviour
             }
         }
 
-        SetSlotData(0, "Q", KeyCode.Q);
-        SetSlotData(1, "W", KeyCode.W);
-        SetSlotData(2, "E", KeyCode.E);
-        SetSlotData(3, "R", KeyCode.R);
-        SetSlotData(4, "A", KeyCode.A);
-        SetSlotData(5, "S", KeyCode.S);
-        SetSlotData(6, "D", KeyCode.D);
-        SetSlotData(7, "F", KeyCode.F);
+        SetSlotData(0, "F1", KeyCode.F1);
+        SetSlotData(1, "F2", KeyCode.F2);
+        SetSlotData(2, "F3", KeyCode.F3);
+        SetSlotData(3, "F4", KeyCode.F4);
+        SetSlotData(4, "F5", KeyCode.F5);
+        SetSlotData(5, "F6", KeyCode.F6);
+        SetSlotData(6, "F7", KeyCode.F7);
+        SetSlotData(7, "F8", KeyCode.F8);
 
     }
 

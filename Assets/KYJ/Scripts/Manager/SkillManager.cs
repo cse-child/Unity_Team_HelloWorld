@@ -44,10 +44,17 @@ public class SkillManager : MonoBehaviour
 
             skillInfos.Add(info);
         }
-        // 스킬 단축키 설정하기 예시 !!
-        skillInfos[0].SetKeyCode(KeyCode.Alpha1);
-        skillInfos[1].SetKeyCode(KeyCode.Alpha2);
-        skillInfos[2].SetKeyCode(KeyCode.Alpha3);
+
+    }
+
+    public SkillInformation GetSkill(int skillNum)
+    {
+        foreach(SkillInformation info in skillInfos)
+        {
+            if (info.skillNum == skillNum)
+                return info;
+        }
+        return null;
     }
 
     private void PlaySkills()

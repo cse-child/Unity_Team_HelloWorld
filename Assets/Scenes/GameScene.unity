@@ -754,10 +754,6 @@ PrefabInstance:
       propertyPath: playerState
       value: 
       objectReference: {fileID: 658857237}
-    - target: {fileID: 1817077202, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2535715705721248929, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
       propertyPath: m_Name
       value: UI
