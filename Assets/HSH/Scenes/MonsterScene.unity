@@ -1631,41 +1631,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400224, guid: b0d71c50ef0964344ac6bc01c68d2fe5, type: 3}
   m_PrefabInstance: {fileID: 1852388970}
   m_PrefabAsset: {fileID: 0}
---- !u!135 &1389379738
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1389379734}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.61
-  m_Center: {x: 0, y: 1.07, z: 0}
---- !u!114 &1389379739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1389379734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68a85deb7eca40347acc13b1743626ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isSword: 0
-  range: 0
-  damage: 0
-  workSpeed: 0
-  attackDelay: 0
-  attackProcessing: 0
-  attackClose: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &1389379740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,12 +1644,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   traceRange: 10
-  biteRange: 4
-  breathRange: 8
-  castRange: 12
+  attackRange: 7
   moveSpeed: 0.5
   rotateSpeed: 0.5
   itemPrefab: {fileID: 324814176}
+--- !u!136 &1389379742
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389379734}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.04
+  m_Height: 4.61
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.93, z: 0.02}
+--- !u!114 &1389379743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389379734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d8a86beeea6f042b0d2019edc0e615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSword: 0
+  range: 5.5
+  damage: 1
+  workSpeed: 1
+  attackDelay: 1
+  attackProcessing: 1
+  attackClose: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1464799959
 GameObject:
   m_ObjectHideFlags: 0
