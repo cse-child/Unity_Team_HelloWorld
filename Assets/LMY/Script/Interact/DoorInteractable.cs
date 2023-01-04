@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DoorInteractable : MonoBehaviour, IInteractable
 {
+    [SerializeField] private string interactText;
+
     private Animator animator;
     private bool isOpen;
 
@@ -25,7 +27,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 
     public string GetInteractText()
     {
-        return "Open/Close Door";
+        return interactText;
     }
 
     public Transform GetTransform()

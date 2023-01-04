@@ -5,15 +5,16 @@ using TMPro;
 
 public class ChatBubble : MonoBehaviour
 {
-    //public static void Create(Transform parent, Vector3 localPosition, IconType iconType, string text)
-    //{
-    //    Transform chatBubbleTransform = Instantiate(target, parent);
-    //    chatBubbleTransform.localPosition = localPosition;
+    static public GameObject chatBubblePf;
+    public static void Create(Transform parent, Vector3 localPosition, IconType iconType, string text)
+    {
+        Transform chatBubbleTransform = Instantiate(chatBubblePf.transform, parent);
+        chatBubbleTransform.localPosition = localPosition;
 
-    //    chatBubbleTransform.GetComponent<ChatBubble>().Setup(iconType, text);
+        chatBubbleTransform.GetComponent<ChatBubble>().Setup(iconType, text);
 
-    //    Destroy(chatBubbleTransform.gameObject, 4.0f);
-    //}
+        Destroy(chatBubbleTransform.gameObject, 4.0f);
+    }
 
     public enum IconType
     {

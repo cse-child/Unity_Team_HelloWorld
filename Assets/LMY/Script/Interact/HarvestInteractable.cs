@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HarvestInteractable : MonoBehaviour, IInteractable
 {
+    [SerializeField] private string interactText;
+
     private Animator animator;
     private bool isHarvesting;
 
@@ -25,7 +27,7 @@ public class HarvestInteractable : MonoBehaviour, IInteractable
 
     public string GetInteractText()
     {
-        return "Start Harvesting";
+        return interactText;
     }
 
     public Transform GetTransform()

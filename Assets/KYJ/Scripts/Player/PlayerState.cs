@@ -18,6 +18,7 @@ public class PlayerState : MonoBehaviour
     public float curDef = 10.0f;
 
     public int gold = 10000;
+    public int level = 1;
 
     private void Update()
     {

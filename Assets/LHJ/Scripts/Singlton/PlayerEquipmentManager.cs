@@ -21,6 +21,7 @@ public class PlayerEquipmentManager : MonoBehaviour
     private Dictionary<string, int> equipmentSlot = new Dictionary<string, int>();
     private EquipmentUI equipmentControl;
     private PlayerState playerState;
+    public PlayerPartsControl partsControl;
 
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class PlayerEquipmentManager : MonoBehaviour
         equipmentSlot.Add("pants", 0);
         equipmentSlot.Add("weapon", 0);
         playerState = FindObjectOfType<PlayerState>();
+        partsControl = FindObjectOfType<PlayerPartsControl>();
     }
     // Start is called before the first frame update
     void Start()
@@ -48,23 +50,27 @@ public class PlayerEquipmentManager : MonoBehaviour
         {
             PlayerInventoryData.instance.AddItem(equipmentSlot["weapon"], 1);
             playerState.curAtk = playerState.curAtk - ItemDataManager.instance.GetItemData(equipmentSlot["weapon"]).power;
+            partsControl.UnEquippedWeapon();
         }
         equipmentSlot["weapon"] = itemNum;
         equipmentControl.SetSlotImage();
         playerState.curAtk = playerState.baseAtk + ItemDataManager.instance.GetItemData(itemNum).power;
+        partsControl.EquippedWeapon(weponNum.ToString());
     }
 
-    public void WearArmor(string itemSlot, int weponNum, int itemNum)       //规绢备 厘馒
+    public void WearArmor(string itemSlot, int armorNum, int itemNum)       //规绢备 厘馒
     {
 
         if (equipmentSlot[itemSlot] != 0)
         {
             PlayerInventoryData.instance.AddItem(equipmentSlot[itemSlot], 1);
             playerState.curDef = playerState.curDef - ItemDataManager.instance.GetItemData(equipmentSlot[itemSlot]).power;
+            partsControl.UnEquippedArmor(itemSlot);
         }
         equipmentSlot[itemSlot] = itemNum;
         equipmentControl.SetSlotImage();
         playerState.curDef = playerState.curDef + ItemDataManager.instance.GetItemData(itemNum).power;
+        partsControl.EquippedArmor(itemSlot, armorNum.ToString());
     }
 
     public int GetSlotItemNum(string slot)
