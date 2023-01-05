@@ -30,7 +30,7 @@ public class PlayerAttackCollision : MonoBehaviour
 
     private IEnumerator AutoDisable()
     {
-        // 1초 후에 오브젝트가 사라짐
+        // 0.3f초 후에 오브젝트가 사라짐
         yield return new WaitForSeconds(0.3f);
 
         gameObject.SetActive(false);
