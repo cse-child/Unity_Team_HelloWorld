@@ -45,6 +45,7 @@ public class TraceAI : MonoBehaviour
     private void Update()
     {
         //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
+
         SetAction();
         RotateMove();
     }

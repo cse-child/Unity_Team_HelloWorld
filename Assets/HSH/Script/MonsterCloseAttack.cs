@@ -12,6 +12,7 @@ public class MonsterCloseAttack : MonoBehaviour
     public float attackProcessing; // 공격판정되는 순간
     public float attackClose;// 모션 중 공격판정이 안되는 순간
 
+
     private Animator animator;
     private CapsuleCollider myCollider;
     private PlayerState playerState;
@@ -76,14 +77,23 @@ public class MonsterCloseAttack : MonoBehaviour
         //    return true;
         //}
         //return false;
-        
-        if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
+        if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.3f && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.33f)
         {
+<<<<<<< Updated upstream
             //hitInfo.transform.GetComponent<PlayerHpTest>().Hurt();
             //playerState.DecreaseHp(damage);
             playerControl.TakeDamage(damage);
             print(playerState.curHp);
             return true;
+=======
+            if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
+            {
+                //hitInfo.transform.GetComponent<PlayerHpTest>().Hurt();
+                playerState.DecreaseHp(damage);
+                print(playerState.curHp);
+                return true;
+            }
+>>>>>>> Stashed changes
         }
         return false;
     }
