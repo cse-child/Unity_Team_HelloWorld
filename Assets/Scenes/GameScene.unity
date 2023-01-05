@@ -1788,17 +1788,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 376095661, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
-<<<<<<< Updated upstream
       propertyPath: damage
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 376095661, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
       propertyPath: attackProcessing
       value: 1
-=======
-      propertyPath: attackProcessing
-      value: 0
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 1374684594, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
       propertyPath: target
