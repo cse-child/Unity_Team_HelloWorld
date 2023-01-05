@@ -18,6 +18,8 @@ public class PlayerControl : MonoBehaviour
     private int curWeaponState;
     private int curSkillState;
 
+    private bool isDead = false;
+
     private readonly int hashDeath = Animator.StringToHash("Death");
     private readonly int hashLooting = Animator.StringToHash("Looting");
     private readonly int hashAttack = Animator.StringToHash("Attack");
@@ -42,8 +44,8 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
-            Looting();
+        
+        //Looting();
         Attack();
         EquippedWeapon();
     }
@@ -57,7 +59,9 @@ public class PlayerControl : MonoBehaviour
         // ав╬З╢о?
         if(playerState.curHp <= 0)
         {
-            animator.SetTrigger(hashDeath);
+            playerState.curHp = 0;
+            animator.SetBool(hashDeath, true);
+            isDead = true;
         }
     }
 
