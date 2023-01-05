@@ -1261,10 +1261,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 376095661, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
-      propertyPath: damage
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 2803820806472684270, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
       propertyPath: m_Name
       value: Skeleton

@@ -30,6 +30,8 @@ public class TraceAI : MonoBehaviour
 
     private State curState;
 
+    private bool isTest = false;
+
     private readonly WaitForSeconds delayTime = new WaitForSeconds(0.1f);
     private void Awake() //할당을 할 때 한번만 실행되는 Awake에서
     {
@@ -46,8 +48,13 @@ public class TraceAI : MonoBehaviour
     {
         //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
         SetAction();
-        Hurt();
         RotateMove();
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            print("N");
+            Idle();
+            isTest = true;
+        }
     }
 
     private void OnDrawGizmos()
@@ -82,6 +89,7 @@ public class TraceAI : MonoBehaviour
 
     private void SetAction()
     {
+        if (isTest) return;
         switch (curState)
         {
             case State.TRACE:
@@ -174,27 +182,24 @@ public class TraceAI : MonoBehaviour
         return position;
     }
 
-    private void Hurt()
+    public void Hurt(float value)
     {
-        if(Input.GetMouseButtonDown(0))
+        if (animator.GetBool("isDie")) return;
+        animator.SetTrigger("trigHurt");
+        curHp -= value;
+        animator.SetFloat("curHp", curHp);
+        if (curHp <= 0)
         {
-            if (animator.GetBool("isDie")) return;
-            animator.SetTrigger("trigHurt");
-            curHp -= 10.0f;
-            animator.SetFloat("curHp", curHp);
-            if (curHp <= 0)
-            {
-                animator.SetTrigger("trigDie");
-                animator.SetBool("isDie", true);
-                curState = State.DEAD;
-            }
+            animator.SetTrigger("trigDie");
+            animator.SetBool("isDie", true);
+            curState = State.DEAD;
         }
     }
     private void Die()
     {
         this.DropItem();
         //yield return new WaitForSeconds(3f);
-        Destroy(gameObject);
+        //Destroy(gameObject);
         this.onDie();
 
     }

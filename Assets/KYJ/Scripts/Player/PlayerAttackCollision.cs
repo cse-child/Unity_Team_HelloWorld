@@ -23,7 +23,8 @@ public class PlayerAttackCollision : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             print("Enemy Tag");
-            other.GetComponent<EnemyControl>().TakeDamage(playerState.curAtk);
+            //other.GetComponent<EnemyControl>().TakeDamage(playerState.curAtk);  //테스트용 함수
+            other.GetComponent<TraceAI>().Hurt(playerState.curAtk);
         }
     }
 

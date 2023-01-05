@@ -794,10 +794,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSword: 0
   range: 2
-  damage: 1
+  damage: 25
   workSpeed: 1
   attackDelay: 1
-  attackProcessing: 1
+  attackProcessing: 0
   attackClose: 1
   layerMask:
     serializedVersion: 2
