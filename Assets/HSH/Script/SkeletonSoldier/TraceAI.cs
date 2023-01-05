@@ -46,7 +46,6 @@ public class TraceAI : MonoBehaviour
     {
         //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
         SetAction();
-        Hurt();
         RotateMove();
     }
 
@@ -77,6 +76,11 @@ public class TraceAI : MonoBehaviour
                 curState = State.TRACE;
             else
                 curState = State.IDLE;
+
+            if(curHp <= 0)
+            {
+                curState = State.DEAD;
+            }
         }
     }
 
@@ -174,20 +178,17 @@ public class TraceAI : MonoBehaviour
         return position;
     }
 
-    private void Hurt()
+    public void Hurt(float value)
     {
-        if(Input.GetMouseButtonDown(0))
+        if (animator.GetBool("isDie")) return;
+        animator.SetTrigger("trigHurt");
+        curHp -= value;
+        animator.SetFloat("curHp", curHp);
+        if (curHp <= 0)
         {
-            if (animator.GetBool("isDie")) return;
-            animator.SetTrigger("trigHurt");
-            curHp -= 10.0f;
-            animator.SetFloat("curHp", curHp);
-            if (curHp <= 0)
-            {
-                animator.SetTrigger("trigDie");
-                animator.SetBool("isDie", true);
-                curState = State.DEAD;
-            }
+            animator.SetTrigger("trigDie");
+            animator.SetBool("isDie", true);
+            curState = State.DEAD;
         }
     }
     private void Die()
