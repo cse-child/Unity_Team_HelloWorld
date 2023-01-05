@@ -75,7 +75,7 @@ public class MonsterCloseAttack : MonoBehaviour
         if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
         {
             //hitInfo.transform.GetComponent<PlayerHpTest>().Hurt();
-            playerState.DecreaseHp(1.0f);
+            playerState.DecreaseHp(damage);
             print(playerState.curHp);
             return true;
         }
