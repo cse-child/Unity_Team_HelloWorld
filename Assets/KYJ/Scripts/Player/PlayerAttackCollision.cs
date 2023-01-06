@@ -22,7 +22,9 @@ public class PlayerAttackCollision : MonoBehaviour
         // 플레이어가 타격하는 대상의 태그, 컴포넌트, 함수는 바뀔 수 있다.
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyControl>().TakeDamage(playerState.curAtk);
+            print("Enemy Tag");
+            //other.GetComponent<EnemyControl>().TakeDamage(playerState.curAtk); //테스트용 함수
+            other.GetComponent<TraceAI>().Hurt(playerState.curAtk);
         }
     }
 
