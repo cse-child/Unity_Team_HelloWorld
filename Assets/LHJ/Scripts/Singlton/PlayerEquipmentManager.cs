@@ -52,10 +52,11 @@ public class PlayerEquipmentManager : MonoBehaviour
             playerState.curAtk = playerState.curAtk - ItemDataManager.instance.GetItemData(equipmentSlot["weapon"]).power;
             partsControl.UnEquippedWeapon();
         }
+        partsControl.EquippedWeapon(weponNum.ToString());
         equipmentSlot["weapon"] = itemNum;
         equipmentControl.SetSlotImage();
-        playerState.curAtk = playerState.baseAtk + ItemDataManager.instance.GetItemData(itemNum).power;
-        partsControl.EquippedWeapon(weponNum.ToString());
+        if(itemNum != 0)
+            playerState.curAtk = playerState.baseAtk + ItemDataManager.instance.GetItemData(itemNum).power;
     }
 
     public void WearArmor(string itemSlot, int armorNum, int itemNum)       //¹æ¾î±¸ ÀåÂø
@@ -67,10 +68,11 @@ public class PlayerEquipmentManager : MonoBehaviour
             playerState.curDef = playerState.curDef - ItemDataManager.instance.GetItemData(equipmentSlot[itemSlot]).power;
             partsControl.UnEquippedArmor(itemSlot);
         }
+        partsControl.EquippedArmor(itemSlot, armorNum.ToString());
         equipmentSlot[itemSlot] = itemNum;
         equipmentControl.SetSlotImage();
-        playerState.curDef = playerState.curDef + ItemDataManager.instance.GetItemData(itemNum).power;
-        partsControl.EquippedArmor(itemSlot, armorNum.ToString());
+        if (itemNum != 0)
+            playerState.curDef = playerState.curDef + ItemDataManager.instance.GetItemData(itemNum).power;
     }
 
     public int GetSlotItemNum(string slot)
