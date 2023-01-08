@@ -10,6 +10,7 @@ public class PlayerControl : MonoBehaviour
 
     public GameObject weaponSocket;
     public GameObject attackCollision;
+    public TrailRenderer trailEffect;
 
     private Animator animator;
 
@@ -194,5 +195,17 @@ public class PlayerControl : MonoBehaviour
         {
             fadeEffect.OnFade(FadeState.FadeLoop);
         }
+    }
+
+    // 검기 효과 켜기
+    private void StartTrailEffect()
+    {
+        trailEffect.enabled = true;
+    }
+
+    // 검기 효과 끄기
+    private void FinishTrailEffect()
+    {
+        trailEffect.enabled = false;
     }
 }
