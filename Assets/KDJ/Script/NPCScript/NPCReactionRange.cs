@@ -20,17 +20,15 @@ public class NPCReactionRange : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            npcFunction.SetIsTalkingPlayerToNPC(true);
+            npcFunction.SetIsPlayerAccessNPC(true);
             direction = other.transform.position - transform.parent.position;
         }
-        else if(other == null)
-        {
-            npcFunction.SetIsTalkingPlayerToNPC(false);
-        }
-        else
-        {
-            npcFunction.SetIsTalkingPlayerToNPC(false);
-        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+            npcFunction.SetIsPlayerAccessNPC(false);
     }
 
     public Vector3 GetDirection()

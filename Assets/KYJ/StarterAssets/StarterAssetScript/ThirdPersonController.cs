@@ -438,6 +438,7 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
+        // Animation Event
         private void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
@@ -450,6 +451,7 @@ namespace StarterAssets
             }
         }
 
+        // Animation Event
         private void OnLand(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
