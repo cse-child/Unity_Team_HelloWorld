@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Quest : MonoBehaviour
 {
@@ -8,8 +9,12 @@ public class Quest : MonoBehaviour
     public bool isActive = false;
     public bool isClear = false;
 
+    public bool isQuestGoalArrival = false;
+
     public GameObject player;
     public GameObject enemy;
+
+    private int countValue = 0;
 
     public struct QuestInfo
     {
@@ -33,6 +38,8 @@ public class Quest : MonoBehaviour
         if (!isActive) return;
 
         QuestApart();
+        //Test();
+        QuestClear();
     }
 
     private void TypeDefinition()
@@ -68,22 +75,50 @@ public class Quest : MonoBehaviour
 
     private void Tutorial()
     {
+        if(this.questInfo.questCode == "qst001")
+        {
+            Vector3 temp = player.transform.position;
+            if (player.transform.position == temp)
+                isQuestGoalArrival = true;
+        }
+        else if(this.questInfo.questCode == "qst002")
+        {
+            isQuestGoalArrival = true;
+        }
+        else if(this.questInfo.questCode == "qst003")
+        {
 
+        }
     }
 
     private void Collecting()
     {
+        string itemCode;
+        if (this.questInfo.questCode == "qst_006")
+            //itemCode = 
 
+        //PlayerInventoryData.instance.GetHasInventory()[]
+
+        if(countValue >= requireCount)
+            isQuestGoalArrival = true;  
     }
 
     private void Researching()
     {
-        
+        //if (this.)
     }
 
     private void Hunting()
     {
-        
+        countValue++;
+
+        if (countValue >= requireCount)
+            isQuestGoalArrival = true;
+    }
+
+    public void SetQuestClear()
+    {
+        isQuestGoalArrival = true;
     }
 
     public void SetQuestActive(bool input)
@@ -91,11 +126,14 @@ public class Quest : MonoBehaviour
         isActive = input;
     }
 
+    public bool GetQuestActive()
+    {
+        return isActive;
+    }
+
     public void QuestClear()
     {
-        isClear = true;
-
-        if (isClear)
-            isActive = false;
+        if (isQuestGoalArrival) 
+            isClear = true;
     }
 }
