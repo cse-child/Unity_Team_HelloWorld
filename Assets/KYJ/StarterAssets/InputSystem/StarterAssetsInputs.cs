@@ -89,7 +89,7 @@ namespace StarterAssets
 		{
 			cursorLocked = state;
 			SetCursorState(state);
-			print("cursor lockes -> " + state);
+			//print("cursor lockes -> " + state);
 		}
 	}
 	

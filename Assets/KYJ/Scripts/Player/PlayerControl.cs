@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     const int MAX_WEAPON_COUNT = 1;
+    const float BLOOD_SCREEN_HP = 30.0f;
 
     public GameObject weaponSocket;
     public GameObject attackCollision;
@@ -14,11 +15,12 @@ public class PlayerControl : MonoBehaviour
 
     private PlayerState playerState;
     private StarterAssetsInputs starterAssetsInputs;
+    private FadeEffect fadeEffect;
 
     private int curWeaponState;
     private int curSkillState;
 
-    private bool isDead = false;
+    public bool isDead = false;
 
     private readonly int hashDeath = Animator.StringToHash("Death");
     private readonly int hashLooting = Animator.StringToHash("Looting");
@@ -31,6 +33,7 @@ public class PlayerControl : MonoBehaviour
         animator = GetComponent<Animator>();
         playerState = GetComponent<PlayerState>();
         starterAssetsInputs = FindObjectOfType<StarterAssetsInputs>();
+        fadeEffect = FindObjectOfType<FadeEffect>();
     }
 
     private void Start()
@@ -44,15 +47,17 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        
         //Looting();
         Attack();
         EquippedWeapon();
+        CheckBloodScreen();
     }
 
     // Player 데미지 -> HP 감소
     public void TakeDamage(float value)
     {
+        if (isDead) return; // 죽었으면 안맞게
+
         animator.SetTrigger(hashDamage);
         playerState.DecreaseHp(value);
 
@@ -180,5 +185,14 @@ public class PlayerControl : MonoBehaviour
         // Weapon Socket의 0번 GameObject가 켜져있으면 -> 무기 없음
         // 0번이 꺼져있으면 -> 무기 장착중
         return !weaponSocket.transform.Find("0").gameObject.activeSelf;
+    }
+
+    // 플레이어 피가 적을때 스크린 핏빛 효과
+    private void CheckBloodScreen()
+    {
+        if(playerState.curHp <= BLOOD_SCREEN_HP)
+        {
+            fadeEffect.OnFade(FadeState.FadeLoop);
+        }
     }
 }
