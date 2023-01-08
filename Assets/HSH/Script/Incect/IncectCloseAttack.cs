@@ -2,12 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragonAttack : MonoBehaviour
+public class IncectCloseAttack : MonoBehaviour
 {
-    enum Pattern
-    {
-        BITE, BREATH, CAST
-    }
     public bool isSword;
     public float range;
     public int damage;
@@ -20,6 +16,7 @@ public class DragonAttack : MonoBehaviour
     private SphereCollider myCollider;
     private PlayerState playerState;
     private bool isAttack = false; // 공격중
+    private bool isSwing = false; // 검 휘두르는 중
 
     private RaycastHit hitInfo; // 현재 무기에 닿은 오브젝트 정보
     public LayerMask layerMask;
@@ -47,9 +44,25 @@ public class DragonAttack : MonoBehaviour
     {
         if (!isAttack)
         {
+            //StartCoroutine(AttackCoroutine());
+            animator.SetTrigger("trigAttack");
             isAttack = true;
-            animator.SetTrigger("trigBite");
         }
+    }
+
+    private IEnumerator AttackCoroutine()
+    {
+        isAttack = true;
+
+        yield return new WaitForSeconds(attackProcessing);
+        isSwing = true;
+        StartCoroutine(CheckObject());
+
+        //yield return new WaitForSeconds(attackClose);
+        isSwing = false;
+
+        //yield return new WaitForSeconds(attackDelay - attackProcessing - attackClose);
+        isAttack = false;
     }
 
     private IEnumerator CheckObject()
@@ -58,9 +71,11 @@ public class DragonAttack : MonoBehaviour
         Debug.DrawRay(myCollider.transform.position + control, transform.forward * range, Color.blue, 0.3f);
         if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
         {
-            DragonThink();
-            
+            animator.SetTrigger("trigAttack");
+            playerState.DecreaseHp(damage);
+            print(playerState.curHp);
             Debug.Log(hitInfo.transform.name);
+            isSwing = false;
         }
         yield return new WaitForSeconds(1.0f);
     }
@@ -70,38 +85,5 @@ public class DragonAttack : MonoBehaviour
         isAttack = false;
     }
 
-    private void DragonThink()
-    {
-        int ranAction = Random.Range(0, 5);
-        switch (ranAction)
-        {
-            case 0:
-            case 1:
-            case 2:
-                Bite();
-                break;
-            case 3:
-                Breath();
-                break;
-            case 4:
-                Cast();
-                break;
-        }
-    }
-    private void Bite()
-    {
-        animator.SetTrigger("trigBite");
-        playerState.DecreaseHp(damage);
-        print(playerState.curHp);
-    }
-    private void Breath()
-    {
-        animator.SetTrigger("trigBreath");
-        playerState.DecreaseHp(damage);
-        print(playerState.curHp);
-    }
-    private void Cast()
-    {
-        animator.SetTrigger("trigCastSpell");
-    }
+
 }
