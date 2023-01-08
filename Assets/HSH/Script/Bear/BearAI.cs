@@ -5,34 +5,38 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using System.IO;
 
-public class DragonAI : MonoBehaviour
+public class BearAI : MonoBehaviour
 {
     enum State
     {
         IDLE, TRACE, ATTACK, DEAD, HURT
     }
 
-    public float traceRange = 15.0f;
-    public float attackRange = 5.0f;
-    public float moveSpeed = 2.0f;
+    public float traceRange = 5.0f;
+    public float attackRange = 1.0f;
+
+    public float moveSpeed = 0.5f;
     public float rotateSpeed = 0.5f;
     //private float maxHp = 100.0f;
     private float curHp = 100.0f;
 
     private GameObject target;
     private Animator animator;
+
     public GameObject itemPrefab;
     public System.Action onDie;
 
-    private DragonAttack closeAtk;
+    private BearCloseAttack closeAtk;
 
     private State curState;
+
+    private bool isTest = false;
 
     private readonly WaitForSeconds delayTime = new WaitForSeconds(0.1f);
     private void Awake() //할당을 할 때 한번만 실행되는 Awake에서
     {
         animator = GetComponent<Animator>();
-        closeAtk = GetComponent<DragonAttack>();
+        closeAtk = GetComponent<BearCloseAttack>();
         target = GameObject.FindGameObjectWithTag("Player");
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
@@ -44,7 +48,12 @@ public class DragonAI : MonoBehaviour
     {
         //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
         SetAction();
-        Test();
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            print("N");
+            Idle();
+            isTest = true;
+        }
     }
 
     private void OnDrawGizmos()
@@ -79,6 +88,7 @@ public class DragonAI : MonoBehaviour
 
     private void SetAction()
     {
+        if (isTest) return;
         switch (curState)
         {
             case State.TRACE:
@@ -86,6 +96,7 @@ public class DragonAI : MonoBehaviour
                 break;
             case State.ATTACK:
                 closeAtk.TryAttack();
+                //Attack();
                 break;
             case State.IDLE:
                 Idle();
@@ -101,13 +112,12 @@ public class DragonAI : MonoBehaviour
         if (animator.GetBool("isDie")) return;
         animator.SetBool("isAttack", false);
         animator.SetBool("isTrace", true);
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
-        {
-            Vector3 direction = target.transform.position - transform.position;
-            transform.rotation = Quaternion.LookRotation(direction);
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Bear_RunForward")) return;
 
-            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
-        }
+        Vector3 direction = target.transform.position - transform.position;
+        transform.rotation = Quaternion.LookRotation(direction);
+
+        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
     }
 
     //private void Attack()
@@ -117,14 +127,17 @@ public class DragonAI : MonoBehaviour
     //}
     private void EndAttack()
     {
+        animator.SetBool("isAttack", false);
     }
     private void Idle()
     {
         animator.SetBool("isAttack", false);
         animator.SetBool("isTrace", false);
+ 
     }
 
-    private void Hurt(float value)
+
+    public void Hurt(float value)
     {
         if (animator.GetBool("isDie")) return;
         animator.SetTrigger("trigHurt");
@@ -141,7 +154,7 @@ public class DragonAI : MonoBehaviour
     {
         this.DropItem();
         //yield return new WaitForSeconds(3f);
-        Destroy(gameObject);
+        //Destroy(gameObject);
         this.onDie();
 
     }
@@ -175,17 +188,6 @@ public class DragonAI : MonoBehaviour
                 Debug.Log("v: " + i.ToString() + " " + dataValues[i].ToString());
             }
         }
-    }
-    private void Test()
-    {
-        if (Input.GetKeyDown(KeyCode.F1))
-            animator.SetTrigger("trigBite");
-
-        if (Input.GetKeyDown(KeyCode.F2))
-            animator.SetTrigger("trigBreath");
-
-        if (Input.GetKeyDown(KeyCode.F3))
-            animator.SetTrigger("trigCastSpell");
     }
 }
 
