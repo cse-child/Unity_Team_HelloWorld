@@ -21,7 +21,6 @@ public class DragonAI : MonoBehaviour
 
     private GameObject target;
     private Animator animator;
-
     public GameObject itemPrefab;
     public System.Action onDie;
 
@@ -100,12 +99,10 @@ public class DragonAI : MonoBehaviour
     private void Trace()
     {
         if (animator.GetBool("isDie")) return;
-
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("CastSpell 0"))
+        animator.SetBool("isAttack", false);
+        animator.SetBool("isTrace", true);
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
         {
-            closeAtk.PatternOut();
-            animator.SetBool("isAttack", false);
-            animator.SetBool("isTrace", true);
             Vector3 direction = target.transform.position - transform.position;
             transform.rotation = Quaternion.LookRotation(direction);
 
@@ -123,42 +120,15 @@ public class DragonAI : MonoBehaviour
     }
     private void Idle()
     {
-        closeAtk.PatternOut();
         animator.SetBool("isAttack", false);
         animator.SetBool("isTrace", false);
     }
 
-    private Vector3 CalculateWanderPosition()
-    {
-        float wanderRadius = 10.0f; // 현재 위치를 원점으로 하는 원의 반지름
-        int wanderJitter = 0; // 선택된 각도 (wanderJitterMin ~ wanderJitterMax)
-        int wanderJitterMin = 0; // 최소 각도
-        int wanderJitterMax = 360; // 최대 각도
-
-        //현재 적 캐릭터가 있는 월드의 중심 위치와 크기 (구역을 벗어난 행동 x)
-        Vector3 rangePosition = Vector3.zero;
-        Vector3 rangeScale = Vector3.one * 100.0f;
-
-        //자신의 위치를 중심으로 반지름(wanderRadius) 거리, 선택된 각도(wanderJitter)에 위치한 좌표를 목표지점으로 설정
-        wanderJitter = Random.Range(wanderJitterMin, wanderJitterMax);
-        Vector3 targetPosition = transform.position + SetAngle(wanderRadius, wanderJitter);
-
-        return targetPosition;
-    }
-    private Vector3 SetAngle(float radius, int angle)
-    {
-        Vector3 position = Vector3.zero;
-
-        position.x = Mathf.Cos(angle) * radius;
-        position.z = Mathf.Sin(angle) * radius;
-        return position;
-    }
-
-    private void Hurt()
+    private void Hurt(float value)
     {
         if (animator.GetBool("isDie")) return;
         animator.SetTrigger("trigHurt");
-        curHp -= 10.0f;
+        curHp -= value;
         animator.SetFloat("curHp", curHp);
         if (curHp <= 0)
         {

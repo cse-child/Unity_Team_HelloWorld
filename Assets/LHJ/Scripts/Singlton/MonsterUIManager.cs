@@ -37,9 +37,9 @@ public class MonsterUIManager : MonoBehaviour
         monsterUI.gameObject.SetActive(active);
     }
 
-    public void monster()
+    public void SetMonster(int curHP, int maxHP, string name)
     {
-
+        monsterUI.SetMonster(curHP, maxHP, name);
     }
 
     // Update is called once per frame

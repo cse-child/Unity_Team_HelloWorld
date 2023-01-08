@@ -125,6 +125,7 @@ public class UIControl : MonoBehaviour
         { 
             _input.SetCursorLocked(false);
             _input.cursorInputForLook = false;
+            _input.LookInput(Vector2.zero);
         }
         else
         {

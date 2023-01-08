@@ -8,6 +8,7 @@ using UnityEngine;
 public class NPCFunction : MonoBehaviour
 {
     public NPCRotation npcRotation;
+    public bool isPlayerAccessNPC = false;
     public bool isTalkingPlayerToNPC = false;
 
     private void Awake()
@@ -19,14 +20,23 @@ public class NPCFunction : MonoBehaviour
     private void Update()
     {
         IsNPCRotation();
-        //GiveQuestToPlayer();
     }
     private void IsNPCRotation()
     {
-        if (isTalkingPlayerToNPC)
+        if (isPlayerAccessNPC)
             npcRotation.SetNPCRotation(true);
         else
             npcRotation.SetNPCRotation(false);
+    }
+
+    public void SetIsPlayerAccessNPC(bool input)
+    {
+        isPlayerAccessNPC = input;
+    }
+
+    public bool IsPlayerAccessNPC()
+    {
+        return isPlayerAccessNPC;
     }
 
     public void SetIsTalkingPlayerToNPC(bool input)

@@ -44,18 +44,19 @@ public class MonsterCloseAttack : MonoBehaviour
     {
         if (!isAttack)
         {
-            StartCoroutine(AttackCoroutine());
+            //StartCoroutine(AttackCoroutine());
+            animator.SetTrigger("trigAttack");
+            isAttack = true;
         }
     }
 
     private IEnumerator AttackCoroutine()
     {
         isAttack = true;
-        animator.SetTrigger("trigAttack");
 
         yield return new WaitForSeconds(attackProcessing);
         isSwing = true;
-        StartCoroutine(HitCoroutine());
+        StartCoroutine(CheckObject());
 
         //yield return new WaitForSeconds(attackClose);
         isSwing = false;
@@ -64,35 +65,25 @@ public class MonsterCloseAttack : MonoBehaviour
         isAttack = false;
     }
 
-    private bool CheckObject()
+    private IEnumerator CheckObject()
     {
-        //if (Physics.Raycast(transform.position, transform.forward, out hitInfo, range))
-        //{
-        //    return true;
-        //}
-        //return false;
-        
+        print("SS");
+        Debug.DrawRay(myCollider.transform.position + control, transform.forward * range, Color.blue, 0.3f);
         if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
         {
-            //hitInfo.transform.GetComponent<PlayerHpTest>().Hurt();
-            playerState.DecreaseHp(1.0f);
+            animator.SetTrigger("trigAttack");
+            playerState.DecreaseHp(damage);
             print(playerState.curHp);
-            return true;
+            Debug.Log(hitInfo.transform.name);
+            isSwing = false;
         }
-        return false;
+        yield return new WaitForSeconds(1.0f);
     }
-    private IEnumerator HitCoroutine()
+    private void StartCheck()
     {
-        while (isSwing)
-        {
-            Debug.DrawRay(myCollider.transform.position + control, transform.forward * range, Color.blue, 0.3f);
-            if (CheckObject())
-            {
-                isSwing = false;
-                Debug.Log(hitInfo.transform.name);
-            }
-            yield return null;
-        }
+        StartCoroutine(CheckObject());
+        isAttack = false;
     }
+
 
 }
