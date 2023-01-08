@@ -118,7 +118,7 @@ public class SkillManager : MonoBehaviour
     {
         foreach (SkillInformation info in skillInfos)
         {
-            if (playerState.level <= info.data.level)
+            if (playerState.level >= info.data.level)
                 info.data.learning = true;
         }
     }

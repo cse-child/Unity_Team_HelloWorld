@@ -40,6 +40,11 @@ public class ItemDataManager : MonoBehaviour
         LoadItemData();
     }
 
+    public void Non()
+    {
+
+    }
+
     private void LoadItemData()
     {
         string temp = System.IO.File.ReadAllText("Assets/LHJ/Resource/TextData/ItemTable.csv");
