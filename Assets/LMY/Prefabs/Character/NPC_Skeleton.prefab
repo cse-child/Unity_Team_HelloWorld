@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 1294590175696947016}
   - component: {fileID: 1294590175696946869}
   - component: {fileID: 1294590175696946870}
-  - component: {fileID: 1294590175696946871}
+  - component: {fileID: 5138315319631123157}
   m_Layer: 0
   m_Name: NPC_Skeleton
   m_TagString: Untagged
@@ -163,7 +163,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1294590175177770498}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: -20.550465, y: 5.556657, z: 231.4709}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -321,7 +321,7 @@ MonoBehaviour:
     prependActorNameSeparator: ': '
     prependActorNameFormat: '{0}{1}'
     subtitleColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!114 &1294590175696946871
+--- !u!114 &5138315319631123157
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -330,13 +330,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1294590175177770498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7bc567f491951641baa655e0796749a, type: 3}
+  m_Script: {fileID: 11500000, guid: eebb21dcd952acb479c8e3b61a84bd34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: "\uC2A4\uCF08\uB808\uD1A4"
-  sentences: []
-  chatTr: {fileID: 0}
-  chatBoxPrefab: {fileID: 0}
 --- !u!1 &1294590175177770500
 GameObject:
   m_ObjectHideFlags: 0
