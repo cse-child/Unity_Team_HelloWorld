@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class HarvestInteractable : MonoBehaviour, IInteractable
 {
@@ -16,13 +17,13 @@ public class HarvestInteractable : MonoBehaviour, IInteractable
 
     public void ToggleHarvesting()
     {
-        isHarvesting = !isHarvesting;
-        animator.SetBool("IsHarvesting", isHarvesting);
+        Destroy(gameObject);
     }
 
     public void Interact(Transform interactorTransform)
     {
         ToggleHarvesting();
+        ItemLootManager.instance.OpenLootingUI();
     }
 
     public string GetInteractText()

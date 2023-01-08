@@ -37,7 +37,20 @@ public class PlayerInventoryData : MonoBehaviour
         inventory.CreateSlot();
         AddItem(1, 3);
         AddItem(2, 2);
-        AddItem(3, 2);
+        AddItem(7, 2);
+        AddItem(8, 2);
+        AddItem(9, 2);
+        AddItem(10, 2);
+        AddItem(11, 2);
+        AddItem(12, 2);
+        AddItem(13, 2);
+        AddItem(14, 2);
+        AddItem(15, 2);
+        AddItem(16, 2);
+        AddItem(18, 2);
+        AddItem(19, 2);
+        AddItem(20, 2);
+        AddItem(21, 2);
     }
 
     //플레이어 소유 아이템 추가
