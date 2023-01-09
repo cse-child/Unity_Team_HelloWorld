@@ -19,7 +19,10 @@ public class QuestNPCInteractable : MonoBehaviour, IInteractable
     {
         //퀘스트창열기
         UIControl uiControl = FindObjectOfType<UIControl>();
+        uiControl.QuesteUI.transform.SetAsLastSibling();
         uiControl.QuesteUI.SetActive(true);
+        uiControl.CheckCursorState();
+        UISoundControl.instance.SoundPlay(1);
 
         //여기에 대화상자등을 넣어주면 됨
         Debug.Log("Interact!");

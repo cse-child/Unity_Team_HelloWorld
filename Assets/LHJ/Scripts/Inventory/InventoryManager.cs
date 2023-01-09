@@ -90,8 +90,6 @@ public class InventoryManager : MonoBehaviour, IPointerExitHandler
             itemImage.transform.position = Input.mousePosition;
         }
         goldText.text = playerState.gold.ToString();
-        if (Input.GetKeyDown(KeyCode.N))
-            playerState.gold--; 
     }
 
     public void SetSelectSlot(GameObject slot, GameObject item)
@@ -158,6 +156,7 @@ public class InventoryManager : MonoBehaviour, IPointerExitHandler
             selectSlot.hotkey.SetSlotData(selectSlot);
         }
 
+        UISoundControl.instance.SoundPlay(2);
 
         selectIndex = -1;
         chaingeIndex = -1;
