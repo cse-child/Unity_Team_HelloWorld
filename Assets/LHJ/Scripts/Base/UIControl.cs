@@ -30,7 +30,9 @@ public class UIControl : MonoBehaviour
         ItemLootManager.instance.SetLootingUI(LootingUI);
         PlayerInventoryData.instance.SetInventory(InventoryUI.transform.Find("BG").GetComponent<InventoryManager>());
         PlayerInventoryData.instance.SetPlayerState(playerState);
+        ItemDataManager.instance.Non();
         PlayerEquipmentManager.instance.Non();
+        MonsterUIManager.instance.Non();
     }
 
     public void Start()
@@ -123,6 +125,7 @@ public class UIControl : MonoBehaviour
         { 
             _input.SetCursorLocked(false);
             _input.cursorInputForLook = false;
+            _input.LookInput(Vector2.zero);
         }
         else
         {

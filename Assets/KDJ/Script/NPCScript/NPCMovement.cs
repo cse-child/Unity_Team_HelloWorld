@@ -39,14 +39,6 @@ public class NPCMovement : MonoBehaviour
         npcAnimator.SetFloat("Move", move);
     }
 
-    private void MoveForward()
-    {
-        if (!isMove) return;
-
-        transform.Translate(Vector3.forward * npcMoveSpeed * Time.deltaTime);
-
-    }
-
     private void CheckIsMove()
     {
         if (GetIsMove())
@@ -70,7 +62,7 @@ public class NPCMovement : MonoBehaviour
 
     private void CheckNPCBehavior()
     {
-        if (npcFunction.IsTalkingPlayerToNPC())
+        if (npcFunction.IsPlayerAccessNPC())
             isMove = false;
         else
             isMove = true;

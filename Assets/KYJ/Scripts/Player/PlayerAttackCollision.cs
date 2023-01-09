@@ -23,14 +23,14 @@ public class PlayerAttackCollision : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             print("Enemy Tag");
-            //other.GetComponent<EnemyControl>().TakeDamage(playerState.curAtk);  //테스트용 함수
+            //other.GetComponent<EnemyControl>().TakeDamage(playerState.curAtk); //테스트용 함수
             other.GetComponent<TraceAI>().Hurt(playerState.curAtk);
         }
     }
 
     private IEnumerator AutoDisable()
     {
-        // 1초 후에 오브젝트가 사라짐
+        // 0.3f초 후에 오브젝트가 사라짐
         yield return new WaitForSeconds(0.3f);
 
         gameObject.SetActive(false);

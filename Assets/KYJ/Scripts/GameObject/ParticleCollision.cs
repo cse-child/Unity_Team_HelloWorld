@@ -20,7 +20,7 @@ public class ParticleCollision : MonoBehaviour
         {
             float damage = playerState.curAtk + SkillDataManager.instance.GetSkillData(skillNum).damage;
 
-            //other.GetComponent<EnemyControl>().TakeDamage(damage); //테스트 함수
+            //other.GetComponent<EnemyControl>().TakeDamage(damage); //테스트 몬스터 함수
             other.GetComponent<TraceAI>().Hurt(damage);
         }
     }

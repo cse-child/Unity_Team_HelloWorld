@@ -84,6 +84,11 @@ public class TraceAI : MonoBehaviour
                 curState = State.TRACE;
             else
                 curState = State.IDLE;
+
+            if(curHp <= 0)
+            {
+                curState = State.DEAD;
+            }
         }
     }
 

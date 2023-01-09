@@ -10,11 +10,16 @@ public class EquipmentUI : MonoBehaviour
     private void Awake()
     {
         PlayerEquipmentManager.instance.SetEquipmentSlotObject(this);
-        slots["top"] = transform.Find("HadSlot").Find("ItemImage").gameObject;
-        slots["hat"] = transform.Find("TopSlot").Find("ItemImage").gameObject;
-        slots["shoes"] = transform.Find("PantsSlot").Find("ItemImage").gameObject;
-        slots["pants"] = transform.Find("ShoesSlot").Find("ItemImage").gameObject;
+        slots["hat"] = transform.Find("HadSlot").Find("ItemImage").gameObject;
+        slots["top"] = transform.Find("TopSlot").Find("ItemImage").gameObject;
+        slots["pants"] = transform.Find("PantsSlot").Find("ItemImage").gameObject;
+        slots["shoes"] = transform.Find("ShoesSlot").Find("ItemImage").gameObject;
         slots["weapon"] = transform.Find("WeaponSlot").Find("ItemImage").gameObject;
+
+        foreach (KeyValuePair<string, GameObject> slot in slots)
+        {
+            slot.Value.AddComponent<PartsSlotData>().SetSlotParts(slot.Key);
+        }
     }
     // Start is called before the first frame update
     void Start()
