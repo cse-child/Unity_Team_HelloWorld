@@ -2,6 +2,7 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PlayerManager;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerControl : MonoBehaviour
     private PlayerState playerState;
     private StarterAssetsInputs starterAssetsInputs;
     private FadeEffect fadeEffect;
+    private PlayerManager playerManager;
 
     private int curWeaponState;
     private int curSkillState;
@@ -35,6 +37,7 @@ public class PlayerControl : MonoBehaviour
         playerState = GetComponent<PlayerState>();
         starterAssetsInputs = FindObjectOfType<StarterAssetsInputs>();
         fadeEffect = FindObjectOfType<FadeEffect>();
+        playerManager = FindObjectOfType<PlayerManager>();
     }
 
     private void Start()
@@ -52,6 +55,9 @@ public class PlayerControl : MonoBehaviour
         Attack();
         EquippedWeapon();
         CheckBloodScreen();
+
+        //if (Input.GetKeyDown(KeyCode.F1))
+        //    TakeDamage(20);
     }
 
     // Player 데미지 -> HP 감소
@@ -61,13 +67,15 @@ public class PlayerControl : MonoBehaviour
 
         animator.SetTrigger(hashDamage);
         playerState.DecreaseHp(value);
+        PlaySfxSound((int)PlayerManager.Sfx.DAMAGE);
 
         // 죽었니?
-        if(playerState.curHp <= 0)
+        if (playerState.curHp <= 0)
         {
             playerState.curHp = 0;
             animator.SetBool(hashDeath, true);
             isDead = true;
+            PlaySfxSound((int)PlayerManager.Sfx.DEATH);
         }
     }
 
@@ -207,5 +215,11 @@ public class PlayerControl : MonoBehaviour
     private void FinishTrailEffect()
     {
         trailEffect.enabled = false;
+    }
+
+    // Animation Event - 효과음 재생
+    private void PlaySfxSound(int type)
+    {
+        playerManager.SfxPlay((PlayerManager.Sfx)type);
     }
 }

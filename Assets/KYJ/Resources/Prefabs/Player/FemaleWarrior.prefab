@@ -42990,7 +42990,6 @@ GameObject:
   - component: {fileID: 269998019}
   - component: {fileID: 269998020}
   - component: {fileID: 269998021}
-  - component: {fileID: 327283433}
   - component: {fileID: 568818836}
   - component: {fileID: 568818827}
   - component: {fileID: 735213871}
@@ -43197,18 +43196,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &327283433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608198229272546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4718ee9f817bafa439f60c0cf39e3c35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &568818836
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -70028,7 +70015,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: df6824c830605f14dbb2163a12036b7c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -70058,7 +70045,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.26890945
+        value: 0.50427437
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -70112,7 +70099,7 @@ TrailRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.5
+  m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
 --- !u!1 &2753601008696133405

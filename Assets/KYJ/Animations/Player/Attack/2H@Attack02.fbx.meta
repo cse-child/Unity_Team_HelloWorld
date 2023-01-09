@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 013e0fecc9b81994cb5ada04e2e1cb91
+guid: 5f6b60d7cf0e2c549923ee56aa6d307a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
@@ -401,7 +401,7 @@ ModelImporter:
     second: ShieldRetargeter
   - first:
       74: 7400000
-    second: 2H@Attack03
+    second: 2H@Attack02
   - first:
       95: 9500000
     second: //RootNode
@@ -435,11 +435,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: 2H@Attack03
-      takeName: 2H@Attack03
+      name: 2H@Attack02
+      takeName: 2H@Attack02
       internalID: 0
       firstFrame: 0
-      lastFrame: 43
+      lastFrame: 46
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -459,26 +459,33 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.07491487
+      - time: 0.29057884
         functionName: StartTrailEffect
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.20318232
+      - time: 0.45410028
         functionName: OnAttackCollision
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.47365394
+      - time: 0.75757265
         functionName: FinishTrailEffect
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
+        messageOptions: 0
+      - time: 0.2657695
+        functionName: PlaySfxSound
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 1
         messageOptions: 0
       transformMask:
       - path: 

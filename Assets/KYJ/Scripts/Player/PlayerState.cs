@@ -22,6 +22,8 @@ public class PlayerState : MonoBehaviour
 
     private void Update()
     {
+        curHp = Mathf.Clamp(curHp, 0, maxHP);
+        curMp = Mathf.Clamp(curMp, 0, maxMP);
     }
 
     public void DecreaseHp(float value)
