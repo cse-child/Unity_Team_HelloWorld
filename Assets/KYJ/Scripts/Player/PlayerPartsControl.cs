@@ -33,22 +33,22 @@ public class PlayerPartsControl : MonoBehaviour
         UpdateInspector();
 
         // Test Code
-        //if (Input.GetKeyDown(KeyCode.F1))
-        //{
-        //    UnEquippedArmor("hat");
-        //    UnEquippedArmor("top");
-        //    UnEquippedArmor("pants");
-        //    UnEquippedArmor("shoes");
-        //    UnEquippedWeapon();
-        //}
-        //else if(Input.GetKeyDown(KeyCode.F2))
-        //{
-        //    EquippedArmor("hat", "1");
-        //    EquippedArmor("top", "1");
-        //    EquippedArmor("pants", "1");
-        //    EquippedArmor("shoes", "1");
-        //    EquippedWeapon("1");
-        //}
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            UnEquippedArmor("hat");
+            UnEquippedArmor("top");
+            UnEquippedArmor("pants");
+            UnEquippedArmor("shoes");
+            UnEquippedWeapon();
+        }
+        else if(Input.GetKeyDown(KeyCode.F2))
+        {
+            EquippedArmor("hat", "1");
+            EquippedArmor("top", "1");
+            EquippedArmor("pants", "1");
+            EquippedArmor("shoes", "1");
+            EquippedWeapon("1");
+        }
         //else if (Input.GetKeyDown(KeyCode.F3))
         //{
         //    EquippedArmor("hat", "2");

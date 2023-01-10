@@ -77,7 +77,8 @@ public class SkillManager : MonoBehaviour
                 /* Player MP 감소 */
                 if (playerState.curMp < info.data.decreaseMP)
                 {
-                    print("MP가 부족하여 스킬을 사용할 수 없습니다. \n현재 MP : " + playerState.curMp +" / 필요 MP : "+info.data.decreaseMP);
+                    string text = "MP가 부족하여 스킬을 사용할 수 없습니다.\n현재 MP : " + playerState.curMp + " / 필요 MP : " + info.data.decreaseMP;
+                    StartCoroutine(playerControl.SetWarningText(text));
                     return; // MP 부족하면 스킬 사용X
                 }
                 else

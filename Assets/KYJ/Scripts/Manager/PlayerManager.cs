@@ -27,7 +27,6 @@ public class PlayerManager : MonoBehaviour
     public void SfxPlay(Sfx type)
     {
         sfxPlayer[sfxCursor].volume = baseVolume; // 볼륨 초기화
-        print(type);
         switch(type)
         {
             case Sfx.ATTACK_1:

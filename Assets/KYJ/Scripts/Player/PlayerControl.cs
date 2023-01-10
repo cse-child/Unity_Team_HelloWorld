@@ -2,6 +2,7 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static PlayerManager;
 
 public class PlayerControl : MonoBehaviour
@@ -12,6 +13,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject weaponSocket;
     public GameObject attackCollision;
     public TrailRenderer trailEffect;
+    public Text warningText;
 
     private Animator animator;
 
@@ -106,7 +108,7 @@ public class PlayerControl : MonoBehaviour
         {
             if (!CheckWeaponExist())
             {
-                print("# 장착된 무기가 없어 무기를 들 수 없습니다 !");
+                StartCoroutine(SetWarningText("장착된 무기가 없어 무기를 들 수 없습니다"));
                 return;
             }
 
@@ -221,5 +223,15 @@ public class PlayerControl : MonoBehaviour
     private void PlaySfxSound(int type)
     {
         playerManager.SfxPlay((PlayerManager.Sfx)type);
+    }
+
+    // 경고문 일정시간동안만 띄우기
+    public IEnumerator SetWarningText(string text)
+    {
+        warningText.text = text;
+
+        yield return new WaitForSeconds(3.0f);
+
+        warningText.text = "";
     }
 }
