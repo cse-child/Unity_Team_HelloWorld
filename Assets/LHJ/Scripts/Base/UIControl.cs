@@ -13,6 +13,7 @@ public class UIControl : MonoBehaviour
     public GameObject ShopUI;
     public GameObject DeathUI;
     public PlayerState playerState;
+    public GameObject questListPrefab;
 
     private StarterAssetsInputs _input;
 
@@ -35,6 +36,7 @@ public class UIControl : MonoBehaviour
         ItemDataManager.instance.Non();
         PlayerEquipmentManager.instance.Non();
         MonsterUIManager.instance.Non();
+        QuestAlarmManager.instance.Non();
     }
 
     public void Start()
