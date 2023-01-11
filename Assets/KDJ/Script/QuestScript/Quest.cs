@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Quest : MonoBehaviour
+public class Quest
 {
     
     public bool isActive = false;
@@ -27,18 +27,17 @@ public class Quest : MonoBehaviour
     private string type;
     private int requireCount;
 
-    private void Start()
+    public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         TypeDefinition();
     }
 
-    private void Update()
+    public void Update()
     {
         if (!isActive) return;
 
         QuestApart();
-        //Test();
         QuestClear();
     }
 
@@ -129,6 +128,11 @@ public class Quest : MonoBehaviour
     public bool GetQuestActive()
     {
         return isActive;
+    }
+
+    public bool IsQuestClear()
+    {
+        return isClear;
     }
 
     public void QuestClear()

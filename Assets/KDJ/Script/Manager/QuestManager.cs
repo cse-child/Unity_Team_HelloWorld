@@ -23,7 +23,7 @@ public class QuestManager : MonoBehaviour
 
     List<Quest> quests = new List<Quest>();
 
-    public void Awake()
+    private void Awake()
     { 
         LoadQuest();
     }
@@ -38,6 +38,8 @@ public class QuestManager : MonoBehaviour
             quest.questInfo.questType = questData.type;
 
             quests.Add(quest);
+
+            Debug.Log(quest.questInfo.questCode);
         }
     }
 

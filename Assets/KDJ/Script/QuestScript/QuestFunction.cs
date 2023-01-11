@@ -6,17 +6,30 @@ using UnityEngine;
 public class QuestFunction : MonoBehaviour
 {
     public NPCFunction npcFunction;
-
+    public bool isKeyInput = false;
        
     private void Start()
     {
         npcFunction = GetComponent<NPCFunction>();
+        foreach (Quest quest in QuestManager.instance.GetQuests())
+        {
+            quest.Start();
+        }
     }
 
-    void Update()
+    private void Update()
     {
         Test();
         NPCGiveQuestToPlayer();
+        QuestUpdate();
+    }
+
+    private void QuestUpdate()
+    {
+        foreach (Quest quest in QuestManager.instance.GetQuests())
+        {
+            quest.Update();
+        }
     }
 
     private Quest GetQuestToNPC(string questCode)
@@ -31,10 +44,8 @@ public class QuestFunction : MonoBehaviour
 
     private void NPCGiveQuestToPlayer()
     {
-        if (Input.GetKeyDown(KeyCode.F) && npcFunction.IsPlayerAccessNPC())
-            npcFunction.SetIsTalkingPlayerToNPC(true);
-        else
-            npcFunction.SetIsTalkingPlayerToNPC(false);
+        if (GetQuestToNPC("qst_008").IsQuestClear())
+            QuestInteractionControl("qst_009");
 
         if (!npcFunction.IsTalkingPlayerToNPC()) return;
 
@@ -47,44 +58,42 @@ public class QuestFunction : MonoBehaviour
         else if (npcName.Contains("Bartender"))
         {
             QuestInteractionControl("qst_001");
-            if (GetQuestToNPC("qst_001").isClear)
+            if (GetQuestToNPC("qst_001").IsQuestClear())
                 QuestInteractionControl("qst_002");
-            if (GetQuestToNPC("qst_002").isClear)
+            if (GetQuestToNPC("qst_002").IsQuestClear())
                 QuestInteractionControl("qst_003");
-            if (GetQuestToNPC("qst_003").isClear)
+            if (GetQuestToNPC("qst_003").IsQuestClear())
                 QuestInteractionControl("qst_004");
-            if (GetQuestToNPC("qst_004").isClear)
+            if (GetQuestToNPC("qst_004").IsQuestClear())
                 QuestInteractionControl("qst_005");
         }
         else if(npcName.Contains("FortuneTeller"))
         {
             QuestInteractionControl("qst_007");
-            if (GetQuestToNPC("qst_007").isClear)
+            if (GetQuestToNPC("qst_007").IsQuestClear())
                 QuestInteractionControl("qst_008");
         }
-
-        if (GetQuestToNPC("qst_008").isClear)
-            QuestInteractionControl("qst_009");
     }
 
     private void AddQuestForPlayer(string questCode)
     {
-        if (GetQuestToNPC(questCode) != null) return;
         if (GetQuestToNPC(questCode).GetQuestActive()) return;
-        if (GetQuestToNPC(questCode).isClear) return;
+        if (GetQuestToNPC(questCode).IsQuestClear()) return;
 
-        QuestDataManager.instance.AddQuest(questCode);
         GetQuestToNPC(questCode).SetQuestActive(true);
+        QuestDataManager.instance.AddQuest(questCode);
     }
 
     private void PlayerClearQuest(string questCode)
     {
         if (GetQuestToNPC(questCode) == null) return;
-        if (!GetQuestToNPC(questCode).GetQuestActive()) return;
-
-        if (GetQuestToNPC(questCode).isClear)
+        if (!GetQuestToNPC(questCode).GetQuestActive())
         {
             QuestDataManager.instance.ClearQuest(questCode);
+            return;
+        }
+        if (GetQuestToNPC(questCode).IsQuestClear())
+        {
             GetQuestToNPC(questCode).SetQuestActive(false);
         }
     }
@@ -98,8 +107,9 @@ public class QuestFunction : MonoBehaviour
     private void Test()
     {
         if (Input.GetKeyDown(KeyCode.B))
-            GetQuestToNPC("qst_001").SetQuestClear();
-        else
-            return;
+        {
+            GetQuestToNPC("qst_006").SetQuestClear();
+            isKeyInput = !isKeyInput;
+        }
     }
 }
