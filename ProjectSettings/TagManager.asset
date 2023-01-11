@@ -9,6 +9,11 @@ TagManager:
   - DungeonTop
   - Enemy
   - Door
+  - Ground
+  - Skeleton
+  - Bear
+  - Incect
+  - Dragon
   layers:
   - Default
   - TransparentFX
