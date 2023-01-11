@@ -30,4 +30,20 @@ public class PlayerState : MonoBehaviour
     {
         curHp -= value;
     }
+
+    public void IncreaseExp(float value)
+    {
+        curExp += value;
+        if(curExp >= maxEXP) // ·¹º§¾÷
+        {
+            curExp -= maxEXP;
+            level++;
+        }
+    }
+
+    public void ResetState()
+    {
+        curHp = maxHP;
+        curMp = maxMP;
+    }
 }

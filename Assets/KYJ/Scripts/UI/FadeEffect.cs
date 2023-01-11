@@ -79,4 +79,12 @@ public class FadeEffect : MonoBehaviour
             yield return null;
         }
     }
+
+    public void StopFade()
+    {
+        StopAllCoroutines();
+        Color color = image.color;
+        color.a = 0.0f;
+        image.color = color;
+    }
 }

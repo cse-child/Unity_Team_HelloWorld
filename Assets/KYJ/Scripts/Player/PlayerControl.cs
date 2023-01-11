@@ -1,6 +1,7 @@
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.UI;
 using static PlayerManager;
@@ -24,13 +25,16 @@ public class PlayerControl : MonoBehaviour
 
     private int curWeaponState;
     private int curSkillState;
+    private bool isAttacking = false;
 
     public bool isDead = false;
+    
 
     private readonly int hashDeath = Animator.StringToHash("Death");
     private readonly int hashLooting = Animator.StringToHash("Looting");
     private readonly int hashAttack = Animator.StringToHash("Attack");
     private readonly int hashDamage = Animator.StringToHash("Damage");
+    private readonly int hashSpeed = Animator.StringToHash("Speed");
 
 
     private void Awake()
@@ -58,8 +62,11 @@ public class PlayerControl : MonoBehaviour
         EquippedWeapon();
         CheckBloodScreen();
 
-        //if (Input.GetKeyDown(KeyCode.F1))
-        //    TakeDamage(20);
+        if (Input.GetKeyDown(KeyCode.F1))
+            TakeDamage(20);
+        if(Input.GetKeyDown(KeyCode.F2))
+            PlayerResponse(1);
+        //playerState.IncreaseExp(30);
     }
 
     // Player 데미지 -> HP 감소
@@ -86,9 +93,11 @@ public class PlayerControl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (curWeaponState == 0) return; // 무기를 안들고있으면 공격X
             if (!starterAssetsInputs.cursorLocked) return; // 마우스 활성화 상태면 공격 불가
 
             animator.SetTrigger(hashAttack);
+            isAttacking = true;
         }
     }
 
@@ -234,4 +243,41 @@ public class PlayerControl : MonoBehaviour
 
         warningText.text = "";
     }
+
+    // Animation Event
+    private void EndAttack()
+    {
+        animator.ResetTrigger(hashAttack);
+        isAttacking = false;
+    }
+
+    // 플레이어가 멈춰있는지를 반환하는 함수
+    public bool IsPlayerStop()
+    {
+        if (animator.GetFloat(hashSpeed) <= 0.5f)
+            return true; // 멈춰있다.
+        return false; // 움직이고 있다.
+    }
+
+    // 플레이어가 (기본)공격중인지를 반환하는 함수
+    public bool IsPlayerAttacking()
+    {
+        return isAttacking;
+    }
+
+    // 플레이어 사망 시 리스폰 (1: 즉시부활/2: 마을에서 부활)
+    public void PlayerResponse(int menu)
+    {
+        if(menu == 2)
+        {
+            Vector3 town = new Vector3(144.346207f, 36.0278397f, -127.950394f);
+            this.transform.position = town;
+        }
+        
+        isDead = false;
+        animator.SetBool(hashDeath, isDead);
+        playerState.ResetState();
+        fadeEffect.StopFade();
+    }
+
 }
