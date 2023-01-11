@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Quest : MonoBehaviour
+public class Quest
 {
     
     public bool isActive = false;
@@ -27,18 +27,20 @@ public class Quest : MonoBehaviour
     private string type;
     private int requireCount;
 
-    private void Start()
+    private QuestAlarmManager.QuestDetail questDetail;
+
+    public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         TypeDefinition();
+        
     }
 
-    private void Update()
+    public void Update()
     {
         if (!isActive) return;
 
         QuestApart();
-        //Test();
         QuestClear();
     }
 
@@ -60,17 +62,20 @@ public class Quest : MonoBehaviour
         {
             case "Tutorial":
                 Tutorial();
-                return;
+                break;
             case "Hunting":
                 Hunting();
-                return;
+                break;
             case "Collecting":
                 Collecting();
-                return;
+                break;
             case "Researching":
                 Researching();
-                return;
+                break;
         }
+        if (Input.GetKeyDown(KeyCode.K))
+            countValue++;
+        QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).goalData = countValue.ToString() + " / " + requireCount.ToString();
     }
 
     private void Tutorial()
@@ -84,6 +89,7 @@ public class Quest : MonoBehaviour
         else if(this.questInfo.questCode == "qst002")
         {
             isQuestGoalArrival = true;
+            QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).questDetail.isSucceed = true;
         }
         else if(this.questInfo.questCode == "qst003")
         {
@@ -97,10 +103,14 @@ public class Quest : MonoBehaviour
         if (this.questInfo.questCode == "qst_006")
             //itemCode = 
 
-        //PlayerInventoryData.instance.GetHasInventory()[]
+            //PlayerInventoryData.instance.GetHasInventory()[]
 
-        if(countValue >= requireCount)
-            isQuestGoalArrival = true;  
+        if (countValue >= requireCount)
+        {
+            isQuestGoalArrival = true;
+            QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).questDetail.isSucceed = true;
+        }
+
     }
 
     private void Researching()
@@ -113,7 +123,10 @@ public class Quest : MonoBehaviour
         countValue++;
 
         if (countValue >= requireCount)
+        {
             isQuestGoalArrival = true;
+            QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).questDetail.isSucceed = true;
+        }
     }
 
     public void SetQuestClear()
@@ -124,11 +137,27 @@ public class Quest : MonoBehaviour
     public void SetQuestActive(bool input)
     {
         isActive = input;
+
+        questDetail.questName = QuestDataManager.instance.GetQuest(questInfo.questCode).name;
+        questDetail.isSucceed = false;
+        questDetail.questGoal = QuestDataManager.instance.GetQuest(questInfo.questCode).goal;
+        if (QuestDataManager.instance.GetQuest(questInfo.questCode).type.Contains("Collecting") || QuestDataManager.instance.GetQuest(questInfo.questCode).type.Contains("Hunting"))
+        {
+            questDetail.isCommon = false;
+        }
+        else
+            questDetail.isCommon = true;
+        QuestAlarmManager.instance.AddQuestAlarm(questDetail);
     }
 
     public bool GetQuestActive()
     {
         return isActive;
+    }
+
+    public bool IsQuestClear()
+    {
+        return isClear;
     }
 
     public void QuestClear()

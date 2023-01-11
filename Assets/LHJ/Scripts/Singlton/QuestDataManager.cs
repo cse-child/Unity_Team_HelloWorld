@@ -105,5 +105,6 @@ public class QuestDataManager : MonoBehaviour
     public void ClearQuest(string QuestNum)
     {
         questUIControl.ClearQuest(QuestNum);
+        QuestAlarmManager.instance.RemoveAlarm(GetQuest(QuestNum).name);
     }
 }

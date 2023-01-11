@@ -12,7 +12,7 @@ public class QuestData : MonoBehaviour, IPointerClickHandler
     private QuestDataManager.QuestData questData;
     private Dictionary<int, int> achivementItem = new Dictionary<int, int>();
 
-    private int achivementExp = 0;
+    public int achivementExp = 0;
 
     public void Start()
     {
