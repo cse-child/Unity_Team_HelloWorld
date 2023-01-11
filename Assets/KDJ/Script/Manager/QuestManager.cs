@@ -39,7 +39,7 @@ public class QuestManager : MonoBehaviour
 
             quests.Add(quest);
 
-            Debug.Log(quest.questInfo.questCode);
+            //Debug.Log(quest.questInfo.questCode);
         }
     }
 

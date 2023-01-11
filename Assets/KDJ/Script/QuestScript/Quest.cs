@@ -27,10 +27,13 @@ public class Quest
     private string type;
     private int requireCount;
 
+    private QuestAlarmManager.QuestDetail questDetail;
+
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         TypeDefinition();
+        
     }
 
     public void Update()
@@ -59,17 +62,20 @@ public class Quest
         {
             case "Tutorial":
                 Tutorial();
-                return;
+                break;
             case "Hunting":
                 Hunting();
-                return;
+                break;
             case "Collecting":
                 Collecting();
-                return;
+                break;
             case "Researching":
                 Researching();
-                return;
+                break;
         }
+        if (Input.GetKeyDown(KeyCode.K))
+            countValue++;
+        QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).goalData = countValue.ToString() + " / " + requireCount.ToString();
     }
 
     private void Tutorial()
@@ -83,6 +89,7 @@ public class Quest
         else if(this.questInfo.questCode == "qst002")
         {
             isQuestGoalArrival = true;
+            QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).questDetail.isSucceed = true;
         }
         else if(this.questInfo.questCode == "qst003")
         {
@@ -96,10 +103,14 @@ public class Quest
         if (this.questInfo.questCode == "qst_006")
             //itemCode = 
 
-        //PlayerInventoryData.instance.GetHasInventory()[]
+            //PlayerInventoryData.instance.GetHasInventory()[]
 
-        if(countValue >= requireCount)
-            isQuestGoalArrival = true;  
+        if (countValue >= requireCount)
+        {
+            isQuestGoalArrival = true;
+            QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).questDetail.isSucceed = true;
+        }
+
     }
 
     private void Researching()
@@ -112,7 +123,10 @@ public class Quest
         countValue++;
 
         if (countValue >= requireCount)
+        {
             isQuestGoalArrival = true;
+            QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).questDetail.isSucceed = true;
+        }
     }
 
     public void SetQuestClear()
@@ -123,6 +137,17 @@ public class Quest
     public void SetQuestActive(bool input)
     {
         isActive = input;
+
+        questDetail.questName = QuestDataManager.instance.GetQuest(questInfo.questCode).name;
+        questDetail.isSucceed = false;
+        questDetail.questGoal = QuestDataManager.instance.GetQuest(questInfo.questCode).goal;
+        if (QuestDataManager.instance.GetQuest(questInfo.questCode).type.Contains("Collecting") || QuestDataManager.instance.GetQuest(questInfo.questCode).type.Contains("Hunting"))
+        {
+            questDetail.isCommon = false;
+        }
+        else
+            questDetail.isCommon = true;
+        QuestAlarmManager.instance.AddQuestAlarm(questDetail);
     }
 
     public bool GetQuestActive()

@@ -77,7 +77,15 @@ public class QuestFunction : MonoBehaviour
 
     private void AddQuestForPlayer(string questCode)
     {
-        if (GetQuestToNPC(questCode).GetQuestActive()) return;
+        if (GetQuestToNPC(questCode).GetQuestActive())
+        {
+            foreach (Quest quest in QuestManager.instance.GetQuests())
+            {
+                if (questCode == quest.questInfo.questCode && quest.isClear)
+                    PlayerClearQuest(questCode);
+            }
+            return;
+        }
         if (GetQuestToNPC(questCode).IsQuestClear()) return;
 
         GetQuestToNPC(questCode).SetQuestActive(true);

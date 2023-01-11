@@ -20,14 +20,15 @@ public class QuestAlarmData : MonoBehaviour
     public void SetQuestDetail(QuestAlarmManager.QuestDetail data)
     {
         questDetail = data;
-        if (data.isCommon)
-            goalData = "진행중";
     }
 
     public void Update()
     {
+        if (questDetail.isCommon)
+            goalData = "진행중";
         if (questDetail.isSucceed == true)
             goalData = "완료";
+
         questNameText.text = questDetail.questName;
         goalNameText.text = questDetail.questGoal + "( " + goalData + " )";
 

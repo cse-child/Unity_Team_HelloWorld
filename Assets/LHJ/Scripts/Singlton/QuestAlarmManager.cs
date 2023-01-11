@@ -22,7 +22,7 @@ public class QuestAlarmManager : MonoBehaviour
     {
         public string questName;
         public string questGoal;
-        public string questProgress;
+        //public string questProgress;
         public bool isCommon;
         public bool isSucceed;
     }
@@ -57,13 +57,14 @@ public class QuestAlarmManager : MonoBehaviour
         temp.transform.parent = questList.transform;
         temp.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         temp.GetComponent<QuestAlarmData>().SetQuestDetail(data);
+        quests.Add(temp);
     }
 
     public void RemoveAlarm(string name)
     {
         foreach (GameObject quest in quests)
         {
-            if (quest.name == name)
+            if (quest.GetComponent<QuestAlarmData>().questDetail.questName == name)
             {
                 quest.SetActive(false);
             }
@@ -79,7 +80,7 @@ public class QuestAlarmManager : MonoBehaviour
     {
         foreach (GameObject quest in quests)
         {
-            if(quest.name == name)
+            if(quest.GetComponent<QuestAlarmData>().questDetail.questName == name)
                 return quest;
         }
         Debug.Log("퀘스트 알람 데이터 불러올 이름이 잘못됨");
@@ -90,7 +91,7 @@ public class QuestAlarmManager : MonoBehaviour
     {
         foreach (GameObject quest in quests)
         {
-            if (quest.name == name)
+            if (quest.GetComponent<QuestAlarmData>().questDetail.questName == name)
                 return quest.GetComponent<QuestAlarmData>();
         }
         Debug.Log("퀘스트 알람 데이터 불러올 이름이 잘못됨");

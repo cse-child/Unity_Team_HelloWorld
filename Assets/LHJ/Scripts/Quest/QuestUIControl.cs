@@ -55,7 +55,12 @@ public class QuestUIControl : MonoBehaviour
         }
 
         if (hasQuests.Count == 0)
+        {
+            questInfo.text = "";
+            target.text = "";
+            achivementExp.text = "";
             transform.Find("QuestInfo").Find("EXP").GetComponent<Text>().text = "";
+        }
         else
             transform.Find("QuestInfo").Find("EXP").GetComponent<Text>().text = "EXP +";
     }

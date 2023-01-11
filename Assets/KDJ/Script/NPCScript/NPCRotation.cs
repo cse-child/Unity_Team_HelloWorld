@@ -19,6 +19,8 @@ public class NPCRotation : MonoBehaviour
     {
         NPCLookAtPlayer();
         NPCLookForward();
+
+
     }
 
     private void NPCLookAtPlayer()

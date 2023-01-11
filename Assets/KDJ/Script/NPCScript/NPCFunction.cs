@@ -25,6 +25,11 @@ public class NPCFunction : MonoBehaviour
         IsNPCRotation();
         PlayerTalkingToNPC();
         PlayerTeleport();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            player.transform.position = new Vector3(7, 0, 5);
+        }
+
     }
     private void IsNPCRotation()
     {
@@ -37,7 +42,7 @@ public class NPCFunction : MonoBehaviour
     {
         if (IsTalkingPlayerToNPC() && this.name.Contains("Priest") && !GetIsTeleport())
         {
-            player.transform.position = new Vector3(7, 0, 5);
+            StartCoroutine(PlayerPosChainge());
             isTeleport = true;
         }
     }
@@ -71,5 +76,11 @@ public class NPCFunction : MonoBehaviour
     public bool IsTalkingPlayerToNPC()
     {
         return isTalkingPlayerToNPC;
+    }
+
+    IEnumerator PlayerPosChainge()
+    {
+        yield return new WaitForSeconds(0.2f);
+        player.transform.position = new Vector3(7, 0, 5);
     }
 }

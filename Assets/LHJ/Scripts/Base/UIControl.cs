@@ -37,13 +37,18 @@ public class UIControl : MonoBehaviour
         PlayerEquipmentManager.instance.Non();
         MonsterUIManager.instance.Non();
         QuestAlarmManager.instance.Non();
+        QuestDataManager.instance.SetQuestUIControl(QuesteUI.GetComponent<QuestUIControl>());
     }
 
     public void Start()
     {
-        StatusUI.SetActive(true);
+        InventoryUI.SetActive(false);
+        QuesteUI.SetActive(false);
+        SkillUI.SetActive(false);
+        LootingUI.SetActive(false);
         StatusUI.SetActive(false);
-
+        ShopUI.SetActive(false);
+        DeathUI.SetActive(false);
     }
 
     public void Update()
