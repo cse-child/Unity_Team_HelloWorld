@@ -43116,6 +43116,7 @@ MonoBehaviour:
   weaponSocket: {fileID: 365309976}
   attackCollision: {fileID: 1820092125}
   trailEffect: {fileID: 2701565706852182869}
+  warningText: {fileID: 0}
   isDead: 0
 --- !u!114 &269998020
 MonoBehaviour:
@@ -69879,7 +69880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2027956249731197713
 Transform:
   m_ObjectHideFlags: 0
@@ -70508,7 +70509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2846945540037289296
 Transform:
   m_ObjectHideFlags: 0

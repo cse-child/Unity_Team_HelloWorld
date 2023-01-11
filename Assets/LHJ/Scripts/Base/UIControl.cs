@@ -53,12 +53,6 @@ public class UIControl : MonoBehaviour
 
     public void Update()
     {
-        if (playerState.curHp <= 0)
-        {
-            DeathUI.SetActive(true);
-            DeathUI.transform.SetAsFirstSibling();
-            CheckCursorState();
-        }
         if (Input.GetKeyDown(KeyCode.I))
         {
             if (InventoryUI.activeSelf)
@@ -136,7 +130,8 @@ public class UIControl : MonoBehaviour
 
     public void CheckCursorState()
     {
-        if (InventoryUI.activeSelf || QuesteUI.activeSelf || SkillUI.activeSelf || LootingUI.activeSelf || ShopUI.activeSelf || StatusUI.activeSelf || DeathUI.activeSelf) 
+        if (InventoryUI.activeSelf || QuesteUI.activeSelf || SkillUI.activeSelf || 
+            LootingUI.activeSelf || ShopUI.activeSelf || StatusUI.activeSelf || DeathUI.activeSelf) 
         { 
             _input.SetCursorLocked(false);
             _input.cursorInputForLook = false;
@@ -147,5 +142,18 @@ public class UIControl : MonoBehaviour
             _input.SetCursorLocked(true);
             _input.cursorInputForLook = true;
         }
+    }
+
+    public void CloseDeathUI()
+    {
+        DeathUI.SetActive(false);
+        CheckCursorState();
+    }
+
+    public void OpenDeathUI()
+    {
+        DeathUI.SetActive(true);
+        DeathUI.transform.SetAsFirstSibling();
+        CheckCursorState();
     }
 }

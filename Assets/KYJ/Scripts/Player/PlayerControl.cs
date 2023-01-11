@@ -22,6 +22,7 @@ public class PlayerControl : MonoBehaviour
     private StarterAssetsInputs starterAssetsInputs;
     private FadeEffect fadeEffect;
     private PlayerManager playerManager;
+    public UIControl uiControl;
 
     private int curWeaponState;
     private int curSkillState;
@@ -44,6 +45,7 @@ public class PlayerControl : MonoBehaviour
         starterAssetsInputs = FindObjectOfType<StarterAssetsInputs>();
         fadeEffect = FindObjectOfType<FadeEffect>();
         playerManager = FindObjectOfType<PlayerManager>();
+        uiControl = FindObjectOfType<UIControl>();
     }
 
     private void Start()
@@ -276,8 +278,16 @@ public class PlayerControl : MonoBehaviour
         
         isDead = false;
         animator.SetBool(hashDeath, isDead);
+        animator.ResetTrigger(hashDamage);
         playerState.ResetState();
         fadeEffect.StopFade();
+    }
+
+    // ºÎÈ° UI ¶ç¿ì±â
+    private void OnDeathUI()
+    {
+        print("OnDeathUI");
+        uiControl.OpenDeathUI();
     }
 
 }
