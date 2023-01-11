@@ -39,7 +39,6 @@ public class SkillInformation : MonoBehaviour
 
     public IEnumerator CoolTime()
     {
-        print("SkillInfo의 쿨타임 코루틴 실행 : " + data.coolTime);
         available = false;
 
         float cool = data.coolTime;
@@ -52,14 +51,12 @@ public class SkillInformation : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        print("쿨타임 코루틴 완료");
         available = true;
         waitTime = 0.0f;
     }
 
     public IEnumerator DurationTime(float time)
     {
-        print("Buff 지속시간 코루틴 실행 : " + time);
         available = false;
         
         while (time > 1.0f)
@@ -70,7 +67,6 @@ public class SkillInformation : MonoBehaviour
         }
 
         // Buff 지속시간이 끝나면 공격력 초기화
-        print("Buff 지속시간 끝!");
         SkillManager.instance.ResetCurAtk();
     }
 }

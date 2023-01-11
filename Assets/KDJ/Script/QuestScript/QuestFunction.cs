@@ -7,9 +7,12 @@ public class QuestFunction : MonoBehaviour
 {
     public NPCFunction npcFunction;
     public bool isKeyInput = false;
-       
+
+    private UIControl uiControl;
+
     private void Start()
     {
+        uiControl = FindObjectOfType<UIControl>();
         npcFunction = GetComponent<NPCFunction>();
         foreach (Quest quest in QuestManager.instance.GetQuests())
         {
@@ -77,11 +80,24 @@ public class QuestFunction : MonoBehaviour
 
     private void AddQuestForPlayer(string questCode)
     {
-        if (GetQuestToNPC(questCode).GetQuestActive()) return;
+        if (GetQuestToNPC(questCode).GetQuestActive())
+        {
+            foreach (Quest quest in QuestManager.instance.GetQuests())
+            {
+                if (questCode == quest.questInfo.questCode && quest.isClear)
+                    PlayerClearQuest(questCode);
+            }
+            return;
+        }
         if (GetQuestToNPC(questCode).IsQuestClear()) return;
 
         GetQuestToNPC(questCode).SetQuestActive(true);
         QuestDataManager.instance.AddQuest(questCode);
+
+        uiControl.QuesteUI.transform.SetAsLastSibling();
+        uiControl.QuesteUI.SetActive(true);
+        uiControl.CheckCursorState();
+        UISoundControl.instance.SoundPlay(1);
     }
 
     private void PlayerClearQuest(string questCode)

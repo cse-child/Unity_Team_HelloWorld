@@ -15,6 +15,7 @@ public class MonsterCloseAttack : MonoBehaviour
     private Animator animator;
     private CapsuleCollider myCollider;
     private PlayerState playerState;
+    private PlayerControl playerControl;
     private bool isAttack = false; // 공격중
     private bool isSwing = false; // 검 휘두르는 중
 
@@ -35,6 +36,7 @@ public class MonsterCloseAttack : MonoBehaviour
         animator = GetComponent<Animator>();
         myCollider = GetComponent<CapsuleCollider>();
         playerState = FindObjectOfType<PlayerState>();
+        playerControl = FindObjectOfType<PlayerControl>();
     }
     private void Update()
     {
@@ -67,14 +69,15 @@ public class MonsterCloseAttack : MonoBehaviour
 
     private IEnumerator CheckObject()
     {
-        print("SS");
+        //print("SS");
         Debug.DrawRay(myCollider.transform.position + control, transform.forward * range, Color.blue, 0.3f);
         if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
         {
             animator.SetTrigger("trigAttack");
-            playerState.DecreaseHp(damage);
-            print(playerState.curHp);
-            Debug.Log(hitInfo.transform.name);
+            //playerState.DecreaseHp(damage);
+            playerControl.TakeDamage(damage);
+            //print(playerState.curHp);
+            //Debug.Log(hitInfo.transform.name);
             isSwing = false;
         }
         yield return new WaitForSeconds(1.0f);

@@ -20,11 +20,26 @@ public class PlayerAttackCollision : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 플레이어가 타격하는 대상의 태그, 컴포넌트, 함수는 바뀔 수 있다.
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Skeleton"))
         {
-            print("Enemy Tag");
+            print("Enemy Tag is Skeleton");
             //other.GetComponent<EnemyControl>().TakeDamage(playerState.curAtk); //테스트용 함수
             other.GetComponent<TraceAI>().Hurt(playerState.curAtk);
+        }
+        if (other.CompareTag("Bear"))
+        {
+            print("Enemy Tag is Bear");
+            other.GetComponent<BearAI>().Hurt(playerState.curAtk);
+        }
+        if (other.CompareTag("Incect"))
+        {
+            print("Enemy Tag is Incect");
+            other.GetComponent<IncectAI>().Hurt(playerState.curAtk);
+        }
+        if (other.CompareTag("Dragon"))
+        {
+            print("Enemy Tag is Dragon");
+            //other.GetComponent<DragonAI>().Hurt(playerState.curAtk);
         }
     }
 

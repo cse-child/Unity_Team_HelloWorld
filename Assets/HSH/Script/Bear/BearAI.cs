@@ -4,9 +4,13 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using System.IO;
+using Guirao.UltimateTextDamage;
 
 public class BearAI : MonoBehaviour
 {
+    public UltimateTextDamageManager manager;
+    public Transform trDamagePosition;
+    private AudioSource audioSource;
     enum State
     {
         IDLE, TRACE, ATTACK, DEAD, HURT
@@ -19,6 +23,7 @@ public class BearAI : MonoBehaviour
     public float rotateSpeed = 0.5f;
     //private float maxHp = 100.0f;
     private float curHp = 100.0f;
+    private float Exp = 10.0f;
 
     private GameObject target;
     private Animator animator;
@@ -38,6 +43,7 @@ public class BearAI : MonoBehaviour
         animator = GetComponent<Animator>();
         closeAtk = GetComponent<BearCloseAttack>();
         target = GameObject.FindGameObjectWithTag("Player");
+        audioSource = GetComponent<AudioSource>();
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
     {
@@ -102,7 +108,6 @@ public class BearAI : MonoBehaviour
                 Idle();
                 break;
             case State.DEAD:
-                Die();
                 break;
         }
     }
@@ -142,12 +147,14 @@ public class BearAI : MonoBehaviour
         if (animator.GetBool("isDie")) return;
         animator.SetTrigger("trigHurt");
         curHp -= value;
+        manager.Add(value.ToString(), trDamagePosition, "default");
         animator.SetFloat("curHp", curHp);
         if (curHp <= 0)
         {
             animator.SetTrigger("trigDie");
             animator.SetBool("isDie", true);
             curState = State.DEAD;
+            Die();
         }
     }
     private void Die()
@@ -157,6 +164,14 @@ public class BearAI : MonoBehaviour
         //Destroy(gameObject);
         this.onDie();
 
+    }
+    public void IncreaseExp(float value)
+    {
+        value += Exp;
+    }
+    private void DieAudio()
+    {
+        audioSource.Play();
     }
     public void DropItem()
     {

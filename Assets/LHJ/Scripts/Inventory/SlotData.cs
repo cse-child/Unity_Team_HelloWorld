@@ -51,24 +51,28 @@ public class SlotData : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         if (itemData.property == "hp")
         {
+            UISoundControl.instance.SoundPlay(3);
             playerState.curHp += itemData.power;
             if (playerState.curHp > playerState.maxHP)
                 playerState.curHp = playerState.maxHP;
         }
         else if (itemData.property == "mp")
         {
+            UISoundControl.instance.SoundPlay(3);
             playerState.curMp += itemData.power;
             if (playerState.curMp > playerState.maxMP)
                 playerState.curMp = playerState.maxMP;
         }
         else if (itemData.property.Contains("weapon"))
         {
+            UISoundControl.instance.SoundPlay(4);
             string[] col = itemData.property.Split("_");
 
             PlayerEquipmentManager.instance.WearWepon(int.Parse(col[1]) ,itemNum);
         }
         else if(itemData.property.Contains("armor"))
         {
+            UISoundControl.instance.SoundPlay(0);
             string[] col = itemData.property.Split("_");
            
             PlayerEquipmentManager.instance.WearArmor(col[1],int.Parse(col[2]),itemNum);
