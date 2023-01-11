@@ -22,10 +22,28 @@ public class PlayerState : MonoBehaviour
 
     private void Update()
     {
+        curHp = Mathf.Clamp(curHp, 0, maxHP);
+        curMp = Mathf.Clamp(curMp, 0, maxMP);
     }
 
     public void DecreaseHp(float value)
     {
         curHp -= value;
+    }
+
+    public void IncreaseExp(float value)
+    {
+        curExp += value;
+        if(curExp >= maxEXP) // ·¹º§¾÷
+        {
+            curExp -= maxEXP;
+            level++;
+        }
+    }
+
+    public void ResetState()
+    {
+        curHp = maxHP;
+        curMp = maxMP;
     }
 }

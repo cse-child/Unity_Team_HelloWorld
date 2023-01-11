@@ -21,6 +21,10 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         //상점열림
         UIControl uiControl = FindObjectOfType<UIControl>();
         uiControl.ShopUI.SetActive(true);
+        uiControl.ShopUI.transform.SetAsLastSibling();
+        uiControl.CheckCursorState();
+        UISoundControl.instance.SoundPlay(1);
+
 
         //여기에 대화상자등을 넣어주면 됨
         Debug.Log("Interact!");

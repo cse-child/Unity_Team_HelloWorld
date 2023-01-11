@@ -8,18 +8,28 @@ using UnityEngine;
 public class NPCFunction : MonoBehaviour
 {
     public NPCRotation npcRotation;
+    public GameObject player;
+   
     public bool isPlayerAccessNPC = false;
     public bool isTalkingPlayerToNPC = false;
-
+    public bool isTeleport = false;
     private void Awake()
     {
         npcRotation = GetComponent<NPCRotation>();
+        player = GameObject.FindWithTag("Player");
         this.AddComponent<QuestFunction>();
     }
 
     private void Update()
     {
         IsNPCRotation();
+        PlayerTalkingToNPC();
+        PlayerTeleport();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            player.transform.position = new Vector3(7, 0, 5);
+        }
+
     }
     private void IsNPCRotation()
     {
@@ -28,7 +38,26 @@ public class NPCFunction : MonoBehaviour
         else
             npcRotation.SetNPCRotation(false);
     }
+    private void PlayerTeleport()
+    {
+        if (IsTalkingPlayerToNPC() && this.name.Contains("Priest") && !GetIsTeleport())
+        {
+            StartCoroutine(PlayerPosChainge());
+            isTeleport = true;
+        }
+    }
+    private void PlayerTalkingToNPC()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && IsPlayerAccessNPC())
+            SetIsTalkingPlayerToNPC(true);
+        else if(!IsPlayerAccessNPC())
+            SetIsTalkingPlayerToNPC(false);
+    }
 
+    private bool GetIsTeleport()
+    {
+        return isTeleport;
+    }
     public void SetIsPlayerAccessNPC(bool input)
     {
         isPlayerAccessNPC = input;
@@ -47,5 +76,11 @@ public class NPCFunction : MonoBehaviour
     public bool IsTalkingPlayerToNPC()
     {
         return isTalkingPlayerToNPC;
+    }
+
+    IEnumerator PlayerPosChainge()
+    {
+        yield return new WaitForSeconds(0.2f);
+        player.transform.position = new Vector3(7, 0, 5);
     }
 }

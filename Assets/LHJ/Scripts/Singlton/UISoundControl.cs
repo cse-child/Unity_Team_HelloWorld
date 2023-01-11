@@ -12,18 +12,19 @@ public class UISoundControl : MonoBehaviour
             if (_instance == null)
             {
                 GameObject obj = GameObject.Find("UI");
-                _instance = obj.AddComponent<UISoundControl>();
+                _instance = obj.GetComponent<UISoundControl>();
             }
             return _instance;
         }
     }
 
-    public Dictionary<string, AudioClip> sounds = new Dictionary<string, AudioClip>();
+
+    public AudioClip[] sounds;
+    public AudioSource audioSource;
 
     private void Awake()
     {
-        AudioClip aaa;
-       // aaa.
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -36,5 +37,11 @@ public class UISoundControl : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SoundPlay(int num)
+    {
+        audioSource.clip = sounds[num];
+        audioSource.Play();
     }
 }

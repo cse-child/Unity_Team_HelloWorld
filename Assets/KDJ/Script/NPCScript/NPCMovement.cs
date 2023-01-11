@@ -18,7 +18,7 @@ public class NPCMovement : MonoBehaviour
     public NPCReactionRange npcReactionRange;
 
     private bool isMove;
-    private bool temp = false;
+    //private bool temp = false;
 
     private void Start()
     {

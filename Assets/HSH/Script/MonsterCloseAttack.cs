@@ -69,15 +69,15 @@ public class MonsterCloseAttack : MonoBehaviour
 
     private IEnumerator CheckObject()
     {
-        print("SS");
+        //print("SS");
         Debug.DrawRay(myCollider.transform.position + control, transform.forward * range, Color.blue, 0.3f);
         if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
         {
             animator.SetTrigger("trigAttack");
             //playerState.DecreaseHp(damage);
             playerControl.TakeDamage(damage);
-            print(playerState.curHp);
-            Debug.Log(hitInfo.transform.name);
+            //print(playerState.curHp);
+            //Debug.Log(hitInfo.transform.name);
             isSwing = false;
         }
         yield return new WaitForSeconds(1.0f);
