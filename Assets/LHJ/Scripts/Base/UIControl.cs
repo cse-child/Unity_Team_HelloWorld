@@ -11,7 +11,9 @@ public class UIControl : MonoBehaviour
     public GameObject LootingUI;
     public GameObject StatusUI;
     public GameObject ShopUI;
+    public GameObject DeathUI;
     public PlayerState playerState;
+    public GameObject questListPrefab;
 
     private StarterAssetsInputs _input;
 
@@ -23,8 +25,9 @@ public class UIControl : MonoBehaviour
         LootingUI = gameObject.transform.Find("LootingUI").gameObject;
         StatusUI = gameObject.transform.Find("StatusUI").gameObject;
         ShopUI = gameObject.transform.Find("ShopUI").gameObject;
+        DeathUI = gameObject.transform.Find("DeathUI").gameObject;
         playerState = FindObjectOfType<PlayerState>();
-        
+
 
         _input = FindObjectOfType<StarterAssetsInputs>();
         ItemLootManager.instance.SetLootingUI(LootingUI);
@@ -33,6 +36,7 @@ public class UIControl : MonoBehaviour
         ItemDataManager.instance.Non();
         PlayerEquipmentManager.instance.Non();
         MonsterUIManager.instance.Non();
+        QuestAlarmManager.instance.Non();
     }
 
     public void Start()
@@ -44,9 +48,15 @@ public class UIControl : MonoBehaviour
 
     public void Update()
     {
+        if (playerState.curHp <= 0)
+        {
+            DeathUI.SetActive(true);
+            DeathUI.transform.SetAsFirstSibling();
+            CheckCursorState();
+        }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            if(InventoryUI.activeSelf)
+            if (InventoryUI.activeSelf)
             {
                 InventoryUI.SetActive(false);
             }
@@ -54,12 +64,13 @@ public class UIControl : MonoBehaviour
             {
                 InventoryUI.transform.SetAsLastSibling();
                 InventoryUI.SetActive(true);
+                UISoundControl.instance.SoundPlay(1);
             }
             CheckCursorState();
         }
-        if(Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            if(QuesteUI.activeSelf)
+            if (QuesteUI.activeSelf)
             {
                 QuesteUI.SetActive(false);
             }
@@ -67,12 +78,13 @@ public class UIControl : MonoBehaviour
             {
                 QuesteUI.transform.SetAsLastSibling();
                 QuesteUI.SetActive(true);
+                UISoundControl.instance.SoundPlay(1);
             }
             CheckCursorState();
         }
-        if(Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            if(SkillUI.activeSelf)
+            if (SkillUI.activeSelf)
             {
                 SkillUI.SetActive(false);
             }
@@ -80,25 +92,13 @@ public class UIControl : MonoBehaviour
             {
                 SkillUI.transform.SetAsLastSibling();
                 SkillUI.SetActive(true);
+                UISoundControl.instance.SoundPlay(1);
             }
             CheckCursorState();
         }
-        if(Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if(LootingUI.activeSelf)
-            {
-                LootingUI.SetActive(false);
-            }
-            else
-            {
-                LootingUI.transform.SetAsLastSibling();
-                LootingUI.SetActive(true);
-            }
-            CheckCursorState();
-        }
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            if(StatusUI.activeSelf)
+            if (StatusUI.activeSelf)
             {
                 StatusUI.SetActive(false);
             }
@@ -106,22 +106,32 @@ public class UIControl : MonoBehaviour
             {
                 StatusUI.transform.SetAsLastSibling();
                 StatusUI.SetActive(true);
+                UISoundControl.instance.SoundPlay(1);
             }
             CheckCursorState();
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log(transform.childCount);
-            transform.GetChild(transform.childCount-1).gameObject.SetActive(false);
-            transform.GetChild(transform.childCount - 1).transform.SetAsFirstSibling();
-            CheckCursorState();
+            if (transform.GetChild(transform.childCount - 1).name == DeathUI.name)
+            {
+                DeathUI.transform.SetAsFirstSibling();
+                transform.GetChild(transform.childCount - 1).gameObject.SetActive(false);
+                transform.GetChild(transform.childCount - 1).transform.SetAsFirstSibling();
+                CheckCursorState();
+            }
+            else
+            {
+                transform.GetChild(transform.childCount - 1).gameObject.SetActive(false);
+                transform.GetChild(transform.childCount - 1).transform.SetAsFirstSibling();
+                CheckCursorState();
+            }
         }
     }
 
     public void CheckCursorState()
     {
-        if (InventoryUI.activeSelf || QuesteUI.activeSelf || SkillUI.activeSelf || LootingUI.activeSelf)
+        if (InventoryUI.activeSelf || QuesteUI.activeSelf || SkillUI.activeSelf || LootingUI.activeSelf || ShopUI.activeSelf || StatusUI.activeSelf || DeathUI.activeSelf) 
         { 
             _input.SetCursorLocked(false);
             _input.cursorInputForLook = false;

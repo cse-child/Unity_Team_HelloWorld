@@ -16,6 +16,7 @@ public class QuestUIControl : MonoBehaviour
     private List<GameObject> achivementObject = new List<GameObject>();
     private GameObject selectQuest;
     private GameObject selectQuestbar;
+    private PlayerState playerState;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class QuestUIControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerState = FindObjectOfType<PlayerState>();
         questList = transform.Find("QuestList").gameObject;
         selectQuestbar = transform.Find("SelectQuest").gameObject;
 
@@ -38,7 +40,6 @@ public class QuestUIControl : MonoBehaviour
             achivementObject.Add(questInfoObject.transform.Find("ItemTable").transform.Find("Achivement"+i).gameObject);
         }
      
-        AddQuest("qst_005");
     }
 
     // Update is called once per frame
@@ -52,6 +53,11 @@ public class QuestUIControl : MonoBehaviour
             target.text = selectQuest.GetComponent<QuestData>().GetQuestData().goal;
             achivementExp.text = selectQuest.GetComponent<QuestData>().GetAchivementExp().ToString();
         }
+
+        if (hasQuests.Count == 0)
+            transform.Find("QuestInfo").Find("EXP").GetComponent<Text>().text = "";
+        else
+            transform.Find("QuestInfo").Find("EXP").GetComponent<Text>().text = "EXP +";
     }
 
     public void AddQuest(string questNum)
@@ -111,6 +117,7 @@ public class QuestUIControl : MonoBehaviour
                 {
                     PlayerInventoryData.instance.AddItem(item.Key, item.Value);
                 }
+                playerState.curExp += hasQuests[i].GetComponent<QuestData>().achivementExp;
                 hasQuests[i].GetComponent<QuestData>().ClearAchivementItem();
                 hasQuests[i].SetActive(false);
                 hasQuests.Remove(hasQuests[i]);
