@@ -16,7 +16,7 @@ public class PlayerPartsControl : MonoBehaviour
         {"top", "0" },
         {"pants", "0" },
         {"shoes", "0" },
-        {"weapon", "1" }
+        {"weapon", "0" }
     };
 
     [SerializeField] private string hat, top, pants, shoes, weapon;
@@ -32,6 +32,7 @@ public class PlayerPartsControl : MonoBehaviour
         // Inspector 확인용 변수 초기화
         UpdateInspector();
 
+        // Test Code
         //if (Input.GetKeyDown(KeyCode.F1))
         //{
         //    UnEquippedArmor("hat");

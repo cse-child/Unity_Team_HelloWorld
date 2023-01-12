@@ -16,12 +16,33 @@ public class ParticleCollision : MonoBehaviour
     // 파티클 - Enemy 충돌
     private void OnParticleCollision(GameObject other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Skeleton"))
         {
             float damage = playerState.curAtk + SkillDataManager.instance.GetSkillData(skillNum).damage;
 
             //other.GetComponent<EnemyControl>().TakeDamage(damage); //테스트 몬스터 함수
             other.GetComponent<TraceAI>().Hurt(damage);
         }
+        if (other.CompareTag("Bear"))
+        {
+            float damage = playerState.curAtk + SkillDataManager.instance.GetSkillData(skillNum).damage;
+
+            //other.GetComponent<EnemyControl>().TakeDamage(damage); //테스트 몬스터 함수
+            other.GetComponent<BearAI>().Hurt(damage);
+        }
+        if (other.CompareTag("Incect"))
+        {
+            float damage = playerState.curAtk + SkillDataManager.instance.GetSkillData(skillNum).damage;
+
+            //other.GetComponent<EnemyControl>().TakeDamage(damage); //테스트 몬스터 함수
+            other.GetComponent<IncectAI>().Hurt(damage);
+        }
+        //if (other.CompareTag("Dragon"))
+        //{
+        //    float damage = playerState.curAtk + SkillDataManager.instance.GetSkillData(skillNum).damage;
+
+        //    //other.GetComponent<EnemyControl>().TakeDamage(damage); //테스트 몬스터 함수
+        //    other.GetComponent<DragonAI>().Hurt(damage);
+        //}
     }
 }

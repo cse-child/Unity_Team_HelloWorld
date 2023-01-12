@@ -1,5 +1,5 @@
 SkillNum,Name,DecreaseMP,CoolTime,Damage,Buff,Learning,Level,ResourcePath,Explanation
 1,날카로운 검,15,5,15,0,0,2,Assets/KYJ/Resources/ImageFiles/Berserker17.png,검을 전방으로 휘둘러 적중된 적에 15의 피해를 준다.
 2,칼날폭풍,20,7,20,0,0,3,Assets/KYJ/Resources/ImageFiles/Berserker5.png,검을 사방으로 휘두르며 무작위로 가시가 날아와 20의 피해를 준다.
-3,대지의 일격,20,10,30,0,5,0,Assets/KYJ/Resources/ImageFiles/Geomancer3.png,검을 땅으로 내리쳐 적중된 적에 30 피해를 준다.
+3,대지의 일격,20,10,30,0,0,5,Assets/KYJ/Resources/ImageFiles/Geomancer3.png,검을 땅으로 내리쳐 적중된 적에 30 피해를 준다.
 4,전사의 힘,30,30,0,15,0,4,Assets/KYJ/Resources/ImageFiles/Paladin19.png,검의 기운을 모아 15초간 기본 공격력이 15 증가한다.
