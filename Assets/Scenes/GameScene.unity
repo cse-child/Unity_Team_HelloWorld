@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.112699665, g: 0.2815631, b: 0.709176, a: 1}
+  m_IndirectSpecularColor: {r: 0.112698, g: 0.2815185, b: 0.70872545, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1345,6 +1345,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmName: "\uB9C8\uC744BGM"
+--- !u!1001 &593082352
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 896658459672666178, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
+      propertyPath: m_Name
+      value: MonsterRegen
+      objectReference: {fileID: 0}
+    - target: {fileID: 896658459672666236, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 896658459672666236, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 67.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 896658459672666236, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 896658459672666236, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 41.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 896658459672666236, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 896658459672666236, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 896658459672666236, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 896658459672666236, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 896658459672666236, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 896658459672666236, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 896658459672666236, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bdb5687e16eb7e342ace57804c2dff7d, type: 3}
 --- !u!1 &596181276 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 893825752370812529, guid: bb5ac002ed94c4a4694926841899e530, type: 3}

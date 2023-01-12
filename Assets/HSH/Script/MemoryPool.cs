@@ -52,7 +52,23 @@ public class MemoryPool : MonoBehaviour
             poolItemList.Add(poolItem);
         }
     }
-
+    public void MonsterRegen()
+    {
+        if (poolItemList == null) return;
+        int count = 0;
+        for(int i = 0; i< poolItemList.Count; ++i)
+        {
+            if(!poolItemList[i].isActive)
+            {
+                count++;
+            }
+        }
+        if(count > 4)
+        {
+            AllActivateFalse();
+            count = 0;
+        }
+    }
     public void DestroyObjects()
     {
         //Destroy() 메소드를 이용해 오브젝트 삭제 , 씬전환 & 게임종료될때 한번만 수행 모든 게임 오브젝트 삭제
