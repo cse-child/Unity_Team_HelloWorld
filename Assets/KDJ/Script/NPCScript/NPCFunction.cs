@@ -8,7 +8,7 @@ using UnityEngine;
 public class NPCFunction : MonoBehaviour
 {
     public NPCRotation npcRotation;
-    public GameObject player;
+    public GameObject player; 
    
     public bool isPlayerAccessNPC = false;
     public bool isTalkingPlayerToNPC = false;
@@ -26,10 +26,6 @@ public class NPCFunction : MonoBehaviour
         IsNPCRotation();
         PlayerTalkingToNPC();
         PlayerTeleport();
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            player.transform.position = new Vector3(7, 0, 5);
-        }
 
     }
     private void IsNPCRotation()
@@ -44,7 +40,6 @@ public class NPCFunction : MonoBehaviour
         if (IsTalkingPlayerToNPC() && this.name.Contains("Priest") && !GetIsTeleport())
         {
             StartCoroutine(PlayerPosChainge());
-            isTeleport = true;
         }
     }
     private void PlayerTalkingToNPC()
@@ -91,6 +86,8 @@ public class NPCFunction : MonoBehaviour
     IEnumerator PlayerPosChainge()
     {
         yield return new WaitForSeconds(0.2f);
-        player.transform.position = new Vector3(7, 0, 5);
+
+        StarterAssets.ThirdPersonController thirdPerson = FindObjectOfType<StarterAssets.ThirdPersonController>();
+        thirdPerson.TP(new Vector3(7, 0, 5));
     }
 }
