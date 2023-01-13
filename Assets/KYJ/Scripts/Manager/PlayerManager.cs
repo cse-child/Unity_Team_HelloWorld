@@ -12,7 +12,8 @@ public class PlayerManager : MonoBehaviour
         ATTACK_1, ATTACK_2, ATTACK_3, ATTACK_4, 
         SKILL_1, SKILL_2, SKILL_3, SKILL_4,
         DAMAGE, DEATH,
-        EQUIP, UNEQUIP
+        EQUIP, UNEQUIP,
+        LEVELUP
     };
     private int sfxCursor = 0;
     private float baseVolume = 0.2f;
@@ -21,6 +22,7 @@ public class PlayerManager : MonoBehaviour
     {
         ParticleManager.instance.CreateParticle();
         SkillDataManager.instance.LoadItemData();
+        LevelUpDataManager.instance.LoadLevelUpData();
         SkillManager.instance.InitSkillInfos();
     }
 
@@ -66,6 +68,10 @@ public class PlayerManager : MonoBehaviour
                 break;
             case Sfx.UNEQUIP: // 11
                 sfxPlayer[sfxCursor].clip = sfxClip[15];
+                break;
+            case Sfx.LEVELUP: // 12
+                sfxPlayer[sfxCursor].clip = sfxClip[16];
+                //sfxPlayer[sfxCursor].volume = 0.4f;
                 break;
         }
         sfxPlayer[sfxCursor].Play();

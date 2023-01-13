@@ -89,10 +89,10 @@ public class Quest
     {
         if(this.questInfo.questCode == "qst_001")
         {
-            //if(npcFunction.IsTalkingPlayerToNPC())
-            //{
+            if (npcFunction.IsTalkingPlayerToNPC())
+            {
                 isQuestGoalArrival = true;
-            //}
+            }
         }
         else if(this.questInfo.questCode == "qst_002")
         {
@@ -192,7 +192,7 @@ public class Quest
     }
     public void QuestClear()
     {
-        if (isQuestGoalArrival && npcFunction.IsPlayerClearQuestToNPC())
+        if (isQuestGoalArrival && npcFunction.isTalkingPlayerToNPC)
         {
             isClear = true;
             if(isClear)
