@@ -58,7 +58,7 @@ public class SkillInformation : MonoBehaviour
     public IEnumerator DurationTime(float time)
     {
         available = false;
-        
+
         while (time > 1.0f)
         {
             time -= Time.deltaTime;

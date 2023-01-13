@@ -26,6 +26,7 @@ public class ParticleManager : MonoBehaviour
     public GameObject swordSkill2;
     public GameObject swordSkill3;
     public GameObject swordSkill4;
+    public GameObject levelUp;
 
     public void CreateParticle()
     {
@@ -37,6 +38,8 @@ public class ParticleManager : MonoBehaviour
             AddParticle("Skill_3", swordSkill3);
         if (swordSkill4 != null)
             AddParticle("Skill_4", swordSkill4);
+        if(levelUp != null)
+            AddParticle("LevelUp", levelUp);
     }
 
     private void AddParticle(string key, GameObject prefab)

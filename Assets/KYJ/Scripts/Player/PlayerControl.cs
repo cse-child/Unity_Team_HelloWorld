@@ -22,11 +22,12 @@ public class PlayerControl : MonoBehaviour
     private StarterAssetsInputs starterAssetsInputs;
     private FadeEffect fadeEffect;
     private PlayerManager playerManager;
-    public UIControl uiControl;
+    private UIControl uiControl;
 
     private int curWeaponState;
     private int curSkillState;
     private bool isAttacking = false;
+    private bool onBloodScreen = false;
 
     public bool isDead = false;
     
@@ -64,11 +65,12 @@ public class PlayerControl : MonoBehaviour
         EquippedWeapon();
         CheckBloodScreen();
 
-        //if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.F1))
+            playerState.IncreaseExp(30);
         //    TakeDamage(20);
         //if(Input.GetKeyDown(KeyCode.F2))
         //    PlayerResponse(1);
-        //playerState.IncreaseExp(30);
+        //
     }
 
     // Player 데미지 -> HP 감소
@@ -187,13 +189,13 @@ public class PlayerControl : MonoBehaviour
     }
 
     // 애니메이션 Event - Skill Effect Play 함수
-    private void PlaySkillEffect(string key)
+    public void PlaySkillEffect(string key)
     {
         float offsetZ = 7;
         float offsetY = 1;
         Vector3 effectStartPos = transform.position;
 
-        if (key == "Skill_1" || key == "Skill_2")
+        if (key == "Skill_1" || key == "Skill_2" || key == "LevelUp")
             effectStartPos += transform.up * offsetY;
         else if (key == "Skill_3")
             effectStartPos += transform.forward * offsetZ;
@@ -212,9 +214,15 @@ public class PlayerControl : MonoBehaviour
     // 플레이어 피가 적을때 스크린 핏빛 효과
     private void CheckBloodScreen()
     {
-        if(playerState.curHp <= BLOOD_SCREEN_HP)
+        if(!onBloodScreen && playerState.curHp <= BLOOD_SCREEN_HP)
         {
+            onBloodScreen = true;
             fadeEffect.OnFade(FadeState.FadeLoop);
+        }
+        else if(onBloodScreen && playerState.curHp > BLOOD_SCREEN_HP)
+        {
+            onBloodScreen = false;
+            fadeEffect.StopFade();
         }
     }
 
@@ -231,7 +239,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     // Animation Event - 효과음 재생
-    private void PlaySfxSound(int type)
+    public void PlaySfxSound(int type)
     {
         playerManager.SfxPlay((PlayerManager.Sfx)type);
     }
