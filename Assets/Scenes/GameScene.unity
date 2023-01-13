@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.112699665, g: 0.2815631, b: 0.709176, a: 1}
+  m_IndirectSpecularColor: {r: 0.11272602, g: 0.28158912, b: 0.7091759, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -514,6 +514,10 @@ PrefabInstance:
       propertyPath: barkTarget
       value: 
       objectReference: {fileID: 1114502397}
+    - target: {fileID: 3563763126219927635, guid: 3df31758b0d3cd041bdbb66b66a4c688, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4189570242092070266, guid: 3df31758b0d3cd041bdbb66b66a4c688, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -634,7 +638,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6755669544636329873, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.20000005
+      value: -0.1500001
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3818235466882874161, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
