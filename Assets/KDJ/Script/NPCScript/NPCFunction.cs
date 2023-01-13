@@ -12,6 +12,7 @@ public class NPCFunction : MonoBehaviour
    
     public bool isPlayerAccessNPC = false;
     public bool isTalkingPlayerToNPC = false;
+    public bool isPlayerClearQuestToNPC = false;
     public bool isTeleport = false;
     private void Awake()
     {
@@ -50,7 +51,7 @@ public class NPCFunction : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F) && IsPlayerAccessNPC())
             SetIsTalkingPlayerToNPC(true);
-        else if(!IsPlayerAccessNPC())
+        else if(!IsPlayerAccessNPC() /*|| Input.GetKeyUp(KeyCode.F)*/)
             SetIsTalkingPlayerToNPC(false);
     }
 
@@ -78,6 +79,15 @@ public class NPCFunction : MonoBehaviour
         return isTalkingPlayerToNPC;
     }
 
+    public void SetPlayerClearQuestToNPC(bool input)
+    {
+        isPlayerClearQuestToNPC = input;
+    }
+
+    public bool IsPlayerClearQuestToNPC()
+    {
+        return isPlayerClearQuestToNPC;
+    }
     IEnumerator PlayerPosChainge()
     {
         yield return new WaitForSeconds(0.2f);
