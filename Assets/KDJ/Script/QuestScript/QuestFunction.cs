@@ -25,8 +25,8 @@ public class QuestFunction : MonoBehaviour
     private void Update()
     {
         Test();
-        NPCGiveQuestToPlayer();
         QuestUpdate();
+        NPCGiveQuestToPlayer();
     }
 
     private void QuestUpdate()
@@ -78,10 +78,16 @@ public class QuestFunction : MonoBehaviour
             if (DefineQuestClear("qst_007"))
                 QuestInteractionControl("qst_008");
         }
+
+        npcFunction.SetIsTalkingPlayerToNPC(false);
     }
 
     private void AddQuestForPlayer(string questCode)
     {
+        uiControl.QuesteUI.transform.SetAsLastSibling();
+        uiControl.QuesteUI.SetActive(true);
+        uiControl.CheckCursorState();
+        UISoundControl.instance.SoundPlay(1);
         if (GetQuestToNPC(questCode).IsQuestClear()) return;
 
         GetQuestToNPC(questCode).SetQuestPlayerControl(playerControl);
@@ -89,28 +95,21 @@ public class QuestFunction : MonoBehaviour
         GetQuestToNPC(questCode).SetQuestActive(true);
         QuestDataManager.instance.AddQuest(questCode);
 
-        uiControl.QuesteUI.transform.SetAsLastSibling();
-        uiControl.QuesteUI.SetActive(true);
-        uiControl.CheckCursorState();
-        UISoundControl.instance.SoundPlay(1);
     }
 
     private void PlayerClearQuest(string questCode)
     {
         if (GetQuestToNPC(questCode) == null) return;
-        if (!GetQuestToNPC(questCode).GetQuestActive())
-        {
-            QuestDataManager.instance.ClearQuest(questCode);
-            return;
-        }
+        if (!GetQuestToNPC(questCode).GetQuestActive()) return;
+
         if (GetQuestToNPC(questCode).IsQuestGoalArrival() && npcFunction.IsTalkingPlayerToNPC())
         {
             npcFunction.SetPlayerClearQuestToNPC(true);
             if (GetQuestToNPC(questCode).IsQuestClear())
             {
                 GetQuestToNPC(questCode).SetQuestActive(false);
-                
             }
+            QuestDataManager.instance.ClearQuest(questCode);
         }
     }
 
@@ -121,9 +120,11 @@ public class QuestFunction : MonoBehaviour
             foreach (Quest quest in QuestManager.instance.GetQuests())
             {
                 if (quest.questInfo.questCode == questCode)
+                {
                     PlayerClearQuest(questCode);
+                    break;
+                }
             }
-            return;
         }
         if (!GetQuestToNPC(questCode).GetQuestActive())
             AddQuestForPlayer(questCode);

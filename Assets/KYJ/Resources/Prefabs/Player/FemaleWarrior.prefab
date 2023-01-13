@@ -43102,6 +43102,7 @@ MonoBehaviour:
   curDef: 10
   gold: 10000
   level: 1
+  levelUpUI: {fileID: 0}
 --- !u!114 &269998019
 MonoBehaviour:
   m_ObjectHideFlags: 0

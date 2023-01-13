@@ -20,6 +20,7 @@ public class PlayerState : MonoBehaviour
 
     public int gold = 10000;
     public int level = 1;
+    public LevelUpUI levelUpUI;
 
     private PlayerControl playerControl;
 
@@ -32,6 +33,9 @@ public class PlayerState : MonoBehaviour
     {
         curHp = Mathf.Clamp(curHp, 0, maxHP);
         curMp = Mathf.Clamp(curMp, 0, maxMP);
+
+        if (Input.GetKeyDown(KeyCode.K))
+            IncreaseExp(50);
     }
 
     public void DecreaseHp(float value)
@@ -50,6 +54,7 @@ public class PlayerState : MonoBehaviour
             playerControl.PlaySkillEffect("LevelUp");
             playerControl.PlaySfxSound(12);
 
+            levelUpUI.LevelUp(level);
             SetLevelUpState();
         }
     }

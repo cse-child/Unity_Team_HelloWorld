@@ -16,7 +16,6 @@ public class StatsUI : MonoBehaviour
     private GameObject curExp;
     private GameObject MaxExp;
     private TextMeshProUGUI curLevel;
-    private LevelUpUI levelUI;
 
     public void Start()
     {
@@ -27,7 +26,6 @@ public class StatsUI : MonoBehaviour
         curExp = gameObject.transform.Find("curExp").gameObject;
         MaxExp = gameObject.transform.Find("MaxExp").gameObject;
         curLevel = gameObject.transform.Find("UICenter").Find("LevelText").GetComponent<TextMeshProUGUI>();
-        levelUI = gameObject.transform.Find("LevelUp").GetComponent<LevelUpUI>();
         playerState = FindObjectOfType<PlayerState>();
     }
 
@@ -35,8 +33,6 @@ public class StatsUI : MonoBehaviour
     void Update()
     {
         StateUpdate();
-        if (Input.GetKeyDown(KeyCode.V))
-            levelUI.LevelUp(playerState.level);
     }
 
     void StateUpdate()
