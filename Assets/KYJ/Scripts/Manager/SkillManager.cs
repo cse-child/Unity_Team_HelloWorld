@@ -21,6 +21,8 @@ public class SkillManager : MonoBehaviour
 
     public List<SkillInformation> skillInfos = new List<SkillInformation>();
 
+    public bool isBuff = false;
+
     private PlayerControl playerControl;
     private PlayerState playerState;
 
@@ -46,10 +48,10 @@ public class SkillManager : MonoBehaviour
             skillInfos.Add(info);
         }
         // 스킬 단축키 설정하기 예시 !!
-        //skillInfos[0].SetKeyCode(KeyCode.Alpha1);
-        //skillInfos[1].SetKeyCode(KeyCode.Alpha2);
-        //skillInfos[2].SetKeyCode(KeyCode.Alpha3);
-        //skillInfos[3].SetKeyCode(KeyCode.Alpha4);
+        skillInfos[0].SetKeyCode(KeyCode.Alpha1);
+        skillInfos[1].SetKeyCode(KeyCode.Alpha2);
+        skillInfos[2].SetKeyCode(KeyCode.Alpha3);
+        skillInfos[3].SetKeyCode(KeyCode.Alpha4);
     }
 
     public SkillInformation GetSkill(int skillNum)
@@ -89,6 +91,7 @@ public class SkillManager : MonoBehaviour
                 if (buff != 0)
                 {
                     playerState.curAtk += buff;
+                    isBuff = true;
                     StartCoroutine(info.DurationTime(buff));
                 }
 
@@ -112,6 +115,7 @@ public class SkillManager : MonoBehaviour
     public void ResetCurAtk()
     {
         playerState.curAtk = playerState.baseAtk;
+        isBuff = false;
     }
 
     // Level에 따라 스킬을 배울 수 있는지 없는지 체크

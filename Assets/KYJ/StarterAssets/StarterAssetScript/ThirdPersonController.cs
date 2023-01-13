@@ -129,6 +129,9 @@ namespace StarterAssets
 
         private float zoomVelocity = 0.0f;
 
+        // lhj write
+        private bool isTP = false;
+
         private bool IsCurrentDeviceMouse
         {
             get
@@ -338,8 +341,9 @@ namespace StarterAssets
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
             // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            if(!isTP)
+                 _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
+                                    new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // update animator if using character
             if (_hasAnimator)
@@ -463,7 +467,9 @@ namespace StarterAssets
 
         public void TP(Vector3 TPposition)
         {
+            isTP = true;
             _controller.transform.position = TPposition;
+            isTP = false;
         }
 
        
