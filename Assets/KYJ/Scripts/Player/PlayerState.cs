@@ -20,6 +20,13 @@ public class PlayerState : MonoBehaviour
     public int gold = 10000;
     public int level = 1;
 
+    private PlayerControl playerControl;
+
+    private void Awake()
+    {
+        playerControl = GetComponent<PlayerControl>();
+    }
+
     private void Update()
     {
         curHp = Mathf.Clamp(curHp, 0, maxHP);
@@ -34,10 +41,12 @@ public class PlayerState : MonoBehaviour
     public void IncreaseExp(float value)
     {
         curExp += value;
-        if(curExp >= maxEXP) // 레벨업
+        if(curExp >= maxEXP) // 레벨업 한다!
         {
             curExp -= maxEXP;
             level++;
+            playerControl.PlaySkillEffect("LevelUp");
+            playerControl.PlaySfxSound(12);
         }
     }
 
