@@ -22,6 +22,7 @@ public class PlayerManager : MonoBehaviour
     {
         ParticleManager.instance.CreateParticle();
         SkillDataManager.instance.LoadItemData();
+        LevelUpDataManager.instance.LoadLevelUpData();
         SkillManager.instance.InitSkillInfos();
     }
 

@@ -6,7 +6,8 @@ public class PlayerState : MonoBehaviour
 {
     public float maxHP = 100;
     public float maxMP = 100;
-    public float maxEXP = 100.0f; 
+    public float maxEXP = 100.0f;
+    public int maxLevel = 10;
 
     public float curHp = 100;
     public float curMp = 100;
@@ -45,8 +46,11 @@ public class PlayerState : MonoBehaviour
         {
             curExp -= maxEXP;
             level++;
+            level = Mathf.Clamp(level, 1, maxLevel);
             playerControl.PlaySkillEffect("LevelUp");
             playerControl.PlaySfxSound(12);
+
+            SetLevelUpState();
         }
     }
 
@@ -54,5 +58,19 @@ public class PlayerState : MonoBehaviour
     {
         curHp = maxHP;
         curMp = maxMP;
+    }
+
+    // 레벨업에 따라 능력치 상승
+    private void SetLevelUpState()
+    {
+        maxHP += LevelUpDataManager.instance.GetLevelUpData(level).maxHp;
+        maxMP += LevelUpDataManager.instance.GetLevelUpData(level).maxMp;
+        baseAtk += LevelUpDataManager.instance.GetLevelUpData(level).baseAtk;
+        baseDef += LevelUpDataManager.instance.GetLevelUpData(level).baseDef;
+        curHp = maxHP;
+        curMp = maxMP;
+        if(!SkillManager.instance.isBuff) // 버프상태가 아닐때만 현재 공격력 변경
+            curAtk = baseAtk;
+        curDef = baseDef;
     }
 }
