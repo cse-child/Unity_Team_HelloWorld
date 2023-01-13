@@ -61,6 +61,11 @@ public class TraceAI : MonoBehaviour
             Idle();
             isTest = true;
         }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            animator.SetTrigger("trigDie");
+            Die();
+        }
     }
 
     private void OnDrawGizmos()
@@ -212,10 +217,16 @@ public class TraceAI : MonoBehaviour
     private void Die()
     {
         this.DropItem();
+        StartCoroutine(MonsterDisappear());
         //yield return new WaitForSeconds(3f);
         //Destroy(gameObject);
         this.onDie();
 
+    }
+    private IEnumerator MonsterDisappear()
+    {
+        yield return new WaitForSeconds(3.0f);
+        gameObject.SetActive(false);
     }
     public void IncreaseExp(float value)
     {
@@ -233,7 +244,7 @@ public class TraceAI : MonoBehaviour
         this.onDie = () =>
         {
             itemGo.SetActive(true);
-            FarmingItem();
+            //FarmingItem();
         };
     }
     private void FarmingItem()
