@@ -180,6 +180,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+
         }
 
         private void LateUpdate()
@@ -459,5 +460,13 @@ namespace StarterAssets
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
         }
+
+        public void TP(Vector3 TPposition)
+        {
+            _controller.transform.position = TPposition;
+        }
+
+       
     }
+
 }

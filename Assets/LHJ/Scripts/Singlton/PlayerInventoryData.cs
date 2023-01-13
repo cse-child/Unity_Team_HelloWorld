@@ -66,6 +66,13 @@ public class PlayerInventoryData : MonoBehaviour
         }
     }
 
+    public int GetItemCount(int itemNum)
+    {
+        if (!hasItems.ContainsKey(itemNum))
+            return 0;
+        return hasItems[itemNum];
+    }
+
 
     public void SetInventory(InventoryManager inventory)
     {
