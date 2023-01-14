@@ -9,9 +9,11 @@ public class QuestFunction : MonoBehaviour
     public bool isKeyInput = false;
 
     private UIControl uiControl;
+    public PlayerControl playerControl;
 
     private void Start()
     {
+        playerControl = FindObjectOfType<PlayerControl>();
         uiControl = FindObjectOfType<UIControl>();
         npcFunction = GetComponent<NPCFunction>();
         foreach (Quest quest in QuestManager.instance.GetQuests())
@@ -23,8 +25,8 @@ public class QuestFunction : MonoBehaviour
     private void Update()
     {
         Test();
-        NPCGiveQuestToPlayer();
         QuestUpdate();
+        NPCGiveQuestToPlayer();
     }
 
     private void QuestUpdate()
@@ -47,7 +49,7 @@ public class QuestFunction : MonoBehaviour
 
     private void NPCGiveQuestToPlayer()
     {
-        if (GetQuestToNPC("qst_008").IsQuestClear())
+        if (DefineQuestClear("qst_008"))
             QuestInteractionControl("qst_009");
 
         if (!npcFunction.IsTalkingPlayerToNPC()) return;
@@ -61,63 +63,83 @@ public class QuestFunction : MonoBehaviour
         else if (npcName.Contains("Bartender"))
         {
             QuestInteractionControl("qst_001");
-            if (GetQuestToNPC("qst_001").IsQuestClear())
+            if (DefineQuestClear("qst_001"))
                 QuestInteractionControl("qst_002");
-            if (GetQuestToNPC("qst_002").IsQuestClear())
+            if (DefineQuestClear("qst_002"))
                 QuestInteractionControl("qst_003");
-            if (GetQuestToNPC("qst_003").IsQuestClear())
+            if (DefineQuestClear("qst_003"))
                 QuestInteractionControl("qst_004");
-            if (GetQuestToNPC("qst_004").IsQuestClear())
+            if (DefineQuestClear("qst_004"))
                 QuestInteractionControl("qst_005");
         }
         else if(npcName.Contains("FortuneTeller"))
         {
             QuestInteractionControl("qst_007");
-            if (GetQuestToNPC("qst_007").IsQuestClear())
+            if (DefineQuestClear("qst_007"))
                 QuestInteractionControl("qst_008");
         }
+
+        npcFunction.SetIsTalkingPlayerToNPC(false);
     }
 
     private void AddQuestForPlayer(string questCode)
     {
-        if (GetQuestToNPC(questCode).GetQuestActive())
-        {
-            foreach (Quest quest in QuestManager.instance.GetQuests())
-            {
-                if (questCode == quest.questInfo.questCode && quest.isClear)
-                    PlayerClearQuest(questCode);
-            }
-            return;
-        }
-        if (GetQuestToNPC(questCode).IsQuestClear()) return;
-
-        GetQuestToNPC(questCode).SetQuestActive(true);
-        QuestDataManager.instance.AddQuest(questCode);
-
         uiControl.QuesteUI.transform.SetAsLastSibling();
         uiControl.QuesteUI.SetActive(true);
         uiControl.CheckCursorState();
         UISoundControl.instance.SoundPlay(1);
+        if (GetQuestToNPC(questCode).IsQuestClear()) return;
+
+        GetQuestToNPC(questCode).SetQuestPlayerControl(playerControl);
+        GetQuestToNPC(questCode).SetQuestNPCFunction(npcFunction);
+        GetQuestToNPC(questCode).SetQuestActive(true);
+        QuestDataManager.instance.AddQuest(questCode);
+
     }
 
     private void PlayerClearQuest(string questCode)
     {
         if (GetQuestToNPC(questCode) == null) return;
-        if (!GetQuestToNPC(questCode).GetQuestActive())
+        if (!GetQuestToNPC(questCode).GetQuestActive()) return;
+
+        if (GetQuestToNPC(questCode).IsQuestGoalArrival() && npcFunction.IsTalkingPlayerToNPC())
         {
+            npcFunction.SetPlayerClearQuestToNPC(true);
+            if (GetQuestToNPC(questCode).IsQuestClear())
+            {
+                GetQuestToNPC(questCode).SetQuestActive(false);
+            }
             QuestDataManager.instance.ClearQuest(questCode);
-            return;
-        }
-        if (GetQuestToNPC(questCode).IsQuestClear())
-        {
-            GetQuestToNPC(questCode).SetQuestActive(false);
         }
     }
 
     private void QuestInteractionControl(string questCode)
     {
-        AddQuestForPlayer(questCode);
-        PlayerClearQuest(questCode);
+        if (GetQuestToNPC(questCode).GetQuestActive())
+        {
+            foreach (Quest quest in QuestManager.instance.GetQuests())
+            {
+                if (quest.questInfo.questCode == questCode)
+                {
+                    PlayerClearQuest(questCode);
+                    break;
+                }
+            }
+        }
+        if (!GetQuestToNPC(questCode).GetQuestActive())
+            AddQuestForPlayer(questCode);
+    }
+
+    private bool DefineQuestClear(string questCode)
+    {
+        bool temp;
+
+        if (GetQuestToNPC(questCode).IsQuestClear() && !GetQuestToNPC(questCode).GetQuestActive())
+            temp = true;
+        else
+            temp = false;
+
+        return temp;
     }
 
     private void Test()
