@@ -15,6 +15,7 @@ public class IncectCloseAttack : MonoBehaviour
     private Animator animator;
     private SphereCollider myCollider;
     private PlayerState playerState;
+    private PlayerControl playerControl;
     private bool isAttack = false; // 공격중
     private bool isSwing = false; // 검 휘두르는 중
 
@@ -35,6 +36,7 @@ public class IncectCloseAttack : MonoBehaviour
         animator = GetComponent<Animator>();
         myCollider = GetComponent<SphereCollider>();
         playerState = FindObjectOfType<PlayerState>();
+        playerControl = FindObjectOfType<PlayerControl>();
     }
     private void Update()
     {
@@ -42,6 +44,7 @@ public class IncectCloseAttack : MonoBehaviour
     }
     public void TryAttack()
     {
+        animator.SetBool("isAttack", true);
         if (!isAttack)
         {
             //StartCoroutine(AttackCoroutine());
@@ -67,12 +70,11 @@ public class IncectCloseAttack : MonoBehaviour
 
     private IEnumerator CheckObject()
     {
-        print("SS");
         Debug.DrawRay(myCollider.transform.position + control, transform.forward * range, Color.blue, 0.3f);
         if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
         {
             animator.SetTrigger("trigAttack");
-            playerState.DecreaseHp(damage);
+            playerControl.TakeDamage(CalDamage());
             print(playerState.curHp);
             Debug.Log(hitInfo.transform.name);
             isSwing = false;
@@ -86,4 +88,45 @@ public class IncectCloseAttack : MonoBehaviour
     }
 
 
+    private float CalDamage()
+    {
+        float rand = Random.Range(1, 5);
+        float realDamage;
+        if (CriticalAttack())
+        {
+            realDamage = (damage / playerState.curDef) * rand * 10.0f * 1.5f;
+            print("Critical");
+        }
+        else
+        {
+            realDamage = (damage / playerState.curDef) * rand * 10.0f;
+        }
+
+        return realDamage;
+    }
+
+    private bool CriticalAttack()
+    {
+        bool isCritical = false;
+        float rand = Random.Range(0, 10);
+
+        switch (rand)
+        {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                isCritical = false;
+                break;
+            case 9:
+                isCritical = true;
+                break;
+        }
+        return isCritical;
+    }
 }
