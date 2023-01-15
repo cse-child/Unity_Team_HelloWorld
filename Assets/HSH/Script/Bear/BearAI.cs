@@ -95,6 +95,12 @@ public class BearAI : MonoBehaviour
                 curState = State.TRACE;
             else
                 curState = State.IDLE;
+
+
+            if (curHp <= 0)
+            {
+                curState = State.DEAD;
+            }
         }
     }
 
@@ -121,10 +127,10 @@ public class BearAI : MonoBehaviour
     private void Trace()
     {
         if (animator.GetBool("isDie")) return;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Bear_GetHitFromFront")) return;
         animator.SetBool("isAttack", false);
         animator.SetBool("isTrace", true);
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Bear_RunForward")) return;
-
         Vector3 direction = target.transform.position - transform.position;
         transform.rotation = Quaternion.LookRotation(direction);
 
@@ -155,6 +161,7 @@ public class BearAI : MonoBehaviour
         audioSource.clip = audioHurt;
         audioSource.Play();
         curHp -= value;
+
         manager.Add(value.ToString(), trDamagePosition, "default");
         animator.SetFloat("curHp", curHp);
         if (curHp <= 0)
@@ -162,20 +169,19 @@ public class BearAI : MonoBehaviour
             animator.SetTrigger("trigDie");
             animator.SetBool("isDie", true);
             curState = State.DEAD;
-            Die();
+            //Die();
         }
     }
     private void Die()
     {
         this.DropItem();
-        //yield return new WaitForSeconds(3f);
-        //Destroy(gameObject);
         this.onDie();
 
     }
     private IEnumerator DieAndRegen()
     {
         yield return new WaitForSeconds(3.0f);
+        Die();
         gameObject.SetActive(false);
 
         yield return new WaitForSeconds(10.0f);

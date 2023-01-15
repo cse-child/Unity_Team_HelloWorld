@@ -94,6 +94,12 @@ public class IncectAI : MonoBehaviour
                 curState = State.TRACE;
             else
                 curState = State.IDLE;
+
+
+            if (curHp <= 0)
+            {
+                curState = State.DEAD;
+            }
         }
     }
 
@@ -121,7 +127,8 @@ public class IncectAI : MonoBehaviour
     {
         if (animator.GetBool("isDie")) return;
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Turn Right")) return;
-
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Take Damage")) return;
+        
         animator.SetBool("isAttack", false);
         animator.SetBool("isTrace", true);
 
@@ -204,20 +211,18 @@ public class IncectAI : MonoBehaviour
             animator.SetTrigger("trigDie");
             animator.SetBool("isDie", true);
             curState = State.DEAD;
-            Die();
+            //Die();
         }
     }
     private void Die()
     {
         this.DropItem();
-        //yield return new WaitForSeconds(3f);
-        //Destroy(gameObject);
         this.onDie();
-
     }
     private IEnumerator DieAndRegen()
     {
         yield return new WaitForSeconds(3.0f);
+        Die();
         gameObject.SetActive(false);
 
         yield return new WaitForSeconds(10.0f);

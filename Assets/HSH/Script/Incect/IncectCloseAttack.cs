@@ -76,7 +76,6 @@ public class IncectCloseAttack : MonoBehaviour
             animator.SetTrigger("trigAttack");
             playerControl.TakeDamage(CalDamage());
             print(playerState.curHp);
-            Debug.Log(hitInfo.transform.name);
             isSwing = false;
         }
         yield return new WaitForSeconds(1.0f);
