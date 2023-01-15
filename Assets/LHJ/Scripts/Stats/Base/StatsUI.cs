@@ -44,4 +44,9 @@ public class StatsUI : MonoBehaviour
         curLevel.text = playerState.level.ToString();
        // goldUI.GetComponent<Text>().text = playerState.gold.ToString();
     }
+
+    public void LevelUpUI()
+    {
+
+    }
 }

@@ -26,14 +26,21 @@ public class Quest
 
     private string type;
     private int requireCount;
+    private int itemNum = 0;
+    private int healthPotionCount = 0;
+    private int manaPotionCount = 0;
 
     private QuestAlarmManager.QuestDetail questDetail;
+
+    private NPCFunction npcFunction;
+    private PlayerControl playerControl;
 
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        //healthPotionCount = PlayerInventoryData.instance.GetHasInventory()[1];
+        //manaPotionCount = PlayerInventoryData.instance.GetHasInventory()[2];
         TypeDefinition();
-        
     }
 
     public void Update()
@@ -75,36 +82,52 @@ public class Quest
         }
         if (Input.GetKeyDown(KeyCode.K))
             countValue++;
-        QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).goalData = countValue.ToString() + " / " + requireCount.ToString();
+       QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).goalData = countValue.ToString() + " / " + requireCount.ToString();
     }
 
     private void Tutorial()
     {
-        if(this.questInfo.questCode == "qst001")
+        if(this.questInfo.questCode == "qst_001")
         {
-            Vector3 temp = player.transform.position;
-            if (player.transform.position == temp)
+            if (npcFunction.IsTalkingPlayerToNPC())
+            {
+                isQuestGoalArrival = true;
+            }
+        }
+        else if(this.questInfo.questCode == "qst_002")
+        {
+            if (!playerControl.IsPlayerStop())
+            {
+                isQuestGoalArrival = true;
+            }
+        }
+        else if(this.questInfo.questCode == "qst_003")
+        {
+            if(playerControl.IsPlayerAttacking())
+            {
+                isQuestGoalArrival = true;
+            }
+        }
+        else if(this.questInfo.questCode == "qst_004")
+        {
+            int tempNum1 = PlayerInventoryData.instance.GetHasInventory()[1];
+            int tempNum2 = PlayerInventoryData.instance.GetHasInventory()[2];
+            if (healthPotionCount > tempNum1 ||
+                manaPotionCount > tempNum2)
                 isQuestGoalArrival = true;
         }
-        else if(this.questInfo.questCode == "qst002")
-        {
-            isQuestGoalArrival = true;
-            QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).questDetail.isSucceed = true;
-        }
-        else if(this.questInfo.questCode == "qst003")
-        {
 
-        }
+        if (isQuestGoalArrival)
+            QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).questDetail.isSucceed = true;
     }
 
     private void Collecting()
     {
-        string itemCode;
         if (this.questInfo.questCode == "qst_006")
-            //itemCode = 
-
-            //PlayerInventoryData.instance.GetHasInventory()[]
-
+        {
+            itemNum = 0; //퀘스트 아이템 번호
+            countValue = PlayerInventoryData.instance.GetHasInventory()[itemNum];
+        }
         if (countValue >= requireCount)
         {
             isQuestGoalArrival = true;
@@ -138,16 +161,19 @@ public class Quest
     {
         isActive = input;
 
-        questDetail.questName = QuestDataManager.instance.GetQuest(questInfo.questCode).name;
-        questDetail.isSucceed = false;
-        questDetail.questGoal = QuestDataManager.instance.GetQuest(questInfo.questCode).goal;
-        if (QuestDataManager.instance.GetQuest(questInfo.questCode).type.Contains("Collecting") || QuestDataManager.instance.GetQuest(questInfo.questCode).type.Contains("Hunting"))
+        if (isActive)
         {
-            questDetail.isCommon = false;
+            questDetail.questName = QuestDataManager.instance.GetQuest(questInfo.questCode).name;
+            questDetail.isSucceed = false;
+            questDetail.questGoal = QuestDataManager.instance.GetQuest(questInfo.questCode).goal;
+            if (QuestDataManager.instance.GetQuest(questInfo.questCode).type.Contains("Collecting") || QuestDataManager.instance.GetQuest(questInfo.questCode).type.Contains("Hunting"))
+            {
+                questDetail.isCommon = false;
+            }
+            else
+                questDetail.isCommon = true;
+            QuestAlarmManager.instance.AddQuestAlarm(questDetail);
         }
-        else
-            questDetail.isCommon = true;
-        QuestAlarmManager.instance.AddQuestAlarm(questDetail);
     }
 
     public bool GetQuestActive()
@@ -160,9 +186,28 @@ public class Quest
         return isClear;
     }
 
+    public bool IsQuestGoalArrival()
+    {
+        return isQuestGoalArrival;
+    }
     public void QuestClear()
     {
-        if (isQuestGoalArrival) 
+        if (isQuestGoalArrival && npcFunction.isTalkingPlayerToNPC)
+        {
             isClear = true;
+            if(isClear)
+                npcFunction.SetPlayerClearQuestToNPC(false);
+        }
+            
+    }
+
+    public void SetQuestPlayerControl(PlayerControl input)
+    {
+        playerControl = input;
+    }
+
+    public void SetQuestNPCFunction(NPCFunction input)
+    {
+        npcFunction = input;
     }
 }

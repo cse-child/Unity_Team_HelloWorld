@@ -68,15 +68,17 @@ public class SlotData : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             UISoundControl.instance.SoundPlay(4);
             string[] col = itemData.property.Split("_");
 
-            PlayerEquipmentManager.instance.WearWepon(int.Parse(col[1]) ,itemNum);
+            PlayerEquipmentManager.instance.WearWepon(int.Parse(col[1]), itemNum);
         }
-        else if(itemData.property.Contains("armor"))
+        else if (itemData.property.Contains("armor"))
         {
             UISoundControl.instance.SoundPlay(0);
             string[] col = itemData.property.Split("_");
-           
-            PlayerEquipmentManager.instance.WearArmor(col[1],int.Parse(col[2]),itemNum);
+
+            PlayerEquipmentManager.instance.WearArmor(col[1], int.Parse(col[2]), itemNum);
         }
+        else
+            return;
 
 
         PlayerInventoryData.instance.SubItem(itemNum, 1);
