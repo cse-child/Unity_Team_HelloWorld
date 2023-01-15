@@ -32,6 +32,10 @@ public class BearAI : MonoBehaviour
     public System.Action onDie;
 
     private BearCloseAttack closeAtk;
+    private PlayerState playerState;
+
+    public AudioClip audioHurt;
+    public AudioClip audioDie;
 
     private State curState;
 
@@ -43,6 +47,7 @@ public class BearAI : MonoBehaviour
         animator = GetComponent<Animator>();
         closeAtk = GetComponent<BearCloseAttack>();
         target = GameObject.FindGameObjectWithTag("Player");
+        playerState = FindObjectOfType<PlayerState>();
         audioSource = GetComponent<AudioSource>();
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
@@ -60,6 +65,7 @@ public class BearAI : MonoBehaviour
             Idle();
             isTest = true;
         }
+
     }
 
     private void OnDrawGizmos()
@@ -146,6 +152,8 @@ public class BearAI : MonoBehaviour
     {
         if (animator.GetBool("isDie")) return;
         animator.SetTrigger("trigHurt");
+        audioSource.clip = audioHurt;
+        audioSource.Play();
         curHp -= value;
         manager.Add(value.ToString(), trDamagePosition, "default");
         animator.SetFloat("curHp", curHp);
@@ -165,13 +173,23 @@ public class BearAI : MonoBehaviour
         this.onDie();
 
     }
+    private IEnumerator DieAndRegen()
+    {
+        yield return new WaitForSeconds(3.0f);
+        gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(10.0f);
+        gameObject.SetActive(true);
+    }
     public void IncreaseExp(float value)
     {
         value += Exp;
     }
     private void DieAudio()
     {
+        audioSource.clip = audioDie;
         audioSource.Play();
+        StartCoroutine(DieAndRegen());
     }
     public void DropItem()
     {
@@ -181,7 +199,8 @@ public class BearAI : MonoBehaviour
         this.onDie = () =>
         {
             itemGo.SetActive(true);
-            FarmingItem();
+            playerState.IncreaseExp(Exp);
+            //FarmingItem();
         };
     }
     private void FarmingItem()

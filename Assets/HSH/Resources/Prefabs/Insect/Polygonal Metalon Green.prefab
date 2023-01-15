@@ -1236,11 +1236,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0113fc1c05634d2449d98e983c2042df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  trDamagePosition: {fileID: 4215789226532830}
   traceRange: 5
   attackRange: 1
   moveSpeed: 0.5
   rotateSpeed: 0.5
   itemPrefab: {fileID: 5746359903908249793, guid: 78925be475d86164f92d73a589da7cba, type: 3}
+  audioHurt: {fileID: 8300000, guid: 0c94b1ee2f4bb9d429cab9e813a3a189, type: 3}
+  audioDie: {fileID: 8300000, guid: 6a33e84cb68f80d419e33216fc30b03c, type: 3}
 --- !u!114 &1093346051
 MonoBehaviour:
   m_ObjectHideFlags: 0
