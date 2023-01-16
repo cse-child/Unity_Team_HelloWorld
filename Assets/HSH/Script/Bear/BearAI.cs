@@ -25,13 +25,17 @@ public class BearAI : MonoBehaviour
     private float curHp = 100.0f;
     private float Exp = 10.0f;
 
-    private GameObject target;
+    public GameObject target;
     private Animator animator;
 
     public GameObject itemPrefab;
     public System.Action onDie;
 
     private BearCloseAttack closeAtk;
+    private PlayerState playerState;
+
+    public AudioClip audioHurt;
+    public AudioClip audioDie;
 
     private State curState;
 
@@ -43,6 +47,7 @@ public class BearAI : MonoBehaviour
         animator = GetComponent<Animator>();
         closeAtk = GetComponent<BearCloseAttack>();
         target = GameObject.FindGameObjectWithTag("Player");
+        playerState = FindObjectOfType<PlayerState>();
         audioSource = GetComponent<AudioSource>();
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
@@ -60,6 +65,7 @@ public class BearAI : MonoBehaviour
             Idle();
             isTest = true;
         }
+
     }
 
     private void OnDrawGizmos()
@@ -89,6 +95,12 @@ public class BearAI : MonoBehaviour
                 curState = State.TRACE;
             else
                 curState = State.IDLE;
+
+
+            if (curHp <= 0)
+            {
+                curState = State.DEAD;
+            }
         }
     }
 
@@ -115,10 +127,10 @@ public class BearAI : MonoBehaviour
     private void Trace()
     {
         if (animator.GetBool("isDie")) return;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Bear_GetHitFromFront")) return;
         animator.SetBool("isAttack", false);
         animator.SetBool("isTrace", true);
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Bear_RunForward")) return;
-
         Vector3 direction = target.transform.position - transform.position;
         transform.rotation = Quaternion.LookRotation(direction);
 
@@ -146,7 +158,10 @@ public class BearAI : MonoBehaviour
     {
         if (animator.GetBool("isDie")) return;
         animator.SetTrigger("trigHurt");
+        audioSource.clip = audioHurt;
+        audioSource.Play();
         curHp -= value;
+
         manager.Add(value.ToString(), trDamagePosition, "default");
         animator.SetFloat("curHp", curHp);
         if (curHp <= 0)
@@ -154,24 +169,35 @@ public class BearAI : MonoBehaviour
             animator.SetTrigger("trigDie");
             animator.SetBool("isDie", true);
             curState = State.DEAD;
-            Die();
+            //Die();
         }
     }
     private void Die()
     {
         this.DropItem();
-        //yield return new WaitForSeconds(3f);
-        //Destroy(gameObject);
         this.onDie();
 
     }
+    private IEnumerator DieAndRegen()
+    {
+        yield return new WaitForSeconds(3.0f);
+        Die();
+        gameObject.SetActive(false);
+        curHp = 100.0f;
+        curState = State.IDLE;
+        MonsterReSpawn.instance.ReSpawn(gameObject);
+
+    }
+
     public void IncreaseExp(float value)
     {
         value += Exp;
     }
     private void DieAudio()
     {
+        audioSource.clip = audioDie;
         audioSource.Play();
+        StartCoroutine(DieAndRegen());
     }
     public void DropItem()
     {
@@ -181,7 +207,8 @@ public class BearAI : MonoBehaviour
         this.onDie = () =>
         {
             itemGo.SetActive(true);
-            FarmingItem();
+            playerState.IncreaseExp(Exp);
+            //FarmingItem();
         };
     }
     private void FarmingItem()

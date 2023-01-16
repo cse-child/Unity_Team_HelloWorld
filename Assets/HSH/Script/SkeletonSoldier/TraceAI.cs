@@ -32,10 +32,14 @@ public class TraceAI : MonoBehaviour
     public System.Action onDie;
 
     private MonsterCloseAttack closeAtk;
+    private PlayerState playerState;
+
+    public AudioClip audioHurt;
+    public AudioClip audioDie;
 
     private State curState;
 
-    private bool isTest = false;
+    private bool isPlayerDie = false;
 
     private readonly WaitForSeconds delayTime = new WaitForSeconds(0.1f);
     private void Awake() //할당을 할 때 한번만 실행되는 Awake에서
@@ -43,6 +47,7 @@ public class TraceAI : MonoBehaviour
         animator = GetComponent<Animator>();
         closeAtk = GetComponent<MonsterCloseAttack>();
         target = GameObject.FindGameObjectWithTag("Player");
+        playerState = FindObjectOfType<PlayerState>();
         audioSource = GetComponent<AudioSource>();
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
@@ -57,14 +62,8 @@ public class TraceAI : MonoBehaviour
         RotateMove();
         if (Input.GetKeyDown(KeyCode.N))
         {
-            print("N");
             Idle();
-            isTest = true;
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            animator.SetTrigger("trigDie");
-            Die();
+            isPlayerDie = true;
         }
     }
 
@@ -105,7 +104,7 @@ public class TraceAI : MonoBehaviour
 
     private void SetAction()
     {
-        if (isTest) return;
+        if (isPlayerDie) return;
         switch (curState)
         {
             case State.TRACE:
@@ -127,8 +126,8 @@ public class TraceAI : MonoBehaviour
     private void Trace()
     {
         if (animator.GetBool("isDie")) return;
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton@Attack01")) return;
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton@Idle01_Action01")) return;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton@Damage01")) return;
 
         animator.SetBool("isAttack", false);
         animator.SetBool("isTrace", true);
@@ -202,8 +201,10 @@ public class TraceAI : MonoBehaviour
     {
         if (animator.GetBool("isDie")) return;
         animator.SetTrigger("trigHurt");
-        
+        audioSource.clip = audioHurt;
+        audioSource.Play();
         curHp -= value;
+        
         manager.Add(value.ToString(), trDamagePosition, "default");
         animator.SetFloat("curHp", curHp);
         if (curHp <= 0)
@@ -211,22 +212,22 @@ public class TraceAI : MonoBehaviour
             animator.SetTrigger("trigDie");
             animator.SetBool("isDie", true);
             curState = State.DEAD;
-            Die();
+            //Die();
         }
     }
     private void Die()
     {
         this.DropItem();
-        StartCoroutine(MonsterDisappear());
-        //yield return new WaitForSeconds(3f);
-        //Destroy(gameObject);
         this.onDie();
-
     }
-    private IEnumerator MonsterDisappear()
+    private IEnumerator DieAndRegen()
     {
         yield return new WaitForSeconds(3.0f);
+        Die();
         gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(10.0f);
+        gameObject.SetActive(true);
     }
     public void IncreaseExp(float value)
     {
@@ -234,7 +235,9 @@ public class TraceAI : MonoBehaviour
     }
     private void DieAudio()
     {
+        audioSource.clip = audioDie;
         audioSource.Play();
+        StartCoroutine(DieAndRegen());
     }
     public void DropItem()
     {
@@ -244,6 +247,8 @@ public class TraceAI : MonoBehaviour
         this.onDie = () =>
         {
             itemGo.SetActive(true);
+            playerState.IncreaseExp(Exp);
+            print(playerState.curExp);
             //FarmingItem();
         };
     }

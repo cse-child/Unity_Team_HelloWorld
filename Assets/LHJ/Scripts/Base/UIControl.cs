@@ -38,6 +38,7 @@ public class UIControl : MonoBehaviour
         MonsterUIManager.instance.Non();
         QuestAlarmManager.instance.Non();
         QuestDataManager.instance.SetQuestUIControl(QuesteUI.GetComponent<QuestUIControl>());
+        MonsterUIManager.instance.SetActiveMonsterUI(false);
     }
 
     public void Start()
@@ -128,7 +129,7 @@ public class UIControl : MonoBehaviour
         }
     }
 
-    public void CheckCursorState()
+    public bool CheckCursorState()
     {
         if (InventoryUI.activeSelf || QuesteUI.activeSelf || SkillUI.activeSelf || 
             LootingUI.activeSelf || ShopUI.activeSelf || StatusUI.activeSelf || DeathUI.activeSelf) 
@@ -136,11 +137,13 @@ public class UIControl : MonoBehaviour
             _input.SetCursorLocked(false);
             _input.cursorInputForLook = false;
             _input.LookInput(Vector2.zero);
+            return false;
         }
         else
         {
             _input.SetCursorLocked(true);
             _input.cursorInputForLook = true;
+            return true;
         }
     }
 

@@ -115,6 +115,7 @@ namespace StarterAssets
 
         // kyj write
         public CinemachineVirtualCamera cinemachineVirtualCamera;
+        private UIControl uiControl;
 
         public float zoomMinDistance = 1.5f;
         public float zoomMaxDistance = 10.0f;
@@ -163,6 +164,8 @@ namespace StarterAssets
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
             _playerInput = GetComponent<PlayerInput>();
+            
+            uiControl = FindObjectOfType<UIControl>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -189,7 +192,8 @@ namespace StarterAssets
         private void LateUpdate()
         {
             CameraRotation();
-            CameraZoom();
+            if(uiControl.CheckCursorState())
+                CameraZoom();
         }
 
         private void AssignAnimationIDs()
