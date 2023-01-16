@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.11267333, g: 0.28155792, b: 0.70918536, a: 1}
+  m_IndirectSpecularColor: {r: 0.11272149, g: 0.28158486, b: 0.7091768, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -667,6 +667,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_Blacksmith
       objectReference: {fileID: 0}
+    - target: {fileID: 4285423599410841146, guid: 3df31758b0d3cd041bdbb66b66a4c688, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5a307a8695fc5ad4f970e1af71a7d141, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3df31758b0d3cd041bdbb66b66a4c688, type: 3}
 --- !u!4 &197529200 stripped
@@ -884,6 +888,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1075092856107176983, guid: 575125fdadb421048a5276dec31d347d, type: 3}
   m_PrefabInstance: {fileID: 2145149668}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &221997719 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 350686549631252339, guid: 010b675be08655e47a359b9b571c049f, type: 3}
+  m_PrefabInstance: {fileID: 1038037454}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &250558956 stripped
 Transform:
@@ -2026,6 +2035,65 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1294590175177415202, guid: 6bf3ca2d1b18a4d409e8ed6cc2ff65ee, type: 3}
   m_PrefabInstance: {fileID: 135142298}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &518764891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 518764892}
+  - component: {fileID: 518764894}
+  - component: {fileID: 518764893}
+  m_Layer: 0
+  m_Name: SnowFieldCollider (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &518764892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518764891}
+  m_LocalRotation: {x: -0, y: -0.041617442, z: -0, w: 0.9991336}
+  m_LocalPosition: {x: 55.298218, y: 24.48, z: -78.05808}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 730500392}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: -4.77, z: 0}
+--- !u!114 &518764893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518764891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33569e5bc7f09d941b6f0429ef633bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmName: "\uC124\uC0B0BGM"
+--- !u!65 &518764894
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518764891}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.4111176, y: 1.970026, z: 4.193062}
+  m_Center: {x: 1.7055529, y: 0.4850154, z: -2.267967}
 --- !u!1001 &521096126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2808,6 +2876,7 @@ Transform:
   - {fileID: 988641212}
   - {fileID: 1679722444}
   - {fileID: 1274706234}
+  - {fileID: 518764892}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3417,6 +3486,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_FortuneTeller
       objectReference: {fileID: 0}
+    - target: {fileID: 8056119398254783528, guid: 401c3d201bdff864fa329d36cb73c9d8, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5a307a8695fc5ad4f970e1af71a7d141, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 401c3d201bdff864fa329d36cb73c9d8, type: 3}
 --- !u!1001 &800557450
@@ -4340,6 +4413,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_Bartender
       objectReference: {fileID: 0}
+    - target: {fileID: 399195156845764015, guid: 010b675be08655e47a359b9b571c049f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b0932b0fff8fa064c9966d3e21122fde, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 010b675be08655e47a359b9b571c049f, type: 3}
 --- !u!4 &1056531672 stripped
@@ -5752,6 +5829,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 348504054381245567, guid: 010b675be08655e47a359b9b571c049f, type: 3}
   m_PrefabInstance: {fileID: 1038037454}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1668006763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221997719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebb21dcd952acb479c8e3b61a84bd34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: "\uBC14\uD150\uB354"
 --- !u!1 &1679722443
 GameObject:
   m_ObjectHideFlags: 0
@@ -7106,6 +7196,19 @@ MonoBehaviour:
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
   selectedDatabase: {fileID: 11400000, guid: c1ff565a2af7cdc4e85a470263e05938, type: 2}
+--- !u!114 &2055406328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055406321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebb21dcd952acb479c8e3b61a84bd34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: "\uC2E0\uAD00"
 --- !u!1001 &2093207545
 PrefabInstance:
   m_ObjectHideFlags: 0
