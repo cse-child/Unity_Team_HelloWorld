@@ -53,12 +53,18 @@ public class DragonAI : MonoBehaviour
     private void Start() // 여러번 실행될 수 있으므로 할당 x
     {
         StartCoroutine(SetState());
+
     }
 
     private void Update()
     {
         //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
         SetAction();
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            Idle();
+            isPlayerDie = true;
+        }
         //Test();
     }
 
@@ -89,11 +95,17 @@ public class DragonAI : MonoBehaviour
                 curState = State.TRACE;
             else
                 curState = State.IDLE;
+
+            if (curHp <= 0)
+            {
+                curState = State.DEAD;
+            }
         }
     }
 
     private void SetAction()
     {
+        if (isPlayerDie) return;
         switch (curState)
         {
             case State.TRACE:
@@ -131,6 +143,7 @@ public class DragonAI : MonoBehaviour
     //}
     private void EndAttack()
     {
+        animator.SetBool("isAttack", false);
     }
     private void Idle()
     {
@@ -167,9 +180,6 @@ public class DragonAI : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         Die();
         gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(10.0f);
-        gameObject.SetActive(true);
     }
     public void IncreaseExp(float value)
     {
