@@ -20,6 +20,6 @@ ItemNum,Name,Property,Power,ResourcePath,Explanation,Price
 19,낡은 바지,armor_pants_1,20,Assets/LHJ/Sprite/OldPants.png,낡고 얇은 바지. eeDEF가 20 증가합니다.,1000
 20,가죽 갑옷(하의),armor_pants_2,40,Assets/LHJ/Sprite/LeatherArmorBottoms.png,가죽으로 만들어진 바지. eeDEF가 40 증가합니다.,3000
 21,강철 갑옷(하의),armor_pants_3,60,Assets/LHJ/Sprite/SteelArmorBottoms.png,강철로 만들어진 튼튼한 바지. eeDEF가 60 증가합니다.,5000
-,,,,,,
-보류,지팡이,weapon,20,Assets/LHJ/Sprite/Wand.png,ATK가 20 증가합니다.,
-보류,활,weapon,30,Assets/LHJ/Sprite/Bow.png,ATK가 30 증가합니다.,
+22,스켈레톤의 뼈,material,0,Assets/LHJ/Sprite/Bone.png,스켈레톤의 뼈,10
+23,거미의 다리,material,0,Assets/LHJ/Sprite/SpiderLegs.png,거미의 다리이다.,8
+24,곰고기,material,0,Assets/LHJ/Sprite/Meat.png,곰의 고기이다.,50

@@ -15,6 +15,7 @@ public class MonsterCloseAttack : MonoBehaviour
     private Animator animator;
     private CapsuleCollider myCollider;
     private PlayerState playerState;
+    private PlayerControl playerControl;
     private bool isAttack = false; // 공격중
     private bool isSwing = false; // 검 휘두르는 중
 
@@ -35,6 +36,7 @@ public class MonsterCloseAttack : MonoBehaviour
         animator = GetComponent<Animator>();
         myCollider = GetComponent<CapsuleCollider>();
         playerState = FindObjectOfType<PlayerState>();
+        playerControl = FindObjectOfType<PlayerControl>();
     }
     private void Update()
     {
@@ -42,20 +44,22 @@ public class MonsterCloseAttack : MonoBehaviour
     }
     public void TryAttack()
     {
+        animator.SetBool("isAttack", true);
         if (!isAttack)
         {
-            StartCoroutine(AttackCoroutine());
+            //StartCoroutine(AttackCoroutine());
+            animator.SetTrigger("trigAttack");
+            isAttack = true;
         }
     }
 
     private IEnumerator AttackCoroutine()
     {
         isAttack = true;
-        animator.SetTrigger("trigAttack");
 
         yield return new WaitForSeconds(attackProcessing);
         isSwing = true;
-        StartCoroutine(HitCoroutine());
+        StartCoroutine(CheckObject());
 
         //yield return new WaitForSeconds(attackClose);
         isSwing = false;
@@ -64,35 +68,67 @@ public class MonsterCloseAttack : MonoBehaviour
         isAttack = false;
     }
 
-    private bool CheckObject()
+    private IEnumerator CheckObject()
     {
-        //if (Physics.Raycast(transform.position, transform.forward, out hitInfo, range))
-        //{
-        //    return true;
-        //}
-        //return false;
-        
+        Debug.DrawRay(myCollider.transform.position + control, transform.forward * range, Color.blue, 0.3f);
         if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
         {
-            //hitInfo.transform.GetComponent<PlayerHpTest>().Hurt();
-            playerState.DecreaseHp(1.0f);
+            animator.SetTrigger("trigAttack");
+            //playerState.DecreaseHp(damage);
+            playerControl.TakeDamage(CalDamage());
             print(playerState.curHp);
-            return true;
+            //Debug.Log(hitInfo.transform.name);
+            isSwing = false;
         }
-        return false;
+        yield return new WaitForSeconds(1.0f);
     }
-    private IEnumerator HitCoroutine()
+    private void StartCheck()
     {
-        while (isSwing)
-        {
-            Debug.DrawRay(myCollider.transform.position + control, transform.forward * range, Color.blue, 0.3f);
-            if (CheckObject())
-            {
-                isSwing = false;
-                Debug.Log(hitInfo.transform.name);
-            }
-            yield return null;
-        }
+        StartCoroutine(CheckObject());
+        isAttack = false;
     }
+
+    private float CalDamage()
+    {
+        float rand = Random.Range(1, 5);
+        float realDamage;
+        if (CriticalAttack())
+        {
+            realDamage = (damage / playerState.curDef) * rand * 1.5f;
+            print("Critical");
+        }
+        else
+        {
+            realDamage = (damage / playerState.curDef) * rand;
+        }
+
+        return realDamage;
+    }
+
+    private bool CriticalAttack()
+    {
+        bool isCritical = false;
+        float rand = Random.Range(0, 10);
+
+        switch(rand)
+        {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                isCritical = false;
+                break;
+            case 9:
+                isCritical = true;
+                break;
+        }
+        return isCritical;
+    }
+
 
 }

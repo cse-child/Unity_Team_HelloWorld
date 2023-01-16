@@ -4,20 +4,26 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using System.IO;
+using Guirao.UltimateTextDamage;
 
 public class DragonAI : MonoBehaviour
 {
+    public UltimateTextDamageManager manager;
+    public Transform trDamagePosition;
+    private AudioSource audioSource;
     enum State
     {
         IDLE, TRACE, ATTACK, DEAD, HURT
     }
 
-    public float traceRange = 15.0f;
-    public float attackRange = 5.0f;
-    public float moveSpeed = 2.0f;
+    public float traceRange = 5.0f;
+    public float attackRange = 1.0f;
+
+    public float moveSpeed = 0.5f;
     public float rotateSpeed = 0.5f;
     //private float maxHp = 100.0f;
     private float curHp = 100.0f;
+    private float Exp = 100.0f;
 
     private GameObject target;
     private Animator animator;
@@ -26,8 +32,14 @@ public class DragonAI : MonoBehaviour
     public System.Action onDie;
 
     private DragonAttack closeAtk;
+    private PlayerState playerState;
+
+    public AudioClip audioHurt;
+    public AudioClip audioDie;
 
     private State curState;
+
+    private bool isPlayerDie = false;
 
     private readonly WaitForSeconds delayTime = new WaitForSeconds(0.1f);
     private void Awake() //할당을 할 때 한번만 실행되는 Awake에서
@@ -35,17 +47,25 @@ public class DragonAI : MonoBehaviour
         animator = GetComponent<Animator>();
         closeAtk = GetComponent<DragonAttack>();
         target = GameObject.FindGameObjectWithTag("Player");
+        playerState = FindObjectOfType<PlayerState>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
     {
         StartCoroutine(SetState());
+
     }
 
     private void Update()
     {
         //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
         SetAction();
-        Test();
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            Idle();
+            isPlayerDie = true;
+        }
+        //Test();
     }
 
     private void OnDrawGizmos()
@@ -75,11 +95,17 @@ public class DragonAI : MonoBehaviour
                 curState = State.TRACE;
             else
                 curState = State.IDLE;
+
+            if (curHp <= 0)
+            {
+                curState = State.DEAD;
+            }
         }
     }
 
     private void SetAction()
     {
+        if (isPlayerDie) return;
         switch (curState)
         {
             case State.TRACE:
@@ -92,7 +118,6 @@ public class DragonAI : MonoBehaviour
                 Idle();
                 break;
             case State.DEAD:
-                Die();
                 break;
         }
     }
@@ -100,12 +125,10 @@ public class DragonAI : MonoBehaviour
     private void Trace()
     {
         if (animator.GetBool("isDie")) return;
-
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("CastSpell 0"))
+        animator.SetBool("isAttack", false);
+        animator.SetBool("isTrace", true);
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
         {
-            closeAtk.PatternOut();
-            animator.SetBool("isAttack", false);
-            animator.SetBool("isTrace", true);
             Vector3 direction = target.transform.position - transform.position;
             transform.rotation = Quaternion.LookRotation(direction);
 
@@ -120,60 +143,53 @@ public class DragonAI : MonoBehaviour
     //}
     private void EndAttack()
     {
+        animator.SetBool("isAttack", false);
     }
     private void Idle()
     {
-        closeAtk.PatternOut();
         animator.SetBool("isAttack", false);
         animator.SetBool("isTrace", false);
     }
 
-    private Vector3 CalculateWanderPosition()
-    {
-        float wanderRadius = 10.0f; // 현재 위치를 원점으로 하는 원의 반지름
-        int wanderJitter = 0; // 선택된 각도 (wanderJitterMin ~ wanderJitterMax)
-        int wanderJitterMin = 0; // 최소 각도
-        int wanderJitterMax = 360; // 최대 각도
-
-        //현재 적 캐릭터가 있는 월드의 중심 위치와 크기 (구역을 벗어난 행동 x)
-        Vector3 rangePosition = Vector3.zero;
-        Vector3 rangeScale = Vector3.one * 100.0f;
-
-        //자신의 위치를 중심으로 반지름(wanderRadius) 거리, 선택된 각도(wanderJitter)에 위치한 좌표를 목표지점으로 설정
-        wanderJitter = Random.Range(wanderJitterMin, wanderJitterMax);
-        Vector3 targetPosition = transform.position + SetAngle(wanderRadius, wanderJitter);
-
-        return targetPosition;
-    }
-    private Vector3 SetAngle(float radius, int angle)
-    {
-        Vector3 position = Vector3.zero;
-
-        position.x = Mathf.Cos(angle) * radius;
-        position.z = Mathf.Sin(angle) * radius;
-        return position;
-    }
-
-    private void Hurt()
+    private void Hurt(float value)
     {
         if (animator.GetBool("isDie")) return;
         animator.SetTrigger("trigHurt");
-        curHp -= 10.0f;
+        audioSource.clip = audioHurt;
+        audioSource.Play();
+        curHp -= value;
+
+        manager.Add(value.ToString(), trDamagePosition, "default");
         animator.SetFloat("curHp", curHp);
         if (curHp <= 0)
         {
             animator.SetTrigger("trigDie");
             animator.SetBool("isDie", true);
             curState = State.DEAD;
+            //Die();
         }
     }
     private void Die()
     {
         this.DropItem();
-        //yield return new WaitForSeconds(3f);
-        Destroy(gameObject);
         this.onDie();
 
+    }
+    private IEnumerator DieAndRegen()
+    {
+        yield return new WaitForSeconds(3.0f);
+        Die();
+        gameObject.SetActive(false);
+    }
+    public void IncreaseExp(float value)
+    {
+        value += Exp;
+    }
+    private void DieAudio()
+    {
+        audioSource.clip = audioDie;
+        audioSource.Play();
+        StartCoroutine(DieAndRegen());
     }
     public void DropItem()
     {
@@ -183,29 +199,9 @@ public class DragonAI : MonoBehaviour
         this.onDie = () =>
         {
             itemGo.SetActive(true);
-            FarmingItem();
         };
     }
-    private void FarmingItem()
-    {
-        StreamReader sr = new StreamReader(Application.dataPath + "/HSH/DataTable/" + "ItemData.csv");
 
-        bool endOfFile = false;
-        while (!endOfFile)
-        {
-            string dataString = sr.ReadLine();
-            if (dataString == null)
-            {
-                endOfFile = true;
-                break;
-            }
-            var dataValues = dataString.Split(',');
-            for (int i = 0; i < dataValues.Length; i++)
-            {
-                Debug.Log("v: " + i.ToString() + " " + dataValues[i].ToString());
-            }
-        }
-    }
     private void Test()
     {
         if (Input.GetKeyDown(KeyCode.F1))

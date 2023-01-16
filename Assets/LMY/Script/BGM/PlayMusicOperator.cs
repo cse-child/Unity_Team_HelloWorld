@@ -24,6 +24,7 @@ public class PlayMusicOperator : MonoBehaviour
     {
         BGM = gameObject.AddComponent<AudioSource>();
         BGM.loop = true;
+        BGM.volume = 0.1f;
         if (BGMList.Length > 0) PlayBGM(BGMList[0].name);
     }
 

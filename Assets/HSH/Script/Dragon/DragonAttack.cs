@@ -17,14 +17,14 @@ public class DragonAttack : MonoBehaviour
     public float attackClose;// 모션 중 공격판정이 안되는 순간
 
     private Animator animator;
-    private CapsuleCollider myCollider;
+    private SphereCollider myCollider;
     private PlayerState playerState;
+    private PlayerControl playerControl;
     private bool isAttack = false; // 공격중
-    private bool isSwing = false; // 검 휘두르는 중
 
     private RaycastHit hitInfo; // 현재 무기에 닿은 오브젝트 정보
     public LayerMask layerMask;
-    Vector3 control = new Vector3(0, 1, 0);
+    Vector3 control = new Vector3(0, 0, 0);
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Player"))
@@ -37,8 +37,9 @@ public class DragonAttack : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        myCollider = GetComponent<CapsuleCollider>();
+        myCollider = GetComponent<SphereCollider>();
         playerState = FindObjectOfType<PlayerState>();
+        playerControl = FindObjectOfType<PlayerControl>();
     }
     private void Update()
     {
@@ -46,101 +47,110 @@ public class DragonAttack : MonoBehaviour
     }
     public void TryAttack()
     {
+        animator.SetBool("isAttack", true);
         if (!isAttack)
         {
-            StartCoroutine(AttackCoroutine());
-            //StartCoroutine(DragonThink());
+            //StartCoroutine(AttackCoroutine());
+            DragonThink();
+            isAttack = true;
         }
     }
-
     private IEnumerator AttackCoroutine()
     {
         isAttack = true;
-        animator.SetTrigger("trigAttack");
-
         yield return new WaitForSeconds(attackProcessing);
-        isSwing = true;
-        StartCoroutine(HitCoroutine());
-
-        //yield return new WaitForSeconds(attackClose);
-        isSwing = false;
-
-        //yield return new WaitForSeconds(attackDelay - attackProcessing - attackClose);
+        StartCoroutine(CheckObject());
         isAttack = false;
     }
-
-    private bool CheckObject()
+    private IEnumerator CheckObject()
     {
-        //if (Physics.Raycast(transform.position, transform.forward, out hitInfo, range))
-        //{
-        //    return true;
-        //}
-        //return false;
-        
+        Debug.DrawRay(myCollider.transform.position + control, transform.forward * range, Color.blue, 0.3f);
         if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
         {
-            //hitInfo.transform.GetComponent<PlayerHpTest>().Hurt();
-            playerState.DecreaseHp(1.0f);
+            //playerState.DecreaseHp(damage);
+            playerControl.TakeDamage(CalDamage());
             print(playerState.curHp);
-            return true;
+            //Debug.Log(hitInfo.transform.name);
         }
-        return false;
+        yield return new WaitForSeconds(1.0f);
     }
-    private IEnumerator HitCoroutine()
+    private void StartCheck()
     {
-        while (isSwing)
+        StartCoroutine(CheckObject());
+        isAttack = false;
+    }
+    private float CalDamage()
+    {
+        float rand = Random.Range(1, 5);
+        float realDamage;
+        if (CriticalAttack())
         {
-            Debug.DrawRay(myCollider.transform.position, transform.forward * range, Color.blue, 0.3f);
-            if (CheckObject())
-            {
-                isSwing = false;
-                Debug.Log(hitInfo.transform.name);
-            }
-            yield return null;
+            realDamage = (damage / playerState.curDef) * rand * 1.5f;
+            print("Critical");
         }
+        else
+        {
+            realDamage = (damage / playerState.curDef) * rand;
+        }
+
+        return realDamage;
     }
-    IEnumerator DragonThink()
+
+    private bool CriticalAttack()
     {
-        yield return new WaitForSeconds(1f);
-        print("1");
+        bool isCritical = false;
+        float rand = Random.Range(0, 10);
+
+        switch (rand)
+        {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                isCritical = false;
+                break;
+            case 9:
+                isCritical = true;
+                break;
+        }
+        return isCritical;
+    }
+    private void DragonThink()
+    {
         int ranAction = Random.Range(0, 5);
         switch (ranAction)
         {
             case 0:
             case 1:
             case 2:
-                StartCoroutine(Bite());
+                Bite();
                 break;
             case 3:
-                StartCoroutine(Breath());
+                Breath();
                 break;
             case 4:
-                StartCoroutine(Cast());
+                Cast();
                 break;
         }
     }
-    private IEnumerator Bite()
+    private void Bite()
     {
         animator.SetTrigger("trigBite");
-        yield return new WaitForSeconds(1.0f);
-        StartCoroutine(DragonThink());
+        print(playerState.curHp);
     }
-    private IEnumerator Breath()
+    private void Breath()
     {
         animator.SetTrigger("trigBreath");
-        yield return new WaitForSeconds(2.0f);
-        StartCoroutine(DragonThink());
+        playerState.DecreaseHp(damage);
+        print(playerState.curHp);
     }
-    private IEnumerator Cast()
+    private void Cast()
     {
         animator.SetTrigger("trigCastSpell");
-        yield return new WaitForSeconds(2.0f);
-        StartCoroutine(DragonThink());
-    }
-    public IEnumerator PatternOut()
-    {
-        StopCoroutine(DragonThink());
-
-        yield return null;
     }
 }

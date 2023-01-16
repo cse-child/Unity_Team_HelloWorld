@@ -15,6 +15,7 @@ public class MemoryPool : MonoBehaviour
     private int increaseCount = 5; // 오브젝트가 부족할 때 Instantiate()로 추가 생성되는 오브젝트의 개수
     private int maxCount; // 현재 리스트에 등록되어 있는 오브젝트 개수
     private int activeCount; // 현재 게임에 사용되고있는 활성화 오브젝트 개수
+    public int regenCount;
 
     private GameObject poolObject; // 오브젝트 풀링에서 관리하는 게임오브젝트 프리펩
     private List<PoolItem> poolItemList; //관리되는 모든 오브젝트를 저장하는 리스트
@@ -31,7 +32,7 @@ public class MemoryPool : MonoBehaviour
 
         poolItemList = new List<PoolItem>();
 
-        InstantiateObjects(); 
+        InstantiateObjects();
     }
 
     //increaseCount 단위로 오브젝트를 생성
@@ -52,7 +53,6 @@ public class MemoryPool : MonoBehaviour
             poolItemList.Add(poolItem);
         }
     }
-
     public void DestroyObjects()
     {
         //Destroy() 메소드를 이용해 오브젝트 삭제 , 씬전환 & 게임종료될때 한번만 수행 모든 게임 오브젝트 삭제
@@ -175,5 +175,21 @@ public class MemoryPool : MonoBehaviour
                 activeCount++;
             }
         }
+    }
+    public float FalseCheck()
+    {
+        if (poolItemList == null) return 0;
+
+        int count = poolItemList.Count;
+        for (int i = 0; i < count; ++i)
+        {
+            PoolItem poolItem = poolItemList[i];
+
+            if (!poolItem.isActive)
+            {
+                regenCount++;
+            }
+        }
+        return regenCount;
     }
 }

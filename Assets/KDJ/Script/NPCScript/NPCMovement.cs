@@ -18,7 +18,7 @@ public class NPCMovement : MonoBehaviour
     public NPCReactionRange npcReactionRange;
 
     private bool isMove;
-    private bool temp = false;
+    //private bool temp = false;
 
     private void Start()
     {
@@ -37,14 +37,6 @@ public class NPCMovement : MonoBehaviour
         CheckIsMove();
 
         npcAnimator.SetFloat("Move", move);
-    }
-
-    private void MoveForward()
-    {
-        if (!isMove) return;
-
-        transform.Translate(Vector3.forward * npcMoveSpeed * Time.deltaTime);
-
     }
 
     private void CheckIsMove()
@@ -70,7 +62,7 @@ public class NPCMovement : MonoBehaviour
 
     private void CheckNPCBehavior()
     {
-        if (npcFunction.IsTalkingPlayerToNPC())
+        if (npcFunction.IsPlayerAccessNPC())
             isMove = false;
         else
             isMove = true;

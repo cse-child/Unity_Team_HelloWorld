@@ -6,18 +6,19 @@ public class SkillUIManager : MonoBehaviour
 {
     public GameObject selectSkill;
     public HotKeySkillSlot selectHotKeySlot;
+    public Sprite lockImage;
     // Start is called before the first frame update
     void Start()
     {
         selectSkill = transform.Find("SelectSkill").gameObject;
-        selectSkill.SetActive(true);
-        selectSkill.SetActive(false);
+        //selectSkill.SetActive(true);
+        //selectSkill.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(selectSkill.gameObject.activeSelf)
+        if(selectSkill.gameObject.activeSelf )
         {
             selectSkill.transform.position = Input.mousePosition;
 
@@ -32,8 +33,11 @@ public class SkillUIManager : MonoBehaviour
             selectSkill.gameObject.SetActive(true);
     }
 
+
     public void SetHotKeySkill()
     {
+        if (selectSkill == null)
+            return;
         selectHotKeySlot.SetSkillNum(selectSkill.GetComponent<SkillData>().skillNum);
         selectSkill.gameObject.SetActive(false);
     }

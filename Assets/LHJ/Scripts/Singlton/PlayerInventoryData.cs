@@ -36,8 +36,7 @@ public class PlayerInventoryData : MonoBehaviour
     {
         inventory.CreateSlot();
         AddItem(1, 3);
-        AddItem(2, 2);
-        AddItem(3, 2);
+        AddItem(2, 3);
     }
 
     //플레이어 소유 아이템 추가
@@ -65,6 +64,13 @@ public class PlayerInventoryData : MonoBehaviour
             if (hasItems[itemNum] <= 0)
                 hasItems.Remove(itemNum);
         }
+    }
+
+    public int GetItemCount(int itemNum)
+    {
+        if (!hasItems.ContainsKey(itemNum))
+            return 0;
+        return hasItems[itemNum];
     }
 
 

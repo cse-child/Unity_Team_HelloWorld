@@ -21,6 +21,8 @@ public class SkillManager : MonoBehaviour
 
     public List<SkillInformation> skillInfos = new List<SkillInformation>();
 
+    public bool isBuff = false;
+
     private PlayerControl playerControl;
     private PlayerState playerState;
 
@@ -77,7 +79,8 @@ public class SkillManager : MonoBehaviour
                 /* Player MP 감소 */
                 if (playerState.curMp < info.data.decreaseMP)
                 {
-                    print("MP가 부족하여 스킬을 사용할 수 없습니다. \n현재 MP : " + playerState.curMp +" / 필요 MP : "+info.data.decreaseMP);
+                    string text = "MP가 부족하여 스킬을 사용할 수 없습니다.\n현재 MP : " + playerState.curMp + " / 필요 MP : " + info.data.decreaseMP;
+                    StartCoroutine(playerControl.SetWarningText(text));
                     return; // MP 부족하면 스킬 사용X
                 }
                 else
@@ -88,6 +91,7 @@ public class SkillManager : MonoBehaviour
                 if (buff != 0)
                 {
                     playerState.curAtk += buff;
+                    isBuff = true;
                     StartCoroutine(info.DurationTime(buff));
                 }
 
@@ -111,6 +115,7 @@ public class SkillManager : MonoBehaviour
     public void ResetCurAtk()
     {
         playerState.curAtk = playerState.baseAtk;
+        isBuff = false;
     }
 
     // Level에 따라 스킬을 배울 수 있는지 없는지 체크
@@ -118,7 +123,7 @@ public class SkillManager : MonoBehaviour
     {
         foreach (SkillInformation info in skillInfos)
         {
-            if (playerState.level <= info.data.level)
+            if (playerState.level >= info.data.level)
                 info.data.learning = true;
         }
     }

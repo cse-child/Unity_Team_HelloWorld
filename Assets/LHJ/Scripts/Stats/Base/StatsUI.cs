@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class StatsUI : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class StatsUI : MonoBehaviour
     private GameObject maxMP;
     private GameObject curExp;
     private GameObject MaxExp;
+    private TextMeshProUGUI curLevel;
 
     public void Start()
     {
@@ -23,6 +25,7 @@ public class StatsUI : MonoBehaviour
         maxMP = gameObject.transform.Find("MaxMp").gameObject;
         curExp = gameObject.transform.Find("curExp").gameObject;
         MaxExp = gameObject.transform.Find("MaxExp").gameObject;
+        curLevel = gameObject.transform.Find("UICenter").Find("LevelText").GetComponent<TextMeshProUGUI>();
         playerState = FindObjectOfType<PlayerState>();
     }
 
@@ -38,7 +41,12 @@ public class StatsUI : MonoBehaviour
         curHP.GetComponent<RectTransform>().sizeDelta = new Vector2(494.0f / playerState.maxHP * playerState.curHp, 38.0f);
         curMP.GetComponent<RectTransform>().sizeDelta = new Vector2(494.0f / playerState.maxMP * playerState.curMp, 38.0f);
         curExp.GetComponent<RectTransform>().sizeDelta = new Vector2(3082.0f / playerState.maxEXP * playerState.curExp, 38.0f);
-        
+        curLevel.text = playerState.level.ToString();
        // goldUI.GetComponent<Text>().text = playerState.gold.ToString();
+    }
+
+    public void LevelUpUI()
+    {
+
     }
 }

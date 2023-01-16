@@ -16,7 +16,7 @@ public class PlayerPartsControl : MonoBehaviour
         {"top", "0" },
         {"pants", "0" },
         {"shoes", "0" },
-        {"weapon", "1" }
+        {"weapon", "0" }
     };
 
     [SerializeField] private string hat, top, pants, shoes, weapon;
@@ -32,38 +32,39 @@ public class PlayerPartsControl : MonoBehaviour
         // Inspector 확인용 변수 초기화
         UpdateInspector();
 
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            UnEquippedArmor("hat");
-            UnEquippedArmor("top");
-            UnEquippedArmor("pants");
-            UnEquippedArmor("shoes");
-            UnEquippedWeapon();
-        }
-        else if(Input.GetKeyDown(KeyCode.F2))
-        {
-            EquippedArmor("hat", "1");
-            EquippedArmor("top", "1");
-            EquippedArmor("pants", "1");
-            EquippedArmor("shoes", "1");
-            EquippedWeapon("1");
-        }
-        else if (Input.GetKeyDown(KeyCode.F3))
-        {
-            EquippedArmor("hat", "2");
-            EquippedArmor("top", "2");
-            EquippedArmor("pants", "2");
-            EquippedArmor("shoes", "2");
-            EquippedWeapon("2");
-        }
-        else if (Input.GetKeyDown(KeyCode.F4))
-        {
-            EquippedArmor("hat", "3");
-            EquippedArmor("top", "3");
-            EquippedArmor("pants", "3");
-            EquippedArmor("shoes", "3");
-            EquippedWeapon("3");
-        }
+        // Test Code
+        //if (Input.GetKeyDown(KeyCode.F1))
+        //{
+        //    UnEquippedArmor("hat");
+        //    UnEquippedArmor("top");
+        //    UnEquippedArmor("pants");
+        //    UnEquippedArmor("shoes");
+        //    UnEquippedWeapon();
+        //}
+        //else if(Input.GetKeyDown(KeyCode.F2))
+        //{
+        //    EquippedArmor("hat", "1");
+        //    EquippedArmor("top", "1");
+        //    EquippedArmor("pants", "1");
+        //    EquippedArmor("shoes", "1");
+        //    EquippedWeapon("1");
+        //}
+        //else if (Input.GetKeyDown(KeyCode.F3))
+        //{
+        //    EquippedArmor("hat", "2");
+        //    EquippedArmor("top", "2");
+        //    EquippedArmor("pants", "2");
+        //    EquippedArmor("shoes", "2");
+        //    EquippedWeapon("2");
+        //}
+        //else if (Input.GetKeyDown(KeyCode.F4))
+        //{
+        //    EquippedArmor("hat", "3");
+        //    EquippedArmor("top", "3");
+        //    EquippedArmor("pants", "3");
+        //    EquippedArmor("shoes", "3");
+        //    EquippedWeapon("3");
+        //}
     }
 
     private void UpdateInspector()

@@ -12,7 +12,7 @@ public class MonsterRegen : MonoBehaviour
     private MemoryPool enemyMemoryPool; // 적 생성 및 활성/비활성화 관리
 
     private int numberOfEnemiesSpawnAtOnce = 5; // 동시에 생성되는 적 숫자
-
+    private int curMonsterCount;
     public GameObject spawnArea;
     private Vector3 mapSize; //맵크기
 
@@ -20,7 +20,12 @@ public class MonsterRegen : MonoBehaviour
     {
         enemyMemoryPool = new MemoryPool(enemyPrefab);
         mapSize = spawnArea.transform.localScale;
-        StartCoroutine("SpawnTile");
+        SpawnMonster();
+    }
+
+    private void Update()
+    {
+        //Regen();
     }
 
     private IEnumerator SpawnTile()
@@ -40,4 +45,27 @@ public class MonsterRegen : MonoBehaviour
             //StopCoroutine("SpawnTile");
         }
     }
+    private void SpawnMonster()
+    {
+        for (int i = 0; i < numberOfEnemiesSpawnAtOnce; ++i)
+        {
+            GameObject item = enemyMemoryPool.ActivateLimitePoolItem();
+
+            Vector3 curPosition = new Vector3(Random.Range(-mapSize.x, mapSize.z),
+                                                  0,
+                                                  Random.Range(-mapSize.x, mapSize.z));
+
+            item.transform.position = gameObject.transform.position + curPosition;
+        }
+    }
+
+    private void Regen()
+    {
+        if (enemyMemoryPool.FalseCheck() > numberOfEnemiesSpawnAtOnce -1)
+        {
+            SpawnMonster();
+            enemyMemoryPool.regenCount = 0;
+        }
+    }
 }
+
