@@ -34,8 +34,6 @@ public class PlayerState : MonoBehaviour
         curHp = Mathf.Clamp(curHp, 0, maxHP);
         curMp = Mathf.Clamp(curMp, 0, maxMP);
 
-        if (Input.GetKeyDown(KeyCode.K))
-            IncreaseExp(50);
     }
 
     public void DecreaseHp(float value)

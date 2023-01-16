@@ -65,8 +65,6 @@ public class PlayerControl : MonoBehaviour
         EquippedWeapon();
         CheckBloodScreen();
 
-        if (Input.GetKeyDown(KeyCode.F1))
-            playerState.IncreaseExp(30);
         //    TakeDamage(20);
         //if(Input.GetKeyDown(KeyCode.F2))
         //    PlayerResponse(1);

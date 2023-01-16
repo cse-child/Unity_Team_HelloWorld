@@ -38,6 +38,7 @@ public class UIControl : MonoBehaviour
         MonsterUIManager.instance.Non();
         QuestAlarmManager.instance.Non();
         QuestDataManager.instance.SetQuestUIControl(QuesteUI.GetComponent<QuestUIControl>());
+        MonsterUIManager.instance.SetActiveMonsterUI(false);
     }
 
     public void Start()
