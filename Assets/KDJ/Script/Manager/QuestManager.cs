@@ -36,10 +36,9 @@ public class QuestManager : MonoBehaviour
 
             quest.questInfo.questCode = questData.questNum;
             quest.questInfo.questType = questData.type;
+            quest.questInfo.questRequireLevel = questData.require_Level;
 
             quests.Add(quest);
-
-            //Debug.Log(quest.questInfo.questCode);
         }
     }
 

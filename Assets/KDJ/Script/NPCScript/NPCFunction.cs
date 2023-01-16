@@ -8,25 +8,49 @@ using UnityEngine;
 public class NPCFunction : MonoBehaviour
 {
     public NPCRotation npcRotation;
-    public GameObject player; 
+    public Animator npcAnimator;
+    public NPCMovement npcMovement;
+    public GameObject player;
+    public GameObject npcMovepoint;
+
+    private NPCFortuneTeller fortuneTeller;
    
     public bool isPlayerAccessNPC = false;
     public bool isTalkingPlayerToNPC = false;
     public bool isPlayerClearQuestToNPC = false;
     public bool isTeleport = false;
+    public bool isFortuneTellerArrivePoint = false;
     private void Awake()
     {
+        npcAnimator = GetComponent<Animator>();
         npcRotation = GetComponent<NPCRotation>();
         player = GameObject.FindWithTag("Player");
+        npcMovepoint = GameObject.Find("NPC_MovePoint");
         this.AddComponent<QuestFunction>();
+        if (this.name.Contains("FortuneTeller"))
+        {
+            this.AddComponent<NPCFortuneTeller>();
+            fortuneTeller = GetComponent<NPCFortuneTeller>();
+        }
+            
+
     }
 
     private void Update()
     {
+        if (this.name.Contains("FortuneTeller"))
+        {
+            if(!fortuneTeller.GetIsMove())
+            {
+                IsNPCRotation();
+                PlayerTalkingToNPC();
+            }
+            FortuneTellerGoDungeon();
+        }
         IsNPCRotation();
         PlayerTalkingToNPC();
         PlayerTeleport();
-
+        
     }
     private void IsNPCRotation()
     {
@@ -40,6 +64,20 @@ public class NPCFunction : MonoBehaviour
         if (IsTalkingPlayerToNPC() && this.name.Contains("Priest") && !GetIsTeleport())
         {
             StartCoroutine(PlayerPosChainge());
+        }
+    }
+
+    private void FortuneTellerGoDungeon()
+    {
+        if (isFortuneTellerArrivePoint)
+        {
+            fortuneTeller.SetIsMove(false);
+            return;
+        }
+        else if (this.name.Contains("FortuneTeller") && QuestManager.instance.GetQuest("qst_007").isActive)
+        {
+            fortuneTeller.SetIsMove(true);
+            fortuneTeller.FortuneTellerMove();
         }
     }
     private void PlayerTalkingToNPC()
@@ -82,6 +120,23 @@ public class NPCFunction : MonoBehaviour
     public bool IsPlayerClearQuestToNPC()
     {
         return isPlayerClearQuestToNPC;
+    }
+
+    public bool IsFortuneTellerArrive()
+    {
+        return isFortuneTellerArrivePoint;
+    }
+    public void SetIsFortuneTellerArrive(bool input)
+    {
+        isFortuneTellerArrivePoint = input;
+    }
+    public Animator GetNPCAnimator()
+    {
+        return npcAnimator;
+    }
+    public NPCFortuneTeller GetNPCFortuneTeller() 
+    {
+        return fortuneTeller;
     }
     IEnumerator PlayerPosChainge()
     {

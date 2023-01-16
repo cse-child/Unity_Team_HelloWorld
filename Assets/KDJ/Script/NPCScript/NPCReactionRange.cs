@@ -7,7 +7,7 @@ public class NPCReactionRange : MonoBehaviour
     public NPCFunction npcFunction;
     Vector3 direction;
 
-    private void Awake()
+    private void Start()
     {
         npcFunction = transform.parent.GetComponent<NPCFunction>();
     }
