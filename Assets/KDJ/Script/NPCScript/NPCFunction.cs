@@ -14,6 +14,7 @@ public class NPCFunction : MonoBehaviour
     public GameObject npcMovepoint;
 
     private NPCFortuneTeller fortuneTeller;
+    public AudioSource audioSource;
    
     public bool isPlayerAccessNPC = false;
     public bool isTalkingPlayerToNPC = false;
@@ -32,6 +33,10 @@ public class NPCFunction : MonoBehaviour
             this.AddComponent<NPCFortuneTeller>();
             fortuneTeller = GetComponent<NPCFortuneTeller>();
         }
+        if(this.name.Contains("Blacksmith"))
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
             
 
     }
@@ -49,6 +54,8 @@ public class NPCFunction : MonoBehaviour
         }
         IsNPCRotation();
         PlayerTalkingToNPC();
+        if (this.name.Contains("BlackSmith"))
+            NPCSoundPlay(audioSource);
         PlayerTeleport();
         
     }
@@ -83,10 +90,24 @@ public class NPCFunction : MonoBehaviour
     private void PlayerTalkingToNPC()
     {
         if (Input.GetKeyDown(KeyCode.F) && IsPlayerAccessNPC())
+        {
             SetIsTalkingPlayerToNPC(true);
+
+        }
         else if(!IsPlayerAccessNPC() /*|| Input.GetKeyUp(KeyCode.F)*/)
             SetIsTalkingPlayerToNPC(false);
     }
+
+    private void NPCSoundPlay(AudioSource source)
+    {
+        if (isTalkingPlayerToNPC)
+            source.Play();
+        else
+            source.Stop();
+        source.loop = false;
+        source.time = 0;
+    }
+
 
     private bool GetIsTeleport()
     {
