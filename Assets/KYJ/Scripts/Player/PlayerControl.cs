@@ -23,6 +23,7 @@ public class PlayerControl : MonoBehaviour
     private FadeEffect fadeEffect;
     private PlayerManager playerManager;
     private UIControl uiControl;
+    private PlayerPartsControl playerPartsControl;
 
     private int curWeaponState;
     private int curSkillState;
@@ -47,6 +48,7 @@ public class PlayerControl : MonoBehaviour
         fadeEffect = FindObjectOfType<FadeEffect>();
         playerManager = FindObjectOfType<PlayerManager>();
         uiControl = FindObjectOfType<UIControl>();
+        playerPartsControl = FindObjectOfType<PlayerPartsControl>();
     }
 
     private void Start()
@@ -296,6 +298,7 @@ public class PlayerControl : MonoBehaviour
         fadeEffect.StopFade();
         ResetSkillState();
         SetWeaponState(0);
+        playerPartsControl.UnEquippedWeapon();
     }
 
     // ºÎÈ° UI ¶ç¿ì±â

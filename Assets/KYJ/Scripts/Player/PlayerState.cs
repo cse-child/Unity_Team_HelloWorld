@@ -74,6 +74,6 @@ public class PlayerState : MonoBehaviour
         curMp = maxMP;
         if(!SkillManager.instance.isBuff) // 버프상태가 아닐때만 현재 공격력 변경
             curAtk = baseAtk;
-        curDef = baseDef;
+        //curDef = baseDef;
     }
 }
