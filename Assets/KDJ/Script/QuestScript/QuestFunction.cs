@@ -8,12 +8,14 @@ public class QuestFunction : MonoBehaviour
     public NPCFunction npcFunction;
     public bool isKeyInput = false;
 
+    public PlayerState playerState;
     private UIControl uiControl;
     public PlayerControl playerControl;
 
     private void Start()
     {
         playerControl = FindObjectOfType<PlayerControl>();
+        playerState = FindObjectOfType<PlayerState>();
         uiControl = FindObjectOfType<UIControl>();
         npcFunction = GetComponent<NPCFunction>();
         foreach (Quest quest in QuestManager.instance.GetQuests())
@@ -24,11 +26,19 @@ public class QuestFunction : MonoBehaviour
 
     private void Update()
     {
-        Test();
+        //Test();
         QuestUpdate();
         NPCGiveQuestToPlayer();
     }
 
+    private void FixedUpdate()
+    {
+        foreach (Quest quest in QuestManager.instance.GetQuests())
+        {
+            if (playerState.level >= quest.questInfo.questRequireLevel)
+                quest.SetQuestAvailable(true);
+        }
+    }
     private void QuestUpdate()
     {
         foreach (Quest quest in QuestManager.instance.GetQuests())
@@ -126,7 +136,7 @@ public class QuestFunction : MonoBehaviour
                 }
             }
         }
-        if (!GetQuestToNPC(questCode).GetQuestActive())
+        if (!GetQuestToNPC(questCode).GetQuestActive() && GetQuestToNPC(questCode).GetQuestAvailable())
             AddQuestForPlayer(questCode);
     }
 

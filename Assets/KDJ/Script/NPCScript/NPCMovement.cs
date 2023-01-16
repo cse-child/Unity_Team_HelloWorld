@@ -12,19 +12,18 @@ public class NPCMovement : MonoBehaviour
 
     public float move = 0.0f;
 
-    public Animator npcAnimator;
     public PathFollower npcPathFollower;
     public NPCFunction npcFunction;
+    public Animator npcAnimator;
     public NPCReactionRange npcReactionRange;
 
     private bool isMove;
-    //private bool temp = false;
 
     private void Start()
     {
-        npcAnimator = GetComponent<Animator>();
         npcPathFollower = GetComponent<PathFollower>();
         npcFunction = GetComponent<NPCFunction>();
+        npcAnimator = npcFunction.GetNPCAnimator();
         npcReactionRange = transform.Find("NPC_ReactionRange").GetComponent<NPCReactionRange>();
         npcMoveSpeed = npcPathFollower.GetSpeed();
     }
@@ -35,6 +34,7 @@ public class NPCMovement : MonoBehaviour
         CheckNPCBehavior();
 
         CheckIsMove();
+
 
         npcAnimator.SetFloat("Move", move);
     }
