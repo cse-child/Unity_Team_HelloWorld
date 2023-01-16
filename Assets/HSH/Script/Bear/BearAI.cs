@@ -25,7 +25,7 @@ public class BearAI : MonoBehaviour
     private float curHp = 100.0f;
     private float Exp = 10.0f;
 
-    private GameObject target;
+    public GameObject target;
     private Animator animator;
 
     public GameObject itemPrefab;
@@ -183,10 +183,12 @@ public class BearAI : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         Die();
         gameObject.SetActive(false);
+        curHp = 100.0f;
+        curState = State.IDLE;
+        MonsterReSpawn.instance.ReSpawn(gameObject);
 
-        yield return new WaitForSeconds(10.0f);
-        gameObject.SetActive(true);
     }
+
     public void IncreaseExp(float value)
     {
         value += Exp;
