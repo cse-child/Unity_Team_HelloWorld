@@ -25,7 +25,7 @@ public class MonsterRegen : MonoBehaviour
 
     private void Update()
     {
-        enemyMemoryPool.MonsterRegen();
+        //Regen();
     }
 
     private IEnumerator SpawnTile()
@@ -58,9 +58,14 @@ public class MonsterRegen : MonoBehaviour
             item.transform.position = gameObject.transform.position + curPosition;
         }
     }
-    private void AreaExploration()
+
+    private void Regen()
     {
-        
+        if (enemyMemoryPool.FalseCheck() > numberOfEnemiesSpawnAtOnce -1)
+        {
+            SpawnMonster();
+            enemyMemoryPool.regenCount = 0;
+        }
     }
 }
 

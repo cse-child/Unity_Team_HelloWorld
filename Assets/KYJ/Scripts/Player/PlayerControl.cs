@@ -65,8 +65,6 @@ public class PlayerControl : MonoBehaviour
         EquippedWeapon();
         CheckBloodScreen();
 
-        if (Input.GetKeyDown(KeyCode.F1))
-            playerState.IncreaseExp(30);
         //    TakeDamage(20);
         //if(Input.GetKeyDown(KeyCode.F2))
         //    PlayerResponse(1);
@@ -78,7 +76,9 @@ public class PlayerControl : MonoBehaviour
     {
         if (isDead) return; // 죽었으면 안맞게
 
+        animator.ResetTrigger(hashDamage);
         animator.SetTrigger(hashDamage);
+
         playerState.DecreaseHp(value);
         PlaySfxSound((int)PlayerManager.Sfx.DAMAGE);
 
@@ -100,6 +100,7 @@ public class PlayerControl : MonoBehaviour
             if (curWeaponState == 0) return; // 무기를 안들고있으면 공격X
             if (!starterAssetsInputs.cursorLocked) return; // 마우스 활성화 상태면 공격 불가
 
+            animator.ResetTrigger(hashDamage);
             animator.SetTrigger(hashAttack);
             isAttacking = true;
         }
@@ -119,6 +120,8 @@ public class PlayerControl : MonoBehaviour
         // 무기 장착/해제/변경
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            animator.ResetTrigger(hashDamage);
+
             if (!CheckWeaponExist())
             {
                 StartCoroutine(SetWarningText("장착된 무기가 없어 무기를 들 수 없습니다"));
@@ -153,6 +156,7 @@ public class PlayerControl : MonoBehaviour
     public void PlaySkill(int skillNum)
     {
         curSkillState = skillNum;
+        animator.ResetTrigger(hashDamage);
         animator.SetInteger("SkillState", skillNum);
     }
 
@@ -287,8 +291,11 @@ public class PlayerControl : MonoBehaviour
         isDead = false;
         animator.SetBool(hashDeath, isDead);
         animator.ResetTrigger(hashDamage);
+        animator.ResetTrigger(hashAttack);
         playerState.ResetState();
         fadeEffect.StopFade();
+        ResetSkillState();
+        SetWeaponState(0);
     }
 
     // 부활 UI 띄우기

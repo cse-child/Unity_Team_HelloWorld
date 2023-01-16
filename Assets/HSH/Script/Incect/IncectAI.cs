@@ -31,6 +31,10 @@ public class IncectAI : MonoBehaviour
     public System.Action onDie;
 
     private IncectCloseAttack closeAtk;
+    private PlayerState playerState;
+
+    public AudioClip audioHurt;
+    public AudioClip audioDie;
 
     private State curState;
 
@@ -42,6 +46,7 @@ public class IncectAI : MonoBehaviour
         animator = GetComponent<Animator>();
         closeAtk = GetComponent<IncectCloseAttack>();
         target = GameObject.FindGameObjectWithTag("Player");
+        playerState = FindObjectOfType<PlayerState>();
         audioSource = GetComponent<AudioSource>();
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
@@ -89,6 +94,12 @@ public class IncectAI : MonoBehaviour
                 curState = State.TRACE;
             else
                 curState = State.IDLE;
+
+
+            if (curHp <= 0)
+            {
+                curState = State.DEAD;
+            }
         }
     }
 
@@ -115,9 +126,9 @@ public class IncectAI : MonoBehaviour
     private void Trace()
     {
         if (animator.GetBool("isDie")) return;
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Smash Attack")) return;
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Turn Right")) return;
-
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Take Damage")) return;
+        
         animator.SetBool("isAttack", false);
         animator.SetBool("isTrace", true);
 
@@ -190,6 +201,8 @@ public class IncectAI : MonoBehaviour
     {
         if (animator.GetBool("isDie")) return;
         animator.SetTrigger("trigHurt");
+        audioSource.clip = audioHurt;
+        audioSource.Play();
         curHp -= value;
         manager.Add(value.ToString(), trDamagePosition, "default");
         animator.SetFloat("curHp", curHp);
@@ -198,16 +211,22 @@ public class IncectAI : MonoBehaviour
             animator.SetTrigger("trigDie");
             animator.SetBool("isDie", true);
             curState = State.DEAD;
-            Die();
+            //Die();
         }
     }
     private void Die()
     {
         this.DropItem();
-        //yield return new WaitForSeconds(3f);
-        //Destroy(gameObject);
         this.onDie();
+    }
+    private IEnumerator DieAndRegen()
+    {
+        yield return new WaitForSeconds(3.0f);
+        Die();
+        gameObject.SetActive(false);
 
+        yield return new WaitForSeconds(10.0f);
+        gameObject.SetActive(true);
     }
     public void IncreaseExp(float value)
     {
@@ -215,7 +234,9 @@ public class IncectAI : MonoBehaviour
     }
     private void DieAudio()
     {
+        audioSource.clip = audioDie;
         audioSource.Play();
+        StartCoroutine(DieAndRegen());
     }
     public void DropItem()
     {
@@ -225,7 +246,8 @@ public class IncectAI : MonoBehaviour
         this.onDie = () =>
         {
             itemGo.SetActive(true);
-            FarmingItem();
+            playerState.IncreaseExp(Exp);
+            //FarmingItem();
         };
     }
     private void FarmingItem()
