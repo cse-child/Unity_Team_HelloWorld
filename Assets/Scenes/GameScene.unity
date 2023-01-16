@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.112698, g: 0.2815185, b: 0.70872545, a: 1}
+  m_IndirectSpecularColor: {r: 0.11272602, g: 0.28158912, b: 0.7091759, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -737,9 +737,81 @@ PrefabInstance:
       propertyPath: editorData.showDisplayOptions
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[0].y
+      value: 0.1900632
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[0].z
+      value: -0.14405152
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[1].y
+      value: 0.1900632
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[1].z
+      value: 2.522836
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[2].x
+      value: -13.038809
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[2].y
+      value: 0.19896074
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[2].z
+      value: 10.4577875
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[3].x
+      value: -10.843703
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[3].y
+      value: 0.19896074
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[3].z
+      value: 11.993412
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[4].x
+      value: -8.648598
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[4].y
+      value: 0.19896074
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[4].z
+      value: 13.5290365
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[8].y
+      value: 0.18550129
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[9].y
+      value: 0.18550129
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[10].y
+      value: 0.18550129
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[11].y
+      value: 0.1900632
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654122600059248061, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
+      propertyPath: editorData._bezierPath.points.Array.data[11].z
+      value: -2.810939
+      objectReference: {fileID: 0}
     - target: {fileID: 6755669544636329873, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.20000005
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3818235466882874161, guid: fc32a4ba569f17249a7ac91516b0a98e, type: 3}
