@@ -4,9 +4,13 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using System.IO;
+using Guirao.UltimateTextDamage;
 
 public class DragonAI : MonoBehaviour
 {
+    public UltimateTextDamageManager manager;
+    public Transform trDamagePosition;
+    private AudioSource audioSource;
     enum State
     {
         IDLE, TRACE, ATTACK, DEAD, HURT
@@ -18,10 +22,14 @@ public class DragonAI : MonoBehaviour
     public float rotateSpeed = 0.5f;
     //private float maxHp = 100.0f;
     private float curHp = 100.0f;
+    private float Exp = 100.0f;
 
     private GameObject target;
     private Animator animator;
     public GameObject itemPrefab;
+    public GameObject CastPrefab;
+    public GameObject CannonPrefab;
+
     public System.Action onDie;
 
     private DragonAttack closeAtk;
@@ -29,11 +37,25 @@ public class DragonAI : MonoBehaviour
     private State curState;
 
     private readonly WaitForSeconds delayTime = new WaitForSeconds(0.1f);
+
+    private PlayerState playerState;
+    private PlayerControl playerControl;
+    private RaycastHit hitInfo; // 현재 무기에 닿은 오브젝트 정보
+    public LayerMask layerMask;
+    Vector3 control = new Vector3(0, 0, 0);
+    public AudioClip audioHurt;
+    public AudioClip audioDie;
+    public AudioClip audioBite;
+    public AudioClip audioCast;
+    public AudioClip audioBreath;
+
     private void Awake() //할당을 할 때 한번만 실행되는 Awake에서
     {
         animator = GetComponent<Animator>();
         closeAtk = GetComponent<DragonAttack>();
         target = GameObject.FindGameObjectWithTag("Player");
+        playerState = FindObjectOfType<PlayerState>();
+        playerControl = FindObjectOfType<PlayerControl>();
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
     {
@@ -82,7 +104,10 @@ public class DragonAI : MonoBehaviour
         switch (curState)
         {
             case State.TRACE:
-                Trace();
+                {
+                    Trace();
+                    DragonThink();
+                }
                 break;
             case State.ATTACK:
                 closeAtk.TryAttack();
@@ -101,13 +126,8 @@ public class DragonAI : MonoBehaviour
         if (animator.GetBool("isDie")) return;
         animator.SetBool("isAttack", false);
         animator.SetBool("isTrace", true);
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
-        {
-            Vector3 direction = target.transform.position - transform.position;
-            transform.rotation = Quaternion.LookRotation(direction);
-
-            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
-        }
+        Vector3 direction = target.transform.position - transform.position;
+        transform.rotation = Quaternion.LookRotation(direction);
     }
 
     //private void Attack()
@@ -153,38 +173,49 @@ public class DragonAI : MonoBehaviour
         this.onDie = () =>
         {
             itemGo.SetActive(true);
-            FarmingItem();
         };
     }
-    private void FarmingItem()
-    {
-        StreamReader sr = new StreamReader(Application.dataPath + "/HSH/DataTable/" + "ItemData.csv");
 
-        bool endOfFile = false;
-        while (!endOfFile)
+    private void DragonThink()
+    {
+        int ranAction = Random.Range(0, 2);
+        switch (ranAction)
         {
-            string dataString = sr.ReadLine();
-            if (dataString == null)
-            {
-                endOfFile = true;
+            case 0:
+                animator.SetTrigger("trigBreath");
                 break;
-            }
-            var dataValues = dataString.Split(',');
-            for (int i = 0; i < dataValues.Length; i++)
-            {
-                Debug.Log("v: " + i.ToString() + " " + dataValues[i].ToString());
-            }
+            case 1:
+                animator.SetTrigger("trigCastSpell");
+                break;
         }
     }
+    private IEnumerator Breath()
+    {
+        var cannon = Instantiate<GameObject>(this.CannonPrefab);
+        cannon.transform.position = this.gameObject.transform.position;
+        cannon.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
+        cannon.SetActive(false);
+        yield return new WaitForSeconds(1.0f);
+        Destroy(cannon);
+    }
+    private IEnumerator Cast()
+    {
+        var cast = Instantiate<GameObject>(this.CastPrefab);
+        cast.transform.position = this.gameObject.transform.position;
+        cast.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
+        cast.SetActive(false);
+        yield return new WaitForSeconds(1.0f);
+        Destroy(cast);
+    }
+
     private void Test()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
-            animator.SetTrigger("trigBite");
-
-        if (Input.GetKeyDown(KeyCode.F2))
+        if(Input.GetKeyDown(KeyCode.F1))
             animator.SetTrigger("trigBreath");
 
-        if (Input.GetKeyDown(KeyCode.F3))
+        if (Input.GetKeyDown(KeyCode.F2))
             animator.SetTrigger("trigCastSpell");
     }
 }

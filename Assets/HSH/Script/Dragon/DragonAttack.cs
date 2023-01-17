@@ -19,18 +19,12 @@ public class DragonAttack : MonoBehaviour
     private Animator animator;
     private SphereCollider myCollider;
     private PlayerState playerState;
+    private PlayerControl playerControl;
     private bool isAttack = false; // 공격중
 
     private RaycastHit hitInfo; // 현재 무기에 닿은 오브젝트 정보
     public LayerMask layerMask;
     Vector3 control = new Vector3(0, 0, 0);
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag("Player"))
-        {
-            Debug.Log("Hit");
-        }
-    }
 
 
     private void Awake()
@@ -38,6 +32,7 @@ public class DragonAttack : MonoBehaviour
         animator = GetComponent<Animator>();
         myCollider = GetComponent<SphereCollider>();
         playerState = FindObjectOfType<PlayerState>();
+        playerControl = FindObjectOfType<PlayerControl>();
     }
     private void Update()
     {
@@ -47,20 +42,18 @@ public class DragonAttack : MonoBehaviour
     {
         if (!isAttack)
         {
+            animator.SetTrigger("trigAttack");
             isAttack = true;
-            animator.SetTrigger("trigBite");
         }
     }
 
     private IEnumerator CheckObject()
     {
-        print("SS");
         Debug.DrawRay(myCollider.transform.position + control, transform.forward * range, Color.blue, 0.3f);
         if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, range, layerMask))
         {
-            DragonThink();
-            
-            Debug.Log(hitInfo.transform.name);
+            playerControl.TakeDamage(5.0f);
+            print(playerState.curHp);
         }
         yield return new WaitForSeconds(1.0f);
     }
@@ -70,38 +63,4 @@ public class DragonAttack : MonoBehaviour
         isAttack = false;
     }
 
-    private void DragonThink()
-    {
-        int ranAction = Random.Range(0, 5);
-        switch (ranAction)
-        {
-            case 0:
-            case 1:
-            case 2:
-                Bite();
-                break;
-            case 3:
-                Breath();
-                break;
-            case 4:
-                Cast();
-                break;
-        }
-    }
-    private void Bite()
-    {
-        animator.SetTrigger("trigBite");
-        playerState.DecreaseHp(damage);
-        print(playerState.curHp);
-    }
-    private void Breath()
-    {
-        animator.SetTrigger("trigBreath");
-        playerState.DecreaseHp(damage);
-        print(playerState.curHp);
-    }
-    private void Cast()
-    {
-        animator.SetTrigger("trigCastSpell");
-    }
 }

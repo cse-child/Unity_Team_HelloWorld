@@ -11,7 +11,7 @@ public class TraceAI : MonoBehaviour
     public UltimateTextDamageManager manager;
     public Transform trDamagePosition;
     private AudioSource audioSource;
-    enum State
+    public enum State
     {
         IDLE, TRACE, ATTACK, DEAD, HURT
     }
@@ -25,6 +25,7 @@ public class TraceAI : MonoBehaviour
     private float curHp = 100.0f;
     private float Exp = 20.0f;
 
+    public int DeathCount = 0;
     private GameObject target;
     private Animator animator;
 
@@ -37,7 +38,7 @@ public class TraceAI : MonoBehaviour
     public AudioClip audioHurt;
     public AudioClip audioDie;
 
-    private State curState;
+    public State curState;
 
     private bool isPlayerDie = false;
 
@@ -165,8 +166,9 @@ public class TraceAI : MonoBehaviour
                 //천천히 변경
                 //Quaternion rotation = Quaternion.LookRotation(rotDir);
                 //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.01f);
-                animator.SetTrigger("trigExploration");
+                
             }
+            animator.SetTrigger("trigExploration");
         }
     }
 
@@ -239,6 +241,7 @@ public class TraceAI : MonoBehaviour
         audioSource.clip = audioDie;
         audioSource.Play();
         StartCoroutine(DieAndRegen());
+        DeathCount++;
     }
     public void DropItem()
     {
@@ -252,25 +255,10 @@ public class TraceAI : MonoBehaviour
             //FarmingItem();
         };
     }
-    private void FarmingItem()
-    {
-        StreamReader sr = new StreamReader(Application.dataPath + "/HSH/DataTable/" + "ItemData.csv");
 
-        bool endOfFile = false;
-        while (!endOfFile)
-        {
-            string dataString = sr.ReadLine();
-            if (dataString == null)
-            {
-                endOfFile = true;
-                break;
-            }
-            var dataValues = dataString.Split(',');
-            for (int i = 0; i < dataValues.Length; i++)
-            {
-                Debug.Log("v: " + i.ToString() + " " + dataValues[i].ToString());
-            }
-        }
+    public State GetState()
+    {
+        return curState;
     }
 }
 
