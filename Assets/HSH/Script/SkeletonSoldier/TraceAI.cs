@@ -206,7 +206,8 @@ public class TraceAI : MonoBehaviour
         audioSource.clip = audioHurt;
         audioSource.Play();
         curHp -= value;
-        
+        MonsterUIManager.instance.SetMonster(curHp, 100, "½ºÄÌ·¹Åæ");
+        MonsterUIManager.instance.SetActiveMonsterUI(true);
         manager.Add(value.ToString(), trDamagePosition, "default");
         animator.SetFloat("curHp", curHp);
         if (curHp <= 0)
@@ -240,6 +241,7 @@ public class TraceAI : MonoBehaviour
         audioSource.clip = audioDie;
         audioSource.Play();
         StartCoroutine(DieAndRegen());
+        MonsterUIManager.instance.SetActiveMonsterUI(false);
         DeathCount++;
     }
     public void DropItem()

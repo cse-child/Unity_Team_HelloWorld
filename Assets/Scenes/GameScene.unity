@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.112699665, g: 0.2815631, b: 0.709176, a: 1}
+  m_IndirectSpecularColor: {r: 0.112698, g: 0.2815185, b: 0.70872545, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3325,6 +3325,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 256059709, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 256059709, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 256059709, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -153.12683
+      objectReference: {fileID: 0}
+    - target: {fileID: 256059709, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -22.100098
+      objectReference: {fileID: 0}
     - target: {fileID: 292913955, guid: 0d12e7e70f496c74399e4d3b7e14db1e, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -6963,6 +6979,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8411564354679379088, guid: 706029da65f34b8429aff213b0f8e3ed, type: 3}
   m_PrefabInstance: {fileID: 762635999}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1984990273 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1783563462218004, guid: 7f931d4b5c97d194d8726ddf5acdd440, type: 3}
+  m_PrefabInstance: {fileID: 966593150}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1984990279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984990273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35693467f081fe940850f4cf757ed88f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialNum: 23
 --- !u!1001 &2037098349
 PrefabInstance:
   m_ObjectHideFlags: 0
