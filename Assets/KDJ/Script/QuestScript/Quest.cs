@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 
 public class Quest
 {
-    
     public bool isActive = false;
     public bool isClear = false;
 
@@ -150,7 +149,17 @@ public class Quest
 
     private void Hunting()
     {
-        countValue++;
+        if(this.questInfo.questCode == "qst_005")
+        {
+            countValue = 0;
+        }
+        else if(this.questInfo.questCode == "qst_008")
+            countValue = 0;
+        else if(this.questInfo.questCode == "qst_009")
+            countValue = 0;
+
+        if (countValue > requireCount)
+            countValue = requireCount;
 
         if (countValue >= requireCount)
         {
