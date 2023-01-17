@@ -34,8 +34,6 @@ public class PlayerState : MonoBehaviour
         curHp = Mathf.Clamp(curHp, 0, maxHP);
         curMp = Mathf.Clamp(curMp, 0, maxMP);
 
-        if (Input.GetKeyDown(KeyCode.K))
-            IncreaseExp(50);
     }
 
     public void DecreaseHp(float value)
@@ -74,8 +72,9 @@ public class PlayerState : MonoBehaviour
         baseDef += LevelUpDataManager.instance.GetLevelUpData(level).baseDef;
         curHp = maxHP;
         curMp = maxMP;
-        if(!SkillManager.instance.isBuff) // 버프상태가 아닐때만 현재 공격력 변경
-            curAtk = baseAtk;
-        curDef = baseDef;
+        if (!SkillManager.instance.isBuff) // 버프상태가 아닐때만 현재 공격력 변경
+            curAtk += LevelUpDataManager.instance.GetLevelUpData(level).baseAtk;
+        curDef += LevelUpDataManager.instance.GetLevelUpData(level).baseDef;
+        //curDef = baseDef;
     }
 }

@@ -48,10 +48,10 @@ public class SkillManager : MonoBehaviour
             skillInfos.Add(info);
         }
         // 스킬 단축키 설정하기 예시 !!
-        skillInfos[0].SetKeyCode(KeyCode.Alpha1);
-        skillInfos[1].SetKeyCode(KeyCode.Alpha2);
-        skillInfos[2].SetKeyCode(KeyCode.Alpha3);
-        skillInfos[3].SetKeyCode(KeyCode.Alpha4);
+        //skillInfos[0].SetKeyCode(KeyCode.Alpha1);
+        //skillInfos[1].SetKeyCode(KeyCode.Alpha2);
+        //skillInfos[2].SetKeyCode(KeyCode.Alpha3);
+        //skillInfos[3].SetKeyCode(KeyCode.Alpha4);
     }
 
     public SkillInformation GetSkill(int skillNum)
@@ -114,7 +114,7 @@ public class SkillManager : MonoBehaviour
 
     public void ResetCurAtk()
     {
-        playerState.curAtk = playerState.baseAtk;
+        playerState.curAtk -= SkillDataManager.instance.GetSkillData(skillInfos[3].skillNum).buff; 
         isBuff = false;
     }
 

@@ -1266,7 +1266,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7969707509903183450}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1.85, z: 1}
@@ -1284,7 +1284,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcRotation: {fileID: 0}
+  npcAnimator: {fileID: 0}
+  npcMovement: {fileID: 0}
+  player: {fileID: 0}
+  npcMovepoint: {fileID: 0}
+  isPlayerAccessNPC: 0
   isTalkingPlayerToNPC: 0
+  isPlayerClearQuestToNPC: 0
+  isTeleport: 0
+  isFortuneTellerArrivePoint: 0
 --- !u!114 &2758356393111644878
 MonoBehaviour:
   m_ObjectHideFlags: 0

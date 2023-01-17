@@ -11,6 +11,8 @@ public class Quest
 
     public bool isQuestGoalArrival = false;
 
+    private bool isQuestAvailable = false;
+
     public GameObject player;
     public GameObject enemy;
 
@@ -20,6 +22,7 @@ public class Quest
     {
         public string questCode;
         public string questType;
+        public int questRequireLevel;
     }
 
     public QuestInfo questInfo;
@@ -38,8 +41,8 @@ public class Quest
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        //healthPotionCount = PlayerInventoryData.instance.GetHasInventory()[1];
-        //manaPotionCount = PlayerInventoryData.instance.GetHasInventory()[2];
+        healthPotionCount = PlayerInventoryData.instance.GetItemCount(1);
+        manaPotionCount = PlayerInventoryData.instance.GetItemCount(2);
         TypeDefinition();
     }
 
@@ -110,8 +113,8 @@ public class Quest
         }
         else if(this.questInfo.questCode == "qst_004")
         {
-            int tempNum1 = PlayerInventoryData.instance.GetHasInventory()[1];
-            int tempNum2 = PlayerInventoryData.instance.GetHasInventory()[2];
+            int tempNum1 = PlayerInventoryData.instance.GetItemCount(1);
+            int tempNum2 = PlayerInventoryData.instance.GetItemCount(2);
             if (healthPotionCount > tempNum1 ||
                 manaPotionCount > tempNum2)
                 isQuestGoalArrival = true;
@@ -126,7 +129,7 @@ public class Quest
         if (this.questInfo.questCode == "qst_006")
         {
             itemNum = 0; //퀘스트 아이템 번호
-            countValue = PlayerInventoryData.instance.GetHasInventory()[itemNum];
+            countValue = PlayerInventoryData.instance.GetItemCount(itemNum);
         }
         if (countValue >= requireCount)
         {
@@ -138,7 +141,11 @@ public class Quest
 
     private void Researching()
     {
-        //if (this.)
+        if (this.questInfo.questCode == "qst_007")
+        {
+            if (npcFunction.IsFortuneTellerArrive() && npcFunction.IsTalkingPlayerToNPC() && npcFunction.name.Contains("FortuneTeller"))
+                isQuestGoalArrival = true;
+        }
     }
 
     private void Hunting()
@@ -176,6 +183,14 @@ public class Quest
         }
     }
 
+    public void SetQuestAvailable(bool input)
+    {
+        isQuestAvailable = input;
+    }
+    public bool GetQuestAvailable()
+    {
+        return isQuestAvailable;
+    }
     public bool GetQuestActive()
     {
         return isActive;

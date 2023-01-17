@@ -7,7 +7,8 @@ public class ItemFarming : MonoBehaviour
     private GameObject target;
     private float farmRange = 1.0f;
     private bool isFarming = false;
-
+    public int materialNum;
+    private PlayerControl playerControl;
 
     private void OnEnable()
     {
@@ -21,6 +22,7 @@ public class ItemFarming : MonoBehaviour
     private void Awake()
     {
         target = GameObject.FindGameObjectWithTag("Player");
+        playerControl = FindObjectOfType<PlayerControl>();
     }
 
     private void Update()
@@ -55,7 +57,7 @@ public class ItemFarming : MonoBehaviour
                     case 0:
                     case 1:
                     case 2:
-                        ItemLootManager.instance.AddLootItem(22, randMaterial);
+                        ItemLootManager.instance.AddLootItem(materialNum, randMaterial);
                         break;
                     case 3:
                         ItemLootManager.instance.AddLootItem(randEquipment, 1);
@@ -71,7 +73,7 @@ public class ItemFarming : MonoBehaviour
                         break;
                 }
                 ItemLootManager.instance.OpenLootingUI();
-                //PlayerControl.Looting();
+                playerControl.Looting();
                 Destroy(gameObject);
             }
         }

@@ -7,12 +7,12 @@ public class QuestNPCInteractable : MonoBehaviour, IInteractable
     [SerializeField] private string interactText;
 
     private Animator animator;
-    public NPCHeadLookAt npcHeadLookAt;
+   // public NPCHeadLookAt npcHeadLookAt;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        npcHeadLookAt = GetComponent<NPCHeadLookAt>();
+       // npcHeadLookAt = GetComponent<NPCHeadLookAt>();
     }
 
     public void Interact(Transform interactTransform)
@@ -32,8 +32,8 @@ public class QuestNPCInteractable : MonoBehaviour, IInteractable
         //예시로 Talk로 만들어둠
         animator.SetTrigger("Talk");
 
-        float playerHeight = 1.0f;
-        npcHeadLookAt.LookAtPosition(interactTransform.position + Vector3.up * playerHeight);
+        //float playerHeight = 1.0f;
+       // npcHeadLookAt.LookAtPosition(interactTransform.position + Vector3.up * playerHeight);
     }
 
     public string GetInteractText()
