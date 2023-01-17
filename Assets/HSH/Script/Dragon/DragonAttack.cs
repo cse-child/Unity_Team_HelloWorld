@@ -42,7 +42,7 @@ public class DragonAttack : MonoBehaviour
     {
         if (!isAttack)
         {
-            animator.SetTrigger("trigAttack");
+            animator.SetTrigger("trigBite");
             isAttack = true;
         }
     }

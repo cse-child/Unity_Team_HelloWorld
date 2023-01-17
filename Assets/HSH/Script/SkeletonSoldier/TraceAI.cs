@@ -24,6 +24,7 @@ public class TraceAI : MonoBehaviour
     //private float maxHp = 100.0f;
     private float curHp = 100.0f;
     private float Exp = 20.0f;
+    private Vector3 curPos;
 
     public int DeathCount = 0;
     private GameObject target;
@@ -50,6 +51,7 @@ public class TraceAI : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         playerState = FindObjectOfType<PlayerState>();
         audioSource = GetComponent<AudioSource>();
+        curPos = transform.position;
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
     {
@@ -228,9 +230,12 @@ public class TraceAI : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         Die();
         gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(10.0f);
-        gameObject.SetActive(true);
+        curHp = 100.0f;
+        animator.SetFloat("curHp", curHp);
+        MonsterReSpawn.instance.ReSpawn(gameObject);
+        curState = State.IDLE;
+        transform.position = curPos;
+        SetAction();
     }
     public void IncreaseExp(float value)
     {

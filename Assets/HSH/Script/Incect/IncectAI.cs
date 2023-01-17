@@ -23,6 +23,7 @@ public class IncectAI : MonoBehaviour
     //private float maxHp = 100.0f;
     private float curHp = 100.0f;
     private float Exp = 15.0f;
+    private Vector3 curPos;
 
     private GameObject target;
     private Animator animator;
@@ -48,6 +49,7 @@ public class IncectAI : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         playerState = FindObjectOfType<PlayerState>();
         audioSource = GetComponent<AudioSource>();
+        curPos = transform.position;
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
     {
@@ -204,6 +206,8 @@ public class IncectAI : MonoBehaviour
         audioSource.clip = audioHurt;
         audioSource.Play();
         curHp -= value;
+        MonsterUIManager.instance.SetMonster(curHp, 100, "거대 거미");
+        MonsterUIManager.instance.SetActiveMonsterUI(true);
         manager.Add(value.ToString(), trDamagePosition, "default");
         animator.SetFloat("curHp", curHp);
         if (curHp <= 0)
@@ -224,9 +228,12 @@ public class IncectAI : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         Die();
         gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(10.0f);
-        gameObject.SetActive(true);
+        curHp = 100.0f;
+        animator.SetFloat("curHp", curHp);
+        MonsterReSpawn.instance.ReSpawn(gameObject);
+        curState = State.IDLE;
+        transform.position = curPos;
+        SetAction();
     }
     public void IncreaseExp(float value)
     {
@@ -237,6 +244,7 @@ public class IncectAI : MonoBehaviour
         audioSource.clip = audioDie;
         audioSource.Play();
         StartCoroutine(DieAndRegen());
+        MonsterUIManager.instance.SetActiveMonsterUI(false);
     }
     public void DropItem()
     {
