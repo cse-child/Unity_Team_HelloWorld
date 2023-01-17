@@ -10,7 +10,7 @@ public class IncectAI : MonoBehaviour
     public UltimateTextDamageManager manager;
     public Transform trDamagePosition;
     private AudioSource audioSource;
-    enum State
+    public enum State
     {
         IDLE, TRACE, ATTACK, DEAD, HURT
     }
@@ -36,7 +36,7 @@ public class IncectAI : MonoBehaviour
     public AudioClip audioHurt;
     public AudioClip audioDie;
 
-    private State curState;
+    public State curState;
 
     private bool isTest = false;
 
@@ -250,25 +250,9 @@ public class IncectAI : MonoBehaviour
             //FarmingItem();
         };
     }
-    private void FarmingItem()
+    public State GetState()
     {
-        StreamReader sr = new StreamReader(Application.dataPath + "/HSH/DataTable/" + "ItemData.csv");
-
-        bool endOfFile = false;
-        while (!endOfFile)
-        {
-            string dataString = sr.ReadLine();
-            if (dataString == null)
-            {
-                endOfFile = true;
-                break;
-            }
-            var dataValues = dataString.Split(',');
-            for (int i = 0; i < dataValues.Length; i++)
-            {
-                Debug.Log("v: " + i.ToString() + " " + dataValues[i].ToString());
-            }
-        }
+        return curState;
     }
 }
 
