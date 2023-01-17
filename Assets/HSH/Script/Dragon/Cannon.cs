@@ -23,8 +23,7 @@ public class Cannon : MonoBehaviour
     }
     private void OnEnable()
     {
-        Vector3 direction = target.transform.position - transform.position;
-        transform.rotation = Quaternion.LookRotation(direction);
+
     }
     private void Update()
     {
@@ -37,18 +36,19 @@ public class Cannon : MonoBehaviour
         }
         Trace();
 
-        float time = 0.0f;
-        time += Time.deltaTime;
+        //float time = 0.0f;
+        //time += Time.deltaTime;
 
-        if (time >= 1)
-        {
-            gameObject.SetActive(false);
-            //gameObject.transform.position = new Vector3(0, 0, 0);
-        }
+        //if (time >= 1)
+        //{
+        //    gameObject.SetActive(false);
+        //    //gameObject.transform.position = new Vector3(0, 0, 0);
+        //}
     }
     private void Trace()
     {
-
+        Vector3 direction = target.transform.position - transform.position;
+        transform.rotation = Quaternion.LookRotation(direction);
         transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
     }
 

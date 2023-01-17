@@ -11,6 +11,7 @@ public class DragonAI : MonoBehaviour
     public UltimateTextDamageManager manager;
     public Transform trDamagePosition;
     private AudioSource audioSource;
+    public Transform breathPort;
     public enum State
     {
         IDLE, TRACE, ATTACK, DEAD, HURT
@@ -23,6 +24,7 @@ public class DragonAI : MonoBehaviour
     //private float maxHp = 100.0f;
     private float curHp = 100.0f;
     private float Exp = 100.0f;
+    private Vector3 randPos;
 
     private GameObject target;
     private Animator animator;
@@ -192,7 +194,7 @@ public class DragonAI : MonoBehaviour
     private IEnumerator Breath()
     {
         var cannon = Instantiate<GameObject>(this.CannonPrefab);
-        cannon.transform.position = this.gameObject.transform.position;
+        cannon.transform.position = breathPort.position;
         cannon.SetActive(true);
         yield return new WaitForSeconds(2.0f);
         cannon.SetActive(false);
@@ -201,8 +203,12 @@ public class DragonAI : MonoBehaviour
     }
     private IEnumerator Cast()
     {
+        float randx, randy;
+        randx = Random.Range(-4, 4);
+        randy = Random.Range(-2, 3);
+        randPos = new Vector3(randx, randy, 0);
         var cast = Instantiate<GameObject>(this.CastPrefab);
-        cast.transform.position = this.gameObject.transform.position;
+        cast.transform.position = breathPort.transform.position + randPos;
         cast.SetActive(true);
         yield return new WaitForSeconds(2.0f);
         cast.SetActive(false);
