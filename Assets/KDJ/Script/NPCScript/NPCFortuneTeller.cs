@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class NPCFortuneTeller : MonoBehaviour
@@ -7,6 +8,9 @@ public class NPCFortuneTeller : MonoBehaviour
     public GameObject npcMovepoint;
     public Animator npcAnimator;
     public NPCFunction npcFunction;
+
+    public AnimatorController talkController;
+    public AnimatorController moveController;
 
     public float move = 0.0f;
     public bool isMove = false;
@@ -21,7 +25,8 @@ public class NPCFortuneTeller : MonoBehaviour
     private void Update()
     {
         CheckIsMove();
-        npcAnimator.SetFloat("Move", move);
+        if(npcAnimator.runtimeAnimatorController == moveController)
+            npcAnimator.SetFloat("Move", move);
     }
     public void FortuneTellerMove()
     {
@@ -57,5 +62,12 @@ public class NPCFortuneTeller : MonoBehaviour
     public void SetIsMove(bool input)
     {
         isMove = input;
+        if(isMove)
+        {
+            GetComponent<Animator>().runtimeAnimatorController = moveController;
+        }
+        else
+            GetComponent<Animator>().runtimeAnimatorController = talkController;
+
     }
 }

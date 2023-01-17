@@ -1192,6 +1192,7 @@ GameObject:
   - component: {fileID: -2137808947388937151}
   - component: {fileID: 3254279028290834729}
   - component: {fileID: 2758356393111644878}
+  - component: {fileID: 4713259381333447314}
   m_Layer: 0
   m_Name: NPC_FortuneTeller
   m_TagString: NPC
@@ -1288,6 +1289,7 @@ MonoBehaviour:
   npcMovement: {fileID: 0}
   player: {fileID: 0}
   npcMovepoint: {fileID: 0}
+  audioSource: {fileID: 0}
   isPlayerAccessNPC: 0
   isTalkingPlayerToNPC: 0
   isPlayerClearQuestToNPC: 0
@@ -1307,6 +1309,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRotation: 0
   npcReactionRange: {fileID: 0}
+--- !u!114 &4713259381333447314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7969707509903183450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45eff4f48591a5645b762f4df54d1e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcMovepoint: {fileID: 0}
+  npcAnimator: {fileID: 0}
+  npcFunction: {fileID: 0}
+  talkController: {fileID: 9100000, guid: 9f842238d55565e48874f7101b443524, type: 2}
+  moveController: {fileID: 0}
+  move: 0
+  isMove: 0
 --- !u!1 &7969708557172066076
 GameObject:
   m_ObjectHideFlags: 0
