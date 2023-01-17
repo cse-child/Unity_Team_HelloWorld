@@ -131,9 +131,15 @@ public class PlayerControl : MonoBehaviour
             }
 
             if (curWeaponState == MAX_WEAPON_COUNT)
+            {
                 animator.SetInteger("WeaponState", 0); // 맨손
+                //playerPartsControl.UnEquippedWeapon();
+            }
             else
+            {
                 animator.SetInteger("WeaponState", ++curWeaponState); // 무기장착
+                //playerPartsControl.EquippedWeapon(PlayerEquipmentManager.instance.GetWeaponNum());
+            }
 
             // 무기를 바꾸면 이전에 입력된 값들(Trigger, Integer) 초기화
             animator.ResetTrigger(hashAttack);
@@ -148,9 +154,9 @@ public class PlayerControl : MonoBehaviour
         if (weaponSocket)
         {
             if(weaponSocket.activeSelf)
-                weaponSocket.SetActive(false);
+                weaponSocket.SetActive(false); // 무기 빼기
             else
-                weaponSocket.SetActive(true);
+                weaponSocket.SetActive(true); // 무기 끼기
         }
     }
 
@@ -307,5 +313,4 @@ public class PlayerControl : MonoBehaviour
         print("OnDeathUI");
         uiControl.OpenDeathUI();
     }
-
 }
