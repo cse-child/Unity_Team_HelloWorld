@@ -11,7 +11,7 @@ public class DragonAI : MonoBehaviour
     public UltimateTextDamageManager manager;
     public Transform trDamagePosition;
     private AudioSource audioSource;
-    enum State
+    public enum State
     {
         IDLE, TRACE, ATTACK, DEAD, HURT
     }
@@ -34,7 +34,7 @@ public class DragonAI : MonoBehaviour
 
     private DragonAttack closeAtk;
 
-    private State curState;
+    public State curState;
 
     private readonly WaitForSeconds delayTime = new WaitForSeconds(0.1f);
 
@@ -217,6 +217,10 @@ public class DragonAI : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F2))
             animator.SetTrigger("trigCastSpell");
+    }
+    public State GetState()
+    {
+        return curState;
     }
 }
 
