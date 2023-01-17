@@ -1,5 +1,10 @@
+using Language.Lua;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class QuestCountManager : MonoBehaviour
@@ -18,39 +23,65 @@ public class QuestCountManager : MonoBehaviour
             return _instance;
         }
     }
-    public int skeletonDeathCount = 0;
-    public int insectDeathCount = 0;
+
+    delegate void EventHandler();
+
+    public bool isSwitchOn = false;
     public int bearDeathCount = 0;
+
 
     public GameObject monster;
     List<TraceAI> skeletonsDeathCheck = new List<TraceAI>();
     List<IncectAI> insectsDeathCheck = new List<IncectAI>();
     List<BearAI> bearsDeathCheck = new List<BearAI>();
 
-    public void Start()
+    List<bool> deathCheckList = new List<bool>();
+    //Dictionary<BearAI, bool> bearsDeathCheck = new Dictionary<BearAI, bool>();
+    //Dictionary<List<BearAI>, bool> bearsDeathChecks = new Dictionary<bool, BearAI>();
+    public void Awake()
     {
         monster = GameObject.Find("Monster");
+    }
+
+    public void Start()
+    {
         OnCountInQuest();
+    }
+
+    private void Update()
+    {
+        ScanBearsDeathCount();
+        for (int i = 0; i < bearsDeathCheck.Count; i++)
+        {
+            if (bearsDeathCheck[i].GetState().Equals(BearAI.State.DEAD) && deathCheckList[i] == true)
+            {
+                bearDeathCount++;
+                return;
+            }
+        }
     }
 
     private void OnCountInQuest()
     {
-        int test = 0;
         for (int i = 0; i < monster.transform.childCount; i++)
         {
             GameObject obj = monster.transform.GetChild(i).gameObject;
-
+            bool deathCheck = false;
             if (obj.name.Contains("Skeleton"))
             {
                 TraceAI trace = obj.GetComponent<TraceAI>();
-                skeletonsDeathCheck.Add(trace);
+                if (trace != null)
+                {
+                    skeletonsDeathCheck.Add(trace);
+                }
             }
 
             if(obj.name.Contains("Bear"))
             {
                 BearAI bear = obj.GetComponent<BearAI>();
-                bearsDeathCheck.Add(bear);
-                Debug.Log(test);
+                if (bear != null)
+                    bearsDeathCheck.Add(bear);
+                deathCheckList.Add(deathCheck);
             }
 
             if(obj.name.Contains("Green"))
@@ -58,56 +89,113 @@ public class QuestCountManager : MonoBehaviour
                 IncectAI insect = obj.GetComponent<IncectAI>();
                 insectsDeathCheck.Add(insect);
             }
+
         }
+        UnityEngine.Debug.Log(monster.transform.childCount.ToString());
+        UnityEngine.Debug.Log(bearsDeathCheck.Count.ToString());
+        Test();
     }
 
-    public int GetSkeletonsDeathCount()
+    public void ScanSkeletonsDeathCount()
     {
         foreach(TraceAI temp in skeletonsDeathCheck)
         {
-            if(temp.GetState() == TraceAI.State.DEAD)
+            if(temp.GetState().Equals(TraceAI.State.DEAD))
             {
-                skeletonDeathCount++;
+                //skeletonDeathCount++;
+                break;
             }
         }
-        return skeletonDeathCount;
     }
 
-    public int GetInsectsDeathCount()
+    public void Test()
+    {
+        string test;
+        foreach (BearAI temp in bearsDeathCheck)
+        {
+            if (temp.GetState().Equals(BearAI.State.DEAD))
+                test = "dead";
+            else
+                test = "No";
+
+            UnityEngine.Debug.Log(test);
+        }
+    }
+    public void ScanInsectsDeathCount()
     {
         foreach (IncectAI temp in insectsDeathCheck)
         {
-            if (temp.GetState() == IncectAI.State.DEAD)
+            if (temp.GetState().Equals(IncectAI.State.DEAD))
             {
-                insectDeathCount++;
+                //insectDeathCount++;
             }
+            else
+                continue;
         }
-        return insectDeathCount;
     }
 
+    public void ScanBearsDeathCount()
+    {
+        for(int i = 0; i < bearsDeathCheck.Count; i++)
+        {
+            //if (bearsDeathCheck[i].onDie.EndInvoke(new IAsyncResult))
+
+            if (bearsDeathCheck[i].GetState().Equals(BearAI.State.DEAD))
+                deathCheckList[i] = true;
+            else
+                deathCheckList[i] = false;
+        }
+        //for (int i = 0; i < bearsDeathCheck.Count; i++)
+        //{
+        //    if (bearsDeathCheck[i].GetState().Equals(BearAI.State.DEAD) && deathCheckList[i] == true)
+        //    {
+        //        isSwitchOn = true;
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        isSwitchOn = false;
+        //        return;
+        //    }
+        //}
+    }
+
+    private void AddCount()
+    {
+        
+    }
+    //public int GetSkeletonsDeathCount()
+    //{
+    //    return skeletonDeathCount;
+    //}
     public int GetBearsDeathCount()
     {
-        foreach (BearAI temp in bearsDeathCheck)
-        {
-            if (temp.GetState() == BearAI.State.DEAD)
-            {
-                bearDeathCount++;
-            }
-        }
         return bearDeathCount;
     }
+    //public int GetInsectsDeathCount()
+    //{
+    //    return insectDeathCount;
+    //}
 
-    public void ResetSkeletonDeathCount()
-    {
-        skeletonDeathCount = 0;
-    }
-    public void ResetInsectDeathCount()
-    {
-        insectDeathCount = 0;
-    }
-    public void ResetBearDeathCount()
-    {
-        bearDeathCount = 0;
-    }
+//    //public void ResetSkeletonDeathCount()
+    //{
+    //    skeletonDeathCount = 0;
+    //}
+    //public void ResetInsectDeathCount()
+    //{
+    //    insectDeathCount = 0;
+    //}
+    //public void ResetBearDeathCount()
+    //{
+    //    bearDeathCount = 0;
+    //}
 
+    public bool GetSwitchOn()
+    {
+        return isSwitchOn;
+    }
+    public void SetSwitchOn(bool input)
+    {
+        isSwitchOn = input;
+    }
 }

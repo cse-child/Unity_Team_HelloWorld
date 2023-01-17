@@ -152,13 +152,16 @@ public class Quest
     {
         if(this.questInfo.questCode == "qst_005")
         {
+            if (QuestCountManager.instance.GetSwitchOn()) return;
             countValue = QuestCountManager.instance.GetBearsDeathCount();
         }
 
         if(this.questInfo.questCode == "qst_008")
         {
-            countValue = QuestCountManager.instance.GetSkeletonsDeathCount() +
-                QuestCountManager.instance.GetInsectsDeathCount();
+            //QuestCountManager.instance.ScanSkeletonsDeathCount();
+            //QuestCountManager.instance.ScanInsectsDeathCount();
+            //countValue = QuestCountManager.instance.GetSkeletonsDeathCount() +
+            //    QuestCountManager.instance.GetInsectsDeathCount();
         }
 
         if(this.questInfo.questCode == "qst_009")
@@ -176,13 +179,13 @@ public class Quest
 
             if(this.questInfo.questCode == "qst_005")
             {
-                QuestCountManager.instance.ResetBearDeathCount();
+                //QuestCountManager.instance.ResetBearDeathCount();
             }
 
             if (this.questInfo.questCode == "qst_008")
             {
-                QuestCountManager.instance.ResetInsectDeathCount();
-                QuestCountManager.instance.ResetSkeletonDeathCount();
+                //QuestCountManager.instance.ResetInsectDeathCount();
+                //QuestCountManager.instance.ResetSkeletonDeathCount();
             }
                 
         }

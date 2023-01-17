@@ -9,6 +9,11 @@ public class NPCMovePoint : MonoBehaviour
     public NPCFunction npcFunction;
     public bool isCollision = false;
 
+
+    private void Awake()
+    {
+        QuestCountManager.instance.Awake();
+    }
     void Start()
     {
         fortuneTeller = GameObject.Find("NPC_FortuneTeller");
