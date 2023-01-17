@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 95893532679604856}
   - component: {fileID: 7860210513258070140}
   m_Layer: 0
-  m_Name: sack_010
+  m_Name: sack_I
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,4 +149,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35693467f081fe940850f4cf757ed88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materialNum: 22
+  materialNum: 23

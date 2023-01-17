@@ -36,7 +36,6 @@ public class BreathCannon : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out hitInfo, range, layerMask))
         {
             gameObject.SetActive(false);
-           // gameObject.transform.position = new Vector3(0, 0, 0);
             playerControl.TakeDamage(damage);
             print(playerState.curHp);
         }
@@ -47,7 +46,6 @@ public class BreathCannon : MonoBehaviour
         if (time >= 1)
         {
             gameObject.SetActive(false);
-            //gameObject.transform.position = new Vector3(0, 0, 0);
         }
     }
 }
