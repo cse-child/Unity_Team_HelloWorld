@@ -114,7 +114,7 @@ public class SkillManager : MonoBehaviour
 
     public void ResetCurAtk()
     {
-        playerState.curAtk = playerState.baseAtk;
+        playerState.curAtk -= SkillDataManager.instance.GetSkillData(skillInfos[3].skillNum).buff; 
         isBuff = false;
     }
 

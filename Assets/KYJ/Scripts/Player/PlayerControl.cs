@@ -23,6 +23,7 @@ public class PlayerControl : MonoBehaviour
     private FadeEffect fadeEffect;
     private PlayerManager playerManager;
     private UIControl uiControl;
+    private PlayerPartsControl playerPartsControl;
 
     private int curWeaponState;
     private int curSkillState;
@@ -47,6 +48,7 @@ public class PlayerControl : MonoBehaviour
         fadeEffect = FindObjectOfType<FadeEffect>();
         playerManager = FindObjectOfType<PlayerManager>();
         uiControl = FindObjectOfType<UIControl>();
+        playerPartsControl = FindObjectOfType<PlayerPartsControl>();
     }
 
     private void Start()
@@ -129,9 +131,15 @@ public class PlayerControl : MonoBehaviour
             }
 
             if (curWeaponState == MAX_WEAPON_COUNT)
+            {
                 animator.SetInteger("WeaponState", 0); // 맨손
+                //playerPartsControl.UnEquippedWeapon();
+            }
             else
+            {
                 animator.SetInteger("WeaponState", ++curWeaponState); // 무기장착
+                //playerPartsControl.EquippedWeapon(PlayerEquipmentManager.instance.GetWeaponNum());
+            }
 
             // 무기를 바꾸면 이전에 입력된 값들(Trigger, Integer) 초기화
             animator.ResetTrigger(hashAttack);
@@ -146,9 +154,9 @@ public class PlayerControl : MonoBehaviour
         if (weaponSocket)
         {
             if(weaponSocket.activeSelf)
-                weaponSocket.SetActive(false);
+                weaponSocket.SetActive(false); // 무기 빼기
             else
-                weaponSocket.SetActive(true);
+                weaponSocket.SetActive(true); // 무기 끼기
         }
     }
 
@@ -296,6 +304,7 @@ public class PlayerControl : MonoBehaviour
         fadeEffect.StopFade();
         ResetSkillState();
         SetWeaponState(0);
+        playerPartsControl.UnEquippedWeapon();
     }
 
     // 부활 UI 띄우기
@@ -304,5 +313,4 @@ public class PlayerControl : MonoBehaviour
         print("OnDeathUI");
         uiControl.OpenDeathUI();
     }
-
 }

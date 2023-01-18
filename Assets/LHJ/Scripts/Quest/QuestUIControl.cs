@@ -122,7 +122,7 @@ public class QuestUIControl : MonoBehaviour
                 {
                     PlayerInventoryData.instance.AddItem(item.Key, item.Value);
                 }
-                playerState.curExp += hasQuests[i].GetComponent<QuestData>().achivementExp;
+                playerState.IncreaseExp(hasQuests[i].GetComponent<QuestData>().achivementExp);
                 hasQuests[i].GetComponent<QuestData>().ClearAchivementItem();
                 hasQuests[i].SetActive(false);
                 hasQuests.Remove(hasQuests[i]);

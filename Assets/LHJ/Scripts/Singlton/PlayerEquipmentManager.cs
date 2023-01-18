@@ -89,4 +89,12 @@ public class PlayerEquipmentManager : MonoBehaviour
     {
 
     }
+
+    public string GetWeaponNum()
+    {
+        ItemDataManager.ItemData itemData = ItemDataManager.instance.GetItemData(GetSlotItemNum("weapon"));
+        string[] col = itemData.property.Split("_");
+        print(col);
+        return col[1];
+    }
 }

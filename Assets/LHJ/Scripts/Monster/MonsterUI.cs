@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MonsterUI : MonoBehaviour
 {
-    int curHP;
+    float curHP;
     int maxHP;
     string monsterName;
 
@@ -26,7 +26,7 @@ public class MonsterUI : MonoBehaviour
         nameText.text = monsterName;
     }
 
-    public void SetMonster(int curHP, int maxHP, string name)
+    public void SetMonster(float curHP, int maxHP, string name)
     {
         this.curHP = curHP;
         this.maxHP = maxHP;

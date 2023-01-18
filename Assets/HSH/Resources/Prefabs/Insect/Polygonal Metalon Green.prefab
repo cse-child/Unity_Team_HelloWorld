@@ -1243,9 +1243,10 @@ MonoBehaviour:
   attackRange: 2.03
   moveSpeed: 2
   rotateSpeed: 0.5
-  itemPrefab: {fileID: 5746359903908249793, guid: 78925be475d86164f92d73a589da7cba, type: 3}
+  itemPrefab: {fileID: 1947216925010022, guid: bc41003966089d147ba86c5249da4580, type: 3}
   audioHurt: {fileID: 8300000, guid: 0c94b1ee2f4bb9d429cab9e813a3a189, type: 3}
   audioDie: {fileID: 8300000, guid: 6a33e84cb68f80d419e33216fc30b03c, type: 3}
+  curState: 0
 --- !u!114 &1093346051
 MonoBehaviour:
   m_ObjectHideFlags: 0

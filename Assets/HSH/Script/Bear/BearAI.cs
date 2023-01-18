@@ -11,7 +11,7 @@ public class BearAI : MonoBehaviour
     public UltimateTextDamageManager manager;
     public Transform trDamagePosition;
     private AudioSource audioSource;
-    enum State
+    public enum State
     {
         IDLE, TRACE, ATTACK, DEAD, HURT
     }
@@ -25,7 +25,7 @@ public class BearAI : MonoBehaviour
     private float curHp = 100.0f;
     private float Exp = 10.0f;
 
-    private GameObject target;
+    public GameObject target;
     private Animator animator;
 
     public GameObject itemPrefab;
@@ -37,7 +37,7 @@ public class BearAI : MonoBehaviour
     public AudioClip audioHurt;
     public AudioClip audioDie;
 
-    private State curState;
+    public State curState;
 
     private bool isTest = false;
 
@@ -183,10 +183,12 @@ public class BearAI : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         Die();
         gameObject.SetActive(false);
+        curHp = 100.0f;
+        curState = State.IDLE;
+        MonsterReSpawn.instance.ReSpawn(gameObject);
 
-        yield return new WaitForSeconds(10.0f);
-        gameObject.SetActive(true);
     }
+
     public void IncreaseExp(float value)
     {
         value += Exp;
@@ -206,28 +208,11 @@ public class BearAI : MonoBehaviour
         {
             itemGo.SetActive(true);
             playerState.IncreaseExp(Exp);
-            //FarmingItem();
         };
     }
-    private void FarmingItem()
+    public State GetState()
     {
-        StreamReader sr = new StreamReader(Application.dataPath + "/HSH/DataTable/" + "ItemData.csv");
-
-        bool endOfFile = false;
-        while (!endOfFile)
-        {
-            string dataString = sr.ReadLine();
-            if (dataString == null)
-            {
-                endOfFile = true;
-                break;
-            }
-            var dataValues = dataString.Split(',');
-            for (int i = 0; i < dataValues.Length; i++)
-            {
-                Debug.Log("v: " + i.ToString() + " " + dataValues[i].ToString());
-            }
-        }
+        return curState;
     }
 }
 

@@ -30,15 +30,12 @@ public class NPCFunction : MonoBehaviour
         this.AddComponent<QuestFunction>();
         if (this.name.Contains("FortuneTeller"))
         {
-            this.AddComponent<NPCFortuneTeller>();
             fortuneTeller = GetComponent<NPCFortuneTeller>();
         }
         if(this.name.Contains("Blacksmith"))
         {
             audioSource = GetComponent<AudioSource>();
         }
-            
-
     }
 
     private void Update()
@@ -92,7 +89,6 @@ public class NPCFunction : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && IsPlayerAccessNPC())
         {
             SetIsTalkingPlayerToNPC(true);
-
         }
         else if(!IsPlayerAccessNPC() /*|| Input.GetKeyUp(KeyCode.F)*/)
             SetIsTalkingPlayerToNPC(false);
