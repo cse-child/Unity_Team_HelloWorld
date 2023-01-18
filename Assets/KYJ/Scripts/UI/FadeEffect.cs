@@ -119,8 +119,6 @@ public class FadeEffect : MonoBehaviour
             color.a = Mathf.Lerp(start, end, percent);
             bloodScreen.color = color;
 
-            print(bloodScreen.name);
-
             yield return null;
         }
     }
@@ -142,8 +140,6 @@ public class FadeEffect : MonoBehaviour
             color.a = Mathf.Lerp(start, end, percent);
             blackImage.color = color;
 
-            print(blackImage.name);
-
             yield return null;
         }
     }
@@ -152,7 +148,6 @@ public class FadeEffect : MonoBehaviour
     {
         if (key == "blood")
         {
-            //StopCoroutine("BloodFade");
             StopCoroutine(bloodCoroutine);
             Color color = bloodScreen.color;
             color.a = 0.0f;
@@ -160,15 +155,10 @@ public class FadeEffect : MonoBehaviour
         }
         else if (key == "black")
         {
-            //StopCoroutine("BlackFade");
             StopCoroutine(blackCoroutine);
             Color color = blackImage.color;
             color.a = 0.0f;
             blackImage.color = color;
         }
-
-        //StopAllCoroutines();
-        
-        
     }
 }
