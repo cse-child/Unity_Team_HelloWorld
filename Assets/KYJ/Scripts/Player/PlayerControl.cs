@@ -21,6 +21,7 @@ public class PlayerControl : MonoBehaviour
     private PlayerState playerState;
     private StarterAssetsInputs starterAssetsInputs;
     private FadeEffect fadeEffect;
+    private FadeEffect fadeBlackEffect;
     private PlayerManager playerManager;
     private UIControl uiControl;
     private PlayerPartsControl playerPartsControl;
@@ -31,7 +32,6 @@ public class PlayerControl : MonoBehaviour
     private bool onBloodScreen = false;
 
     public bool isDead = false;
-    
 
     private readonly int hashDeath = Animator.StringToHash("Death");
     private readonly int hashLooting = Animator.StringToHash("Looting");
@@ -46,6 +46,7 @@ public class PlayerControl : MonoBehaviour
         playerState = GetComponent<PlayerState>();
         starterAssetsInputs = FindObjectOfType<StarterAssetsInputs>();
         fadeEffect = FindObjectOfType<FadeEffect>();
+        fadeBlackEffect = FindObjectOfType<FadeEffect>();
         playerManager = FindObjectOfType<PlayerManager>();
         uiControl = FindObjectOfType<UIControl>();
         playerPartsControl = FindObjectOfType<PlayerPartsControl>();
@@ -229,12 +230,12 @@ public class PlayerControl : MonoBehaviour
         if(!onBloodScreen && playerState.curHp <= BLOOD_SCREEN_HP)
         {
             onBloodScreen = true;
-            fadeEffect.OnFade(FadeState.FadeLoop);
+            fadeEffect.OnFade("blood", FadeState.FadeLoop);
         }
         else if(onBloodScreen && playerState.curHp > BLOOD_SCREEN_HP)
         {
             onBloodScreen = false;
-            fadeEffect.StopFade();
+            fadeEffect.StopFade("blood");
         }
     }
 
@@ -301,10 +302,11 @@ public class PlayerControl : MonoBehaviour
         animator.ResetTrigger(hashDamage);
         animator.ResetTrigger(hashAttack);
         playerState.ResetState();
-        fadeEffect.StopFade();
         ResetSkillState();
         SetWeaponState(0);
         playerPartsControl.UnEquippedWeapon();
+        fadeEffect.StopFade("blood");
+        fadeBlackEffect.OnFade("black", FadeState.FadeIn);
     }
 
     // ºÎÈ° UI ¶ç¿ì±â

@@ -17,7 +17,7 @@ public class ShopControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     // Start is called before the first frame update
     void Start()
     {
-        for(int i =0; i<11;i++)
+        for (int i = 0; i < 21; i++)
         {
             GameObject temp = Instantiate(ShopItemPrefab);
             temp.transform.parent = this.transform;
@@ -25,7 +25,7 @@ public class ShopControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             temp.GetComponent<ShopSlotData>().SetinventoryControl(inventoryControl);
             slots.Add(temp);
         }
-        
+
         slots[0].GetComponent<ShopSlotData>().SetSlot(1, 1);
         slots[1].GetComponent<ShopSlotData>().SetSlot(2, 1);
         slots[2].GetComponent<ShopSlotData>().SetSlot(3, 1);
@@ -37,8 +37,17 @@ public class ShopControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         slots[8].GetComponent<ShopSlotData>().SetSlot(13, 1);
         slots[9].GetComponent<ShopSlotData>().SetSlot(16, 1);
         slots[10].GetComponent<ShopSlotData>().SetSlot(19, 1);
+        slots[11].GetComponent<ShopSlotData>().SetSlot(8, 1);
+        slots[12].GetComponent<ShopSlotData>().SetSlot(11, 1);
+        slots[13].GetComponent<ShopSlotData>().SetSlot(14, 1);
+        slots[14].GetComponent<ShopSlotData>().SetSlot(17, 1);
+        slots[15].GetComponent<ShopSlotData>().SetSlot(20, 1);
+        slots[16].GetComponent<ShopSlotData>().SetSlot(9, 1);
+        slots[17].GetComponent<ShopSlotData>().SetSlot(12, 1);
+        slots[18].GetComponent<ShopSlotData>().SetSlot(15, 1);
+        slots[19].GetComponent<ShopSlotData>().SetSlot(18, 1);
+        slots[20].GetComponent<ShopSlotData>().SetSlot(21, 1);
 
-        
     }
 
     // Update is called once per frame

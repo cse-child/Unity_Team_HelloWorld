@@ -48,6 +48,7 @@ public class ItemFarming : MonoBehaviour
                 int randPotion = Random.Range(1, 4);
                 int randMaterial = Random.Range(1, 4);
                 ItemLootManager.instance.AddLootItem(1, randPotion);
+                ItemLootManager.instance.AddLootItem(materialNum, randMaterial);
 
                 int randItemDrob = Random.Range(0, 9);
                 int randEquipment = Random.Range(7, 22);
