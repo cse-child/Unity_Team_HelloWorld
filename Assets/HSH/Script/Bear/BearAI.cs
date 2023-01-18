@@ -24,7 +24,7 @@ public class BearAI : MonoBehaviour
     //private float maxHp = 100.0f;
     private float curHp = 100.0f;
     private float Exp = 10.0f;
-
+    private Vector3 curPos;
     public GameObject target;
     private Animator animator;
 
@@ -49,12 +49,16 @@ public class BearAI : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         playerState = FindObjectOfType<PlayerState>();
         audioSource = GetComponent<AudioSource>();
+        curPos = transform.position;
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
     {
         StartCoroutine(SetState());
     }
-
+    private void OnEnable()
+    {
+        StartCoroutine(SetState());
+    }
     private void Update()
     {
         //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
@@ -161,7 +165,8 @@ public class BearAI : MonoBehaviour
         audioSource.clip = audioHurt;
         audioSource.Play();
         curHp -= value;
-
+        MonsterUIManager.instance.SetMonster(curHp, 100, "야생 곰");
+        MonsterUIManager.instance.SetActiveMonsterUI(true);
         manager.Add(value.ToString(), trDamagePosition, "default");
         animator.SetFloat("curHp", curHp);
         if (curHp <= 0)
@@ -184,9 +189,11 @@ public class BearAI : MonoBehaviour
         Die();
         gameObject.SetActive(false);
         curHp = 100.0f;
-        curState = State.IDLE;
+        animator.SetFloat("curHp", curHp);
         MonsterReSpawn.instance.ReSpawn(gameObject);
-
+        curState = State.IDLE;
+        transform.position = curPos;
+        SetAction();
     }
 
     public void IncreaseExp(float value)
@@ -198,6 +205,7 @@ public class BearAI : MonoBehaviour
         audioSource.clip = audioDie;
         audioSource.Play();
         StartCoroutine(DieAndRegen());
+        MonsterUIManager.instance.SetActiveMonsterUI(false);
     }
     public void DropItem()
     {

@@ -112,6 +112,8 @@ public class DragonAI : MonoBehaviour
                 }
                 break;
             case State.ATTACK:
+                audioSource.clip = audioBite;
+                audioSource.Play();
                 closeAtk.TryAttack();
                 break;
             case State.IDLE:
@@ -177,6 +179,12 @@ public class DragonAI : MonoBehaviour
             itemGo.SetActive(true);
         };
     }
+    private void DieAudio()
+    {
+        audioSource.clip = audioDie;
+        audioSource.Play();
+        MonsterUIManager.instance.SetActiveMonsterUI(false);
+    }
 
     private void DragonThink()
     {
@@ -193,6 +201,8 @@ public class DragonAI : MonoBehaviour
     }
     private IEnumerator Breath()
     {
+        audioSource.clip = audioBreath;
+        audioSource.Play();
         var cannon = Instantiate<GameObject>(this.CannonPrefab);
         cannon.transform.position = breathPort.position;
         cannon.SetActive(true);
@@ -203,6 +213,8 @@ public class DragonAI : MonoBehaviour
     }
     private IEnumerator Cast()
     {
+        audioSource.clip = audioCast;
+        audioSource.Play();
         float randx, randy;
         randx = Random.Range(-4, 4);
         randy = Random.Range(-2, 3);

@@ -16,6 +16,7 @@ public class MonsterCloseAttack : MonoBehaviour
     private CapsuleCollider myCollider;
     private PlayerState playerState;
     private PlayerControl playerControl;
+    private GameObject target;
     private bool isAttack = false; // 공격중
     private bool isSwing = false; // 검 휘두르는 중
 
@@ -37,6 +38,7 @@ public class MonsterCloseAttack : MonoBehaviour
         myCollider = GetComponent<CapsuleCollider>();
         playerState = FindObjectOfType<PlayerState>();
         playerControl = FindObjectOfType<PlayerControl>();
+        target = GameObject.FindGameObjectWithTag("Player");
     }
     private void Update()
     {
@@ -48,6 +50,7 @@ public class MonsterCloseAttack : MonoBehaviour
         if (!isAttack)
         {
             //StartCoroutine(AttackCoroutine());
+
             animator.SetTrigger("trigAttack");
             isAttack = true;
         }
@@ -94,12 +97,12 @@ public class MonsterCloseAttack : MonoBehaviour
         float realDamage;
         if (CriticalAttack())
         {
-            realDamage = (damage / playerState.curDef) * rand * 1.5f;
+            realDamage = (damage / playerState.curHp) * rand * 1.5f;
             print("Critical");
         }
         else
         {
-            realDamage = (damage / playerState.curDef) * rand;
+            realDamage = (damage / playerState.curHp) * rand;
         }
 
         return realDamage;
