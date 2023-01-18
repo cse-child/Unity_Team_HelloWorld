@@ -97,12 +97,12 @@ public class MonsterCloseAttack : MonoBehaviour
         float realDamage;
         if (CriticalAttack())
         {
-            realDamage = (damage / playerState.curDef) * rand * 1.5f;
+            realDamage = (damage / playerState.curHp) * rand * 1.5f;
             print("Critical");
         }
         else
         {
-            realDamage = (damage / playerState.curDef) * rand;
+            realDamage = (damage / playerState.curHp) * rand;
         }
 
         return realDamage;
