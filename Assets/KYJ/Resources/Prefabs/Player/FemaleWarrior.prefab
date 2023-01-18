@@ -88,7 +88,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1820092126
 Transform:
   m_ObjectHideFlags: 0
@@ -43100,7 +43100,7 @@ MonoBehaviour:
   curAtk: 10
   baseDef: 10
   curDef: 10
-  gold: 10000
+  gold: 100000
   level: 1
   levelUpUI: {fileID: 0}
 --- !u!114 &269998019
@@ -69882,7 +69882,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2027956249731197713
 Transform:
   m_ObjectHideFlags: 0
@@ -70511,7 +70511,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2846945540037289296
 Transform:
   m_ObjectHideFlags: 0
