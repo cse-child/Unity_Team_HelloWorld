@@ -13,7 +13,7 @@ public class Cannon : MonoBehaviour
     private PlayerState playerState;
 
     private GameObject target;
-    private float moveSpeed = 3.0f;
+    private float moveSpeed = 4.5f;
     private void Awake()
     {
         myCollider = GetComponent<SphereCollider>();
@@ -47,6 +47,7 @@ public class Cannon : MonoBehaviour
     }
     private void Trace()
     {
+
         Vector3 direction = target.transform.position - transform.position;
         transform.rotation = Quaternion.LookRotation(direction);
         transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
