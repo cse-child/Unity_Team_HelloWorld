@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class Quest
 {
+    
     public bool isActive = false;
     public bool isClear = false;
 
@@ -127,7 +128,7 @@ public class Quest
     {
         if (this.questInfo.questCode == "qst_006")
         {
-            itemNum = 0; //퀘스트 아이템 번호
+            itemNum = 24; //퀘스트 아이템 번호
             countValue = PlayerInventoryData.instance.GetItemCount(itemNum);
         }
         if (countValue >= requireCount)
@@ -151,12 +152,22 @@ public class Quest
     {
         if(this.questInfo.questCode == "qst_005")
         {
+            if (QuestCountManager.instance.GetSwitchOn()) return;
+            countValue = QuestCountManager.instance.GetBearsDeathCount();
+        }
+
+        if(this.questInfo.questCode == "qst_008")
+        {
+            //QuestCountManager.instance.ScanSkeletonsDeathCount();
+            //QuestCountManager.instance.ScanInsectsDeathCount();
+            //countValue = QuestCountManager.instance.GetSkeletonsDeathCount() +
+            //    QuestCountManager.instance.GetInsectsDeathCount();
+        }
+
+        if(this.questInfo.questCode == "qst_009")
+        {
             countValue = 0;
         }
-        else if(this.questInfo.questCode == "qst_008")
-            countValue = 0;
-        else if(this.questInfo.questCode == "qst_009")
-            countValue = 0;
 
         if (countValue > requireCount)
             countValue = requireCount;
@@ -165,6 +176,18 @@ public class Quest
         {
             isQuestGoalArrival = true;
             QuestAlarmManager.instance.GetQuestAlarmData(questDetail.questName).questDetail.isSucceed = true;
+
+            if(this.questInfo.questCode == "qst_005")
+            {
+                //QuestCountManager.instance.ResetBearDeathCount();
+            }
+
+            if (this.questInfo.questCode == "qst_008")
+            {
+                //QuestCountManager.instance.ResetInsectDeathCount();
+                //QuestCountManager.instance.ResetSkeletonDeathCount();
+            }
+                
         }
     }
 

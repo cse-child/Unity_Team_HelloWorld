@@ -7,7 +7,8 @@ public class ItemFarming : MonoBehaviour
     private GameObject target;
     private float farmRange = 1.0f;
     private bool isFarming = false;
-
+    public int materialNum;
+    private PlayerControl playerControl;
 
     private void OnEnable()
     {
@@ -21,6 +22,7 @@ public class ItemFarming : MonoBehaviour
     private void Awake()
     {
         target = GameObject.FindGameObjectWithTag("Player");
+        playerControl = FindObjectOfType<PlayerControl>();
     }
 
     private void Update()
@@ -43,9 +45,36 @@ public class ItemFarming : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                ItemLootManager.instance.AddLootItem(1, 3);
+                int randPotion = Random.Range(1, 4);
+                int randMaterial = Random.Range(1, 4);
+                ItemLootManager.instance.AddLootItem(1, randPotion);
+                ItemLootManager.instance.AddLootItem(materialNum, randMaterial);
+
+                int randItemDrob = Random.Range(0, 9);
+                int randEquipment = Random.Range(7, 22);
+                int randPotionDrop = Random.Range(1, 7);
+                switch (randItemDrob)
+                {
+                    case 0:
+                    case 1:
+                    case 2:
+                        ItemLootManager.instance.AddLootItem(materialNum, randMaterial);
+                        break;
+                    case 3:
+                        ItemLootManager.instance.AddLootItem(randEquipment, 1);
+                        break;
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                        ItemLootManager.instance.AddLootItem(randPotionDrop, randPotion);
+                        break;
+                    case 8:
+                    case 9:
+                        break;
+                }
                 ItemLootManager.instance.OpenLootingUI();
-                //PlayerControl.Looting();
+                playerControl.Looting();
                 Destroy(gameObject);
             }
         }

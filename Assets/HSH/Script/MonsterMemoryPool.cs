@@ -11,21 +11,21 @@ public class MonsterMemoryPool : MonoBehaviour
     [SerializeField]
     private float enemySpawnTime = 0.5f; //생성 주기
     [SerializeField]
-    private float enemySpawnLatency = 1; //등장위치 오브젝트 이후 등장까지 걸리는 시간
+    private float enemySpawnLatency = 2; //등장위치 오브젝트 이후 등장까지 걸리는 시간
 
     private MemoryPool spawnPointMemoryPool; // 적 등장 위치를 알려주는 오브젝트 생성, 활성/ 비활성 관리
     private MemoryPool enemyMemoryPool; // 적 생성 및 활성/비활성화 관리
 
     private int numberOfEnemiesSpawnAtOnce = 1; // 동시에 생성되는 적 숫자
+    private Vector3 spawnPointPositionArea;
 
     public GameObject spawnArea;
-    private Vector2Int mapSize = new Vector2Int(100,100); //맵크기
-
+    private Vector2Int mapSize = new Vector2Int(5,5); //맵크기
     private void Awake()
     {
         spawnPointMemoryPool = new MemoryPool(enemySpawnPointPrefab);
         enemyMemoryPool = new MemoryPool(enemyPrefab);
-
+        
         StartCoroutine("SpawnTile");
     }
 
@@ -40,9 +40,9 @@ public class MonsterMemoryPool : MonoBehaviour
             {
                 GameObject item = spawnPointMemoryPool.ActivatePoolItem();
 
-                item.transform.position = new Vector3(Random.Range(-mapSize.x * 0.49f, mapSize.x * 0.49f),
+                item.transform.position = new Vector3(Random.Range(-(transform.position.x + 7) * 0.49f, (transform.position.x + 7) * 0.49f),
                                                       1,
-                                                      Random.Range(-mapSize.x * 0.49f, mapSize.x * 0.49f));
+                                                      Random.Range(-(transform.position.x + 7) * 0.49f, (transform.position.x + 7) * 0.49f));
 
                 StartCoroutine("SpawnObject", item);
 
@@ -54,7 +54,7 @@ public class MonsterMemoryPool : MonoBehaviour
                     numberOfEnemiesSpawnAtOnce++;
                 }
 
-                yield return new WaitForSeconds(enemySpawnTime);
+                //yield return new WaitForSeconds(enemySpawnTime);
             }
         }
     }

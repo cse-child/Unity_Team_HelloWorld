@@ -21,6 +21,7 @@ public class PlayerControl : MonoBehaviour
     private PlayerState playerState;
     private StarterAssetsInputs starterAssetsInputs;
     private FadeEffect fadeEffect;
+    private FadeEffect fadeBlackEffect;
     private PlayerManager playerManager;
     private UIControl uiControl;
     private PlayerPartsControl playerPartsControl;
@@ -31,7 +32,6 @@ public class PlayerControl : MonoBehaviour
     private bool onBloodScreen = false;
 
     public bool isDead = false;
-    
 
     private readonly int hashDeath = Animator.StringToHash("Death");
     private readonly int hashLooting = Animator.StringToHash("Looting");
@@ -46,6 +46,7 @@ public class PlayerControl : MonoBehaviour
         playerState = GetComponent<PlayerState>();
         starterAssetsInputs = FindObjectOfType<StarterAssetsInputs>();
         fadeEffect = FindObjectOfType<FadeEffect>();
+        fadeBlackEffect = FindObjectOfType<FadeEffect>();
         playerManager = FindObjectOfType<PlayerManager>();
         uiControl = FindObjectOfType<UIControl>();
         playerPartsControl = FindObjectOfType<PlayerPartsControl>();
@@ -131,9 +132,15 @@ public class PlayerControl : MonoBehaviour
             }
 
             if (curWeaponState == MAX_WEAPON_COUNT)
+            {
                 animator.SetInteger("WeaponState", 0); // 맨손
+                //playerPartsControl.UnEquippedWeapon();
+            }
             else
+            {
                 animator.SetInteger("WeaponState", ++curWeaponState); // 무기장착
+                //playerPartsControl.EquippedWeapon(PlayerEquipmentManager.instance.GetWeaponNum());
+            }
 
             // 무기를 바꾸면 이전에 입력된 값들(Trigger, Integer) 초기화
             animator.ResetTrigger(hashAttack);
@@ -148,9 +155,9 @@ public class PlayerControl : MonoBehaviour
         if (weaponSocket)
         {
             if(weaponSocket.activeSelf)
-                weaponSocket.SetActive(false);
+                weaponSocket.SetActive(false); // 무기 빼기
             else
-                weaponSocket.SetActive(true);
+                weaponSocket.SetActive(true); // 무기 끼기
         }
     }
 
@@ -223,12 +230,12 @@ public class PlayerControl : MonoBehaviour
         if(!onBloodScreen && playerState.curHp <= BLOOD_SCREEN_HP)
         {
             onBloodScreen = true;
-            fadeEffect.OnFade(FadeState.FadeLoop);
+            fadeEffect.OnFade("blood", FadeState.FadeLoop);
         }
         else if(onBloodScreen && playerState.curHp > BLOOD_SCREEN_HP)
         {
             onBloodScreen = false;
-            fadeEffect.StopFade();
+            fadeEffect.StopFade("blood");
         }
     }
 
@@ -295,10 +302,11 @@ public class PlayerControl : MonoBehaviour
         animator.ResetTrigger(hashDamage);
         animator.ResetTrigger(hashAttack);
         playerState.ResetState();
-        fadeEffect.StopFade();
         ResetSkillState();
         SetWeaponState(0);
         playerPartsControl.UnEquippedWeapon();
+        fadeEffect.StopFade("blood");
+        fadeBlackEffect.OnFade("black", FadeState.FadeIn);
     }
 
     // 부활 UI 띄우기
@@ -307,5 +315,4 @@ public class PlayerControl : MonoBehaviour
         print("OnDeathUI");
         uiControl.OpenDeathUI();
     }
-
 }

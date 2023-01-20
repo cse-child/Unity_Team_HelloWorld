@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/HSH/Resources/Prefabs/FireDragon/Boss Rock.prefab.meta
 guid: c49bd73e6df5cd84e85e421b183064f8
 PrefabImporter:
+========
+guid: afe17fb64c8272d46be1482ce0dd1122
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> HSH:Assets/HSH/Audio/Monster/Dragon.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

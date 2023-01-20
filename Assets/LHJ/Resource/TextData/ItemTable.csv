@@ -9,8 +9,8 @@ ItemNum,Name,Property,Power,ResourcePath,Explanation,Price
 8,칼,weapon_2,20,Assets/LHJ/Sprite/NormalSword.png,흔하게 볼 수 있는 칼. eeATK가 20 증가합니다.,3000
 9,강철검,weapon_3,30,Assets/LHJ/Sprite/SteelSword.png,강철로 만들어진 튼튼한 칼. eeATK가 30 증가합니다.,5000
 10,낡은 로브,armor_top_1,30,Assets/LHJ/Sprite/OldRobe.png,낡고 얇은 로브. eeDEF가 30 증가합니다.,1000
-11,가죽 갑옷(상의),armor_top_2,50,Assets/LHJ/Sprite/LeatherArmorTop.png,가죽으로 만들어진 갑옷. eeDEF가 50 증가합니다.,3000
-12,강철 갑옷(상의),armor_top_3,70,Assets/LHJ/Sprite/SteelArmorTop.png,강철로 만들어진 튼튼한 갑옷. eeDEF가 70 증가합니다.,5000
+11,가죽 갑옷 상의,armor_top_2,50,Assets/LHJ/Sprite/LeatherArmorTop.png,가죽으로 만들어진 갑옷. eeDEF가 50 증가합니다.,3000
+12,강철 갑옷 상의,armor_top_3,70,Assets/LHJ/Sprite/SteelArmorTop.png,강철로 만들어진 튼튼한 갑옷. eeDEF가 70 증가합니다.,5000
 13,낡은 투구,armor_hat_1,10,Assets/LHJ/Sprite/OldHelmet.png,낡고 가벼운 투구. eeDEF가 10 증가합니다.,1000
 14,가죽 투구,armor_hat_2,20,Assets/LHJ/Sprite/LeatherHelmet.png,가죽으로 만들어진 투구. eeDEF가 20 증가합니다.,3000
 15,강철 투구,armor_hat_3,30,Assets/LHJ/Sprite/SteelHelmet.png,강철로 만들어진 튼튼한 투구. eeDEF가 30 증가합니다.,5000
@@ -18,8 +18,8 @@ ItemNum,Name,Property,Power,ResourcePath,Explanation,Price
 17,가죽 신발,armor_shoes_2,10,Assets/LHJ/Sprite/LeatherShoes.png,가죽으로 만들어진 신발. eeDEF가 10 증가합니다.,3000
 18,강철 신발,armor_shoes_3,15,Assets/LHJ/Sprite/SteelShoes.png,강철로 만들어진 튼튼한 신발. eeDEF가 15 증가합니다.,5000
 19,낡은 바지,armor_pants_1,20,Assets/LHJ/Sprite/OldPants.png,낡고 얇은 바지. eeDEF가 20 증가합니다.,1000
-20,가죽 갑옷(하의),armor_pants_2,40,Assets/LHJ/Sprite/LeatherArmorBottoms.png,가죽으로 만들어진 바지. eeDEF가 40 증가합니다.,3000
-21,강철 갑옷(하의),armor_pants_3,60,Assets/LHJ/Sprite/SteelArmorBottoms.png,강철로 만들어진 튼튼한 바지. eeDEF가 60 증가합니다.,5000
+20,가죽 갑옷 하의,armor_pants_2,40,Assets/LHJ/Sprite/LeatherArmorBottoms.png,가죽으로 만들어진 바지. eeDEF가 40 증가합니다.,3000
+21,강철 갑옷 하의,armor_pants_3,60,Assets/LHJ/Sprite/SteelArmorBottoms.png,강철로 만들어진 튼튼한 바지. eeDEF가 60 증가합니다.,5000
 22,스켈레톤의 뼈,material,0,Assets/LHJ/Sprite/Bone.png,스켈레톤의 뼈,10
 23,거미의 다리,material,0,Assets/LHJ/Sprite/SpiderLegs.png,거미의 다리이다.,8
 24,곰고기,material,0,Assets/LHJ/Sprite/Meat.png,곰의 고기이다.,50

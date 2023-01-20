@@ -11,7 +11,7 @@ public class TraceAI : MonoBehaviour
     public UltimateTextDamageManager manager;
     public Transform trDamagePosition;
     private AudioSource audioSource;
-    enum State
+    public enum State
     {
         IDLE, TRACE, ATTACK, DEAD, HURT
     }
@@ -24,7 +24,9 @@ public class TraceAI : MonoBehaviour
     //private float maxHp = 100.0f;
     private float curHp = 100.0f;
     private float Exp = 20.0f;
+    private Vector3 curPos;
 
+    public int DeathCount = 0;
     private GameObject target;
     private Animator animator;
 
@@ -37,7 +39,7 @@ public class TraceAI : MonoBehaviour
     public AudioClip audioHurt;
     public AudioClip audioDie;
 
-    private State curState;
+    public State curState;
 
     private bool isPlayerDie = false;
 
@@ -49,6 +51,7 @@ public class TraceAI : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         playerState = FindObjectOfType<PlayerState>();
         audioSource = GetComponent<AudioSource>();
+        curPos = transform.position;
     }
     private void Start() // 여러번 실행될 수 있으므로 할당 x
     {
@@ -60,6 +63,7 @@ public class TraceAI : MonoBehaviour
         //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
         SetAction();
         RotateMove();
+        Area();
         if (Input.GetKeyDown(KeyCode.N))
         {
             Idle();
@@ -166,8 +170,9 @@ public class TraceAI : MonoBehaviour
                 //천천히 변경
                 //Quaternion rotation = Quaternion.LookRotation(rotDir);
                 //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.01f);
-                animator.SetTrigger("trigExploration");
+                
             }
+            animator.SetTrigger("trigExploration");
         }
     }
 
@@ -204,7 +209,8 @@ public class TraceAI : MonoBehaviour
         audioSource.clip = audioHurt;
         audioSource.Play();
         curHp -= value;
-        
+        MonsterUIManager.instance.SetMonster(curHp, 100, "스켈레톤");
+        MonsterUIManager.instance.SetActiveMonsterUI(true);
         manager.Add(value.ToString(), trDamagePosition, "default");
         animator.SetFloat("curHp", curHp);
         if (curHp <= 0)
@@ -225,9 +231,12 @@ public class TraceAI : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         Die();
         gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(10.0f);
-        gameObject.SetActive(true);
+        curHp = 100.0f;
+        animator.SetFloat("curHp", curHp);
+        MonsterReSpawn.instance.ReSpawn(gameObject);
+        curState = State.IDLE;
+        transform.position = curPos;
+        SetAction();
     }
     public void IncreaseExp(float value)
     {
@@ -238,6 +247,8 @@ public class TraceAI : MonoBehaviour
         audioSource.clip = audioDie;
         audioSource.Play();
         StartCoroutine(DieAndRegen());
+        MonsterUIManager.instance.SetActiveMonsterUI(false);
+        DeathCount++;
     }
     public void DropItem()
     {
@@ -252,24 +263,29 @@ public class TraceAI : MonoBehaviour
             //FarmingItem();
         };
     }
-    private void FarmingItem()
-    {
-        StreamReader sr = new StreamReader(Application.dataPath + "/HSH/DataTable/" + "ItemData.csv");
 
-        bool endOfFile = false;
-        while (!endOfFile)
+    public State GetState()
+    {
+        return curState;
+    }
+
+    private void Area()
+    {
+        if (transform.position.x > (curPos.x + traceRange))
         {
-            string dataString = sr.ReadLine();
-            if (dataString == null)
-            {
-                endOfFile = true;
-                break;
-            }
-            var dataValues = dataString.Split(',');
-            for (int i = 0; i < dataValues.Length; i++)
-            {
-                Debug.Log("v: " + i.ToString() + " " + dataValues[i].ToString());
-            }
+            transform.position = new Vector3(curPos.x + traceRange, transform.position.y, transform.position.z);
+        }
+        if (transform.position.z > (curPos.z + traceRange))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, curPos.z + traceRange);
+        }
+        if (transform.position.x < -(curPos.x + traceRange))
+        {
+            transform.position = new Vector3(-(curPos.x + traceRange), transform.position.y, curPos.z + traceRange);
+        }
+        if (transform.position.x < -(curPos.x + traceRange))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -(curPos.x + traceRange));
         }
     }
 }

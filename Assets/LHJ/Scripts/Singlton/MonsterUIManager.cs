@@ -37,7 +37,7 @@ public class MonsterUIManager : MonoBehaviour
         monsterUI.gameObject.SetActive(active);
     }
 
-    public void SetMonster(int curHP, int maxHP, string name)
+    public void SetMonster(float curHP, int maxHP, string name)
     {
         monsterUI.SetMonster(curHP, maxHP, name);
     }

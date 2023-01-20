@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/HSH/Materials/FireDragon/Boss Rock.mat.meta
 guid: d4c08a0d5d7031e4faacea739fe5831e
 NativeFormatImporter:
+========
+guid: c49bd73e6df5cd84e85e421b183064f8
+PrefabImporter:
+>>>>>>>> HSH:Assets/HSH/Resources/Prefabs/FireDragon/Boss Rock.prefab.meta
   externalObjects: {}
   mainObjectFileID: 0
   userData: 
