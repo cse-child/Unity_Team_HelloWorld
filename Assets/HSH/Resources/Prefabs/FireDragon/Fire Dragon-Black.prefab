@@ -3787,7 +3787,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -3899,7 +3899,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 128
-  audioHurt: {fileID: 0}
   audioDie: {fileID: 8300000, guid: 75a891f34d45f7d4895d41e4a36503c0, type: 3}
   audioBite: {fileID: 8300000, guid: 2529a2a75dad2bd42967e38041a7ae3c, type: 3}
   audioCast: {fileID: 8300000, guid: f5adbd39679040f4f873b913e369cd8f, type: 3}

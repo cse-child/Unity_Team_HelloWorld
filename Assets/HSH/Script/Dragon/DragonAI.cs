@@ -30,7 +30,7 @@ public class DragonAI : MonoBehaviour
     public float moveSpeed = 2.0f; // 이동속도
     public float rotateSpeed = 0.5f; //방향전환 속도
     private int maxHp = 100; //최대체력
-    private float curHp = 1000.0f; // 현재체력
+    private float curHp = 100.0f; // 현재체력
     private float Exp = 1000.0f; // 사망 시 드랍 경험치
 
     private Vector3 randPos;
@@ -51,7 +51,6 @@ public class DragonAI : MonoBehaviour
     private RaycastHit hitInfo; // 현재 무기에 닿은 오브젝트 정보
     public LayerMask layerMask; // 레이아웃 시 플레이어 레이어 구분
     Vector3 control = new Vector3(0, 0, 0);
-    public AudioClip audioHurt;   // 사용 음성
     public AudioClip audioDie;    // 사용 음성
     public AudioClip audioBite;   // 사용 음성
     public AudioClip audioCast;   // 사용 음성
@@ -63,6 +62,7 @@ public class DragonAI : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player"); //플레이어 타겟 지정
         playerState = FindObjectOfType<PlayerState>(); // 플레이어 공격시 hp접근용
         playerControl = FindObjectOfType<PlayerControl>(); // 피격 시 플레이어의 attack만큼 피가 줄어들 예정
+        audioSource = GetComponent<AudioSource>();
     }
     private void OnDrawGizmos()
     {
@@ -81,6 +81,11 @@ public class DragonAI : MonoBehaviour
     private void Update()
     {
         LookPlayer();
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            audioSource.clip = audioCast;
+            audioSource.Play();
+        }
     }
     private IEnumerator SetState()
     {
@@ -124,12 +129,13 @@ public class DragonAI : MonoBehaviour
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("BiteAttack")) return;
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("FireBreathAttack")) return;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Die")) return;
         Vector3 direction = target.transform.position - transform.position;
         transform.rotation = Quaternion.LookRotation(direction);
     }
     private void PlayAttackPattern()
     {
-        print("Start");
+        if (curState == State.DEAD) return;
         int rand = Random.Range(0, 3);
 
         if (curState == State.ATTACK)
@@ -160,8 +166,7 @@ public class DragonAI : MonoBehaviour
 
     private IEnumerator Bite()
     {
-        audioSource.clip = audioBite;
-        audioSource.Play();
+
         StartCoroutine(CheckObject());
         yield return new WaitForSeconds(1.5f);
         
@@ -172,20 +177,18 @@ public class DragonAI : MonoBehaviour
         if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, biteRange, layerMask))
         {
             playerControl.TakeDamage(5.0f);
-            print(playerState.curHp);
         }
         yield return new WaitForSeconds(1.0f);
     }
     private IEnumerator BiteAnimator()
     {
         animator.SetTrigger("trigBite");
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(5.0f);
         PlayAttackPattern();
     }
     private IEnumerator Breath()
     {
-        audioSource.clip = audioBreath;
-        audioSource.Play();
+
         var cannon = Instantiate<GameObject>(this.CannonPrefab);
         cannon.transform.position = breathPort.position;
         cannon.SetActive(true);
@@ -199,13 +202,12 @@ public class DragonAI : MonoBehaviour
     private IEnumerator BreathAnimator()
     {
         animator.SetTrigger("trigBreath");
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(5.0f);
         PlayAttackPattern();
     }
     private IEnumerator Cast()
     {
-        audioSource.clip = audioCast;
-        audioSource.Play();
+
         float randx, randy;
         randx = Random.Range(-4, 4);
         randy = Random.Range(-2, 3);
@@ -223,7 +225,7 @@ public class DragonAI : MonoBehaviour
     private IEnumerator CastAnimator()
     {
         animator.SetTrigger("trigCast");
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(5.0f);
         PlayAttackPattern();
     }
 
@@ -235,7 +237,15 @@ public class DragonAI : MonoBehaviour
     {
         audioSource.clip = audioDie;
         audioSource.Play();
+        StartCoroutine(DieAndRegen());
         MonsterUIManager.instance.SetActiveMonsterUI(false);
+    }
+    private IEnumerator DieAndRegen()
+    {
+        yield return new WaitForSeconds(3.0f);
+        Die();
+        gameObject.SetActive(false);
+
     }
 
     private void Die()
@@ -256,11 +266,10 @@ public class DragonAI : MonoBehaviour
             itemGo.SetActive(true);
         };
     }
-    private void Hurt(float value)
+    public void Hurt(float value)
     {
         if (animator.GetBool("isDie")) return;
-        animator.SetTrigger("trigHurt");
-        curHp -= value;
+        curHp -= value * 0.3f;
         MonsterUIManager.instance.SetMonster(curHp, maxHp, "레드 드래곤");
         MonsterUIManager.instance.SetActiveMonsterUI(true);
         animator.SetFloat("curHp", curHp);
@@ -271,4 +280,23 @@ public class DragonAI : MonoBehaviour
             curState = State.DEAD;
         }
     }
+
+    private void AudioBite()
+    {
+        audioSource.clip = audioBite;
+        audioSource.Play();
+    }
+
+    private void AudioBreath()
+    {
+        audioSource.clip = audioBreath;
+        audioSource.Play();
+    }
+
+    private void AudioCast()
+    {
+        audioSource.clip = audioCast;
+        audioSource.Play();
+    }
+
 }
