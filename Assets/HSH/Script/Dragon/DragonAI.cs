@@ -8,69 +8,62 @@ using Guirao.UltimateTextDamage;
 
 public class DragonAI : MonoBehaviour
 {
-    public UltimateTextDamageManager manager;
-    public Transform trDamagePosition;
-    private AudioSource audioSource;
-    public Transform breathPort;
-    public enum State
+    public UltimateTextDamageManager manager; //데미지 에셋
+    public Transform trDamagePosition; // 데미지 에셋 출현 Pos
+    private AudioSource audioSource; // 음성
+
+    public Transform breathPort;// 브레스 출현 Pos
+    public enum State // FSM
     {
         IDLE, TRACE, ATTACK, DEAD, HURT
     }
+    private enum AttackPattern
+    {
+        BITE, BREATH, CAST, GUARD, FALLING
+    }
+    public State curState; //현재상태
+    public State curAttackPattern;
 
-    public float traceRange = 15.0f;
-    public float attackRange = 5.0f;
-    public float moveSpeed = 2.0f;
-    public float rotateSpeed = 0.5f;
-    //private float maxHp = 100.0f;
-    private float curHp = 100.0f;
-    private float Exp = 100.0f;
+    public float traceRange = 18.0f; //인식범위
+    public float attackRange = 10.0f; // 공격 범위
+    private float biteRange = 4.0f;
+    public float moveSpeed = 2.0f; // 이동속도
+    public float rotateSpeed = 0.5f; //방향전환 속도
+    private int maxHp = 100; //최대체력
+    private float curHp = 1000.0f; // 현재체력
+    private float Exp = 1000.0f; // 사망 시 드랍 경험치
+
     private Vector3 randPos;
 
-    private GameObject target;
-    private Animator animator;
-    public GameObject itemPrefab;
-    public GameObject CastPrefab;
-    public GameObject CannonPrefab;
+    private GameObject target; // 플레이어 태그
+    private Animator animator; // 사용할 애니메이션
+    public GameObject itemPrefab; // 사망 시 드랍 아이템 프리펩
+    public GameObject CastPrefab; // 스킬 사용 시 생성되는 오브젝트
+    public GameObject CannonPrefab; // 스킬 사용 시 생성되는 오브젝트 2
 
-    public System.Action onDie;
+    public System.Action onDie; //사망시 사용 함수
 
-    private DragonAttack closeAtk;
+    private readonly WaitForSeconds delayTime = new WaitForSeconds(1.0f); // 딜레이 타임
 
-    public State curState;
-
-    private readonly WaitForSeconds delayTime = new WaitForSeconds(0.1f);
-
-    private PlayerState playerState;
-    private PlayerControl playerControl;
+    private CapsuleCollider myCollider;
+    private PlayerState playerState; //플레이어 상태 개입
+    private PlayerControl playerControl; // 플레이어 피격구현 필요 정보
     private RaycastHit hitInfo; // 현재 무기에 닿은 오브젝트 정보
-    public LayerMask layerMask;
+    public LayerMask layerMask; // 레이아웃 시 플레이어 레이어 구분
     Vector3 control = new Vector3(0, 0, 0);
-    public AudioClip audioHurt;
-    public AudioClip audioDie;
-    public AudioClip audioBite;
-    public AudioClip audioCast;
-    public AudioClip audioBreath;
+    public AudioClip audioHurt;   // 사용 음성
+    public AudioClip audioDie;    // 사용 음성
+    public AudioClip audioBite;   // 사용 음성
+    public AudioClip audioCast;   // 사용 음성
+    public AudioClip audioBreath; // 사용 음성
 
     private void Awake() //할당을 할 때 한번만 실행되는 Awake에서
     {
-        animator = GetComponent<Animator>();
-        closeAtk = GetComponent<DragonAttack>();
-        target = GameObject.FindGameObjectWithTag("Player");
-        playerState = FindObjectOfType<PlayerState>();
-        playerControl = FindObjectOfType<PlayerControl>();
+        animator = GetComponent<Animator>(); // 애니메이션
+        target = GameObject.FindGameObjectWithTag("Player"); //플레이어 타겟 지정
+        playerState = FindObjectOfType<PlayerState>(); // 플레이어 공격시 hp접근용
+        playerControl = FindObjectOfType<PlayerControl>(); // 피격 시 플레이어의 attack만큼 피가 줄어들 예정
     }
-    private void Start() // 여러번 실행될 수 있으므로 할당 x
-    {
-        StartCoroutine(SetState());
-    }
-
-    private void Update()
-    {
-        //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
-        SetAction();
-        Test();
-    }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -79,7 +72,16 @@ public class DragonAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
+    private void Start()
+    {
+        StartCoroutine(SetState());
+        StartCoroutine(StartPattern());
+    }
 
+    private void Update()
+    {
+        LookPlayer();
+    }
     private IEnumerator SetState()
     {
         while (curState != State.DEAD)
@@ -98,69 +100,144 @@ public class DragonAI : MonoBehaviour
                 curState = State.TRACE;
             else
                 curState = State.IDLE;
+
+            if (curHp < 0)
+                curState = State.DEAD;
         }
     }
-
     private void SetAction()
     {
         switch (curState)
         {
             case State.TRACE:
-                {
-                    Trace();
-                    DragonThink();
-                }
                 break;
             case State.ATTACK:
-                audioSource.clip = audioBite;
-                audioSource.Play();
-                closeAtk.TryAttack();
+                PlayAttackPattern();
                 break;
             case State.IDLE:
-                Idle();
                 break;
             case State.DEAD:
-                Die();
                 break;
         }
     }
-
-    private void Trace()
+    private void LookPlayer()
     {
-        if (animator.GetBool("isDie")) return;
-        animator.SetBool("isAttack", false);
-        animator.SetBool("isTrace", true);
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("BiteAttack")) return;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("FireBreathAttack")) return;
         Vector3 direction = target.transform.position - transform.position;
         transform.rotation = Quaternion.LookRotation(direction);
     }
+    private void PlayAttackPattern()
+    {
+        print("Start");
+        int rand = Random.Range(0, 3);
 
-    //private void Attack()
-    //{
-    //    animator.SetBool("isAttack", true);
-    //    animator.SetBool("isTrace", false);
-    //}
-    private void EndAttack()
-    {
-    }
-    private void Idle()
-    {
-        animator.SetBool("isAttack", false);
-        animator.SetBool("isTrace", false);
-    }
-
-    private void Hurt(float value)
-    {
-        if (animator.GetBool("isDie")) return;
-        animator.SetTrigger("trigHurt");
-        curHp -= value;
-        animator.SetFloat("curHp", curHp);
-        if (curHp <= 0)
+        if (curState == State.ATTACK)
         {
-            animator.SetTrigger("trigDie");
-            animator.SetBool("isDie", true);
-            curState = State.DEAD;
+            switch (rand)
+            {
+                case 0:
+                    StartCoroutine(BiteAnimator());
+                    break;
+                case 1:
+                    StartCoroutine(BreathAnimator());
+                    break;
+                case 2:
+                    StartCoroutine(CastAnimator());
+                    break;
+            }
+        }
+        else 
+        {
+            StartCoroutine(StartPattern());
         }
     }
+    private IEnumerator StartPattern()
+    {
+        yield return new WaitForSeconds(1.0f);
+        PlayAttackPattern();
+    }
+
+    private IEnumerator Bite()
+    {
+        audioSource.clip = audioBite;
+        audioSource.Play();
+        StartCoroutine(CheckObject());
+        yield return new WaitForSeconds(1.5f);
+        
+    }
+    private IEnumerator CheckObject()
+    {
+        Debug.DrawRay(myCollider.transform.position + control, transform.forward * biteRange, Color.blue, 0.3f);
+        if (Physics.Raycast(transform.position + control, transform.forward, out hitInfo, biteRange, layerMask))
+        {
+            playerControl.TakeDamage(5.0f);
+            print(playerState.curHp);
+        }
+        yield return new WaitForSeconds(1.0f);
+    }
+    private IEnumerator BiteAnimator()
+    {
+        animator.SetTrigger("trigBite");
+        yield return new WaitForSeconds(3.0f);
+        PlayAttackPattern();
+    }
+    private IEnumerator Breath()
+    {
+        audioSource.clip = audioBreath;
+        audioSource.Play();
+        var cannon = Instantiate<GameObject>(this.CannonPrefab);
+        cannon.transform.position = breathPort.position;
+        cannon.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
+        cannon.SetActive(false);
+        yield return new WaitForSeconds(1.0f);
+        Destroy(cannon);
+        yield return new WaitForSeconds(1.5f);
+        
+    }
+    private IEnumerator BreathAnimator()
+    {
+        animator.SetTrigger("trigBreath");
+        yield return new WaitForSeconds(3.0f);
+        PlayAttackPattern();
+    }
+    private IEnumerator Cast()
+    {
+        audioSource.clip = audioCast;
+        audioSource.Play();
+        float randx, randy;
+        randx = Random.Range(-4, 4);
+        randy = Random.Range(-2, 3);
+        randPos = new Vector3(randx, randy, 0);
+        var cast = Instantiate<GameObject>(this.CastPrefab);
+        cast.transform.position = breathPort.transform.position + randPos;
+        cast.SetActive(true);
+        yield return new WaitForSeconds(4.0f);
+        cast.SetActive(false);
+        yield return new WaitForSeconds(1.0f);
+        Destroy(cast);
+        yield return new WaitForSeconds(1.5f);
+
+    }
+    private IEnumerator CastAnimator()
+    {
+        animator.SetTrigger("trigCast");
+        yield return new WaitForSeconds(3.0f);
+        PlayAttackPattern();
+    }
+
+    public State GetState()
+    {
+        return curState;
+    }
+    private void DieAudio()
+    {
+        audioSource.clip = audioDie;
+        audioSource.Play();
+        MonsterUIManager.instance.SetActiveMonsterUI(false);
+    }
+
     private void Die()
     {
         this.DropItem();
@@ -179,66 +256,19 @@ public class DragonAI : MonoBehaviour
             itemGo.SetActive(true);
         };
     }
-    private void DieAudio()
+    private void Hurt(float value)
     {
-        audioSource.clip = audioDie;
-        audioSource.Play();
-        MonsterUIManager.instance.SetActiveMonsterUI(false);
-    }
-
-    private void DragonThink()
-    {
-        int ranAction = Random.Range(0, 2);
-        switch (ranAction)
+        if (animator.GetBool("isDie")) return;
+        animator.SetTrigger("trigHurt");
+        curHp -= value;
+        MonsterUIManager.instance.SetMonster(curHp, maxHp, "레드 드래곤");
+        MonsterUIManager.instance.SetActiveMonsterUI(true);
+        animator.SetFloat("curHp", curHp);
+        if (curHp <= 0)
         {
-            case 0:
-                animator.SetTrigger("trigBreath");
-                break;
-            case 1:
-                animator.SetTrigger("trigCastSpell");
-                break;
+            animator.SetTrigger("trigDie");
+            animator.SetBool("isDie", true);
+            curState = State.DEAD;
         }
     }
-    private IEnumerator Breath()
-    {
-        audioSource.clip = audioBreath;
-        audioSource.Play();
-        var cannon = Instantiate<GameObject>(this.CannonPrefab);
-        cannon.transform.position = breathPort.position;
-        cannon.SetActive(true);
-        yield return new WaitForSeconds(2.0f);
-        cannon.SetActive(false);
-        yield return new WaitForSeconds(1.0f);
-        Destroy(cannon);
-    }
-    private IEnumerator Cast()
-    {
-        audioSource.clip = audioCast;
-        audioSource.Play();
-        float randx, randy;
-        randx = Random.Range(-4, 4);
-        randy = Random.Range(-2, 3);
-        randPos = new Vector3(randx, randy, 0);
-        var cast = Instantiate<GameObject>(this.CastPrefab);
-        cast.transform.position = breathPort.transform.position + randPos;
-        cast.SetActive(true);
-        yield return new WaitForSeconds(2.0f);
-        cast.SetActive(false);
-        yield return new WaitForSeconds(1.0f);
-        Destroy(cast);
-    }
-
-    private void Test()
-    {
-        if(Input.GetKeyDown(KeyCode.F1))
-            animator.SetTrigger("trigBreath");
-
-        if (Input.GetKeyDown(KeyCode.F2))
-            animator.SetTrigger("trigCastSpell");
-    }
-    public State GetState()
-    {
-        return curState;
-    }
 }
-

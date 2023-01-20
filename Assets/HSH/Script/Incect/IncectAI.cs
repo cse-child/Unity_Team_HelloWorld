@@ -61,6 +61,7 @@ public class IncectAI : MonoBehaviour
         //rigidbody.velocity = Vector3.zero; // 물리적 가속도를 0으로 만드는 코드 이때 rigidbody의 Freeze Position은 해제상태로
         SetAction();
         RotateMove();
+        Area();
         if (Input.GetKeyDown(KeyCode.N))
         {
             print("N");
@@ -261,6 +262,26 @@ public class IncectAI : MonoBehaviour
     public State GetState()
     {
         return curState;
+    }
+
+    private void Area()
+    {
+        if (transform.position.x > (curPos.x + traceRange))
+        {
+            transform.position = new Vector3(curPos.x + traceRange, transform.position.y, transform.position.z);
+        }
+        if (transform.position.z > (curPos.z + traceRange))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, curPos.z + traceRange);
+        }
+        if (transform.position.x < -(curPos.x + traceRange))
+        {
+            transform.position = new Vector3(-(curPos.x + traceRange), transform.position.y, curPos.z + traceRange);
+        }
+        if (transform.position.x < -(curPos.x + traceRange))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -(curPos.x + traceRange));
+        }
     }
 }
 
