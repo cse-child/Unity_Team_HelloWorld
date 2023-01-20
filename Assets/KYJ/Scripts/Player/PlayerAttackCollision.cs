@@ -39,7 +39,7 @@ public class PlayerAttackCollision : MonoBehaviour
         if (other.CompareTag("Dragon"))
         {
             print("Enemy Tag is Dragon");
-            //other.GetComponent<DragonAI>().Hurt(playerState.curAtk);
+            other.GetComponent<DragonAI>().Hurt(playerState.curAtk);
         }
     }
 

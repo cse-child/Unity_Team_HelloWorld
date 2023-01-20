@@ -32,7 +32,6 @@ public class Cannon : MonoBehaviour
         {
             gameObject.SetActive(false);
             playerControl.TakeDamage(damage);
-            print(playerState.curHp);
         }
         Trace();
 
