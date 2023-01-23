@@ -364,11 +364,6 @@ CapsuleCollider:
   m_Height: 1.24
   m_Direction: 1
   m_Center: {x: 0.000016823635, y: 0.4208797, z: -0.000044167668}
---- !u!1 &324814176 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5746359903908249793, guid: 78925be475d86164f92d73a589da7cba, type: 3}
-  m_PrefabInstance: {fileID: 2746823408568818476}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &447593667
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1704,7 +1699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5
+      value: -1.17
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1712,7 +1707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.53
+      value: -3.09
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1908,14 +1903,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1389379740, guid: b0d71c50ef0964344ac6bc01c68d2fe5, type: 3}
+    - target: {fileID: 1346207118, guid: b0d71c50ef0964344ac6bc01c68d2fe5, type: 3}
       propertyPath: manager
       value: 
       objectReference: {fileID: 1846353123}
-    - target: {fileID: 1389379740, guid: b0d71c50ef0964344ac6bc01c68d2fe5, type: 3}
-      propertyPath: itemPrefab
-      value: 
-      objectReference: {fileID: 324814176}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0d71c50ef0964344ac6bc01c68d2fe5, type: 3}
 --- !u!20 &1960102153 stripped
