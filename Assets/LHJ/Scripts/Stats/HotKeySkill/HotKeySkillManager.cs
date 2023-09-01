@@ -8,6 +8,7 @@ public class HotKeySkillManager : MonoBehaviour
 {
     public GameObject hotkeySlot;
     private List<GameObject> slots = new List<GameObject>();
+    
     Vector3 startPos = new Vector3(-510.0f, -335.0f, 0);
     Vector3 offsetX = new Vector3(100.0f, 0, 0);
     Vector3 offsetY = new Vector3(0, -100.0f, 0);

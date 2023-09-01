@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 using UnityEngine.EventSystems;
 
 public class ShopControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler

@@ -118,14 +118,14 @@ public class UIControl : MonoBehaviour
                 DeathUI.transform.SetAsFirstSibling();
                 transform.GetChild(transform.childCount - 1).gameObject.SetActive(false);
                 transform.GetChild(transform.childCount - 1).transform.SetAsFirstSibling();
-                CheckCursorState();
             }
             else
             {
                 transform.GetChild(transform.childCount - 1).gameObject.SetActive(false);
                 transform.GetChild(transform.childCount - 1).transform.SetAsFirstSibling();
-                CheckCursorState();
+                //CheckCursorState();
             }
+            CheckCursorState();
         }
     }
 

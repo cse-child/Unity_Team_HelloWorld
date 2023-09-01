@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static ItemDataManager;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
+//using static System.Progress<>;
 
 public class SkillDataManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class SkillDataManager : MonoBehaviour
 
     public struct SkillData
     {
+
         public int skillNum;
         public string skillName;
         public int decreaseMP;

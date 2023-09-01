@@ -45,6 +45,8 @@ public class SkillData : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             //skillImage.color = new Vector4(255, 255, 255, 0);
             return;
         }
+        if (SkillManager.instance.GetSkill(skillNum) == null)
+            return;
         if(skillNum != 0 && SkillManager.instance.GetSkill(skillNum).data.learning == false)
             skillImage.sprite = skillUIManager.lockImage;
         else if(skillNum != 0 && SkillManager.instance.GetSkill(skillNum).data.learning == true)
